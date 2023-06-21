@@ -9,15 +9,16 @@ class ComponentContext<T> {
   final Get<T> getState;
   late Dispatch _dispatch;
   late ShouldUpdate<T> _shouldUpdate;
+  final BuildContext buildContext;
   final Function() markNeedsBuild;
 
-  ComponentContext({
-    required this.store,
-    required this.getState,
-    required this.view,
-    required this.markNeedsBuild,
-    ShouldUpdate<T>? shouldUpdate,
-  }) {
+  ComponentContext(
+      {required this.store,
+      required this.getState,
+      required this.view,
+      required this.markNeedsBuild,
+      required this.buildContext,
+      ShouldUpdate<T>? shouldUpdate}) {
     _shouldUpdate = shouldUpdate ?? _updateByDefault<T>();
     _dispatch = _createDispatch(_createNextDispatch(this));
     _latestState = getState();
