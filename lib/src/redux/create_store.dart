@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unnecessary_null_comparison, dead_code
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unnecessary_null_comparison, dead_code, prefer_function_declarations_over_variables
 import 'basic.dart';
 
 Reducer<T> _noop<T>() => (T state, Action action) => state;

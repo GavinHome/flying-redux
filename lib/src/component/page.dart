@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart' hide Action;
 import '../redux/index.dart';
 import 'basic.dart';
 import 'context.dart';
+import 'utils.dart';
 
 typedef InitState<T, P> = T Function(P params);
 
@@ -34,8 +35,13 @@ abstract class Page<T, P> {
         };
   }
 
-  ComponentContext<T> createContext(Store<T> store, Function() markNeedsBuild) =>
-      ComponentContext<T>(store: store, getState: store.getState, view: view, markNeedsBuild: markNeedsBuild);
+  ComponentContext<T> createContext(
+          Store<T> store, Function() markNeedsBuild) =>
+      ComponentContext<T>(
+          store: store,
+          getState: store.getState,
+          view: view,
+          markNeedsBuild: markNeedsBuild);
 }
 
 class _PageWidget<T, P> extends StatefulWidget {
@@ -53,7 +59,7 @@ class _PageState<T, P> extends State<_PageWidget<T, P>> {
   late Store<T> _store;
   late T state;
   late ComponentContext<T> _ctx;
-  get buildUpdate => setUpdate;
+  late Function() subscribe;
 
   @override
   void initState() {
@@ -61,22 +67,22 @@ class _PageState<T, P> extends State<_PageWidget<T, P>> {
     state = widget.page.initState(widget.param);
     _store = createStore(state, widget.page.createReducer());
     _ctx = widget.page.createContext(_store, buildUpdate);
-    _ctx.store.subscribe(_ctx.onNotify);
-  }
-
-  void setUpdate() {
-      if (mounted) {
-        setState(() {});
-      }
-      Log.doPrint('${widget.runtimeType} do relaod');
+    subscribe = _ctx.store.subscribe(_ctx.onNotify);
   }
 
   @override
   Widget build(BuildContext context) => _ctx.buildView();
-}
 
-class Log {
-  static void doPrint([String? message]) {
-    print('[FishRedux]: $message');
+  void buildUpdate() {
+    if (mounted) {
+      setState(() {});
+    }
+    Log.doPrint('${widget.page.runtimeType} do relaod');
+  }
+
+  @override
+  void dispose() {
+    subscribe();
+    super.dispose();
   }
 }

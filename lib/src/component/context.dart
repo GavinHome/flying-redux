@@ -27,13 +27,13 @@ class ComponentContext<T> {
   Widget? _widgetCache;
   late T _latestState;
 
+  FutureOr<void> dispatch(Action action) => _dispatch.call(action);
+
   Widget buildView() {
     Widget? result = _widgetCache;
     result ??= _widgetCache = view(store.getState(), dispatch);
     return result;
   }
-
-  FutureOr<void> dispatch(Action action) => _dispatch.call(action);
 
   void onNotify() {
     final T now = state;
@@ -45,8 +45,8 @@ class ComponentContext<T> {
   }
 
   Dispatch _createNextDispatch<T>(ComponentContext<T> ctx) => (Action action) {
-    ctx.store.dispatch(action);
-  };
+        ctx.store.dispatch(action);
+      };
 
   Dispatch _createDispatch<T>(Dispatch next) => (Action action) {
         final Object? result = null;

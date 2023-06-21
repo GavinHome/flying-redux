@@ -13,4 +13,3 @@ typedef ViewBuilder<T> = Widget Function(
 
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);
-
