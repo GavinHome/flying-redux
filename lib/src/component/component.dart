@@ -12,7 +12,7 @@ class Component<T> extends BasicComponent<T> {
   final ViewBuilder<T> view;
   final ShouldUpdate<T>? shouldUpdate;
 
-  Component({required this.reducer, required this.view, this.shouldUpdate})
+  Component({this.reducer, required this.view, this.shouldUpdate})
       : assert(view != null),
         super(
           reducer: reducer,

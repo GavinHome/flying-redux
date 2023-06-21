@@ -9,7 +9,7 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
       : super(
             initState: initState, //此处初始化不涉及生命周期
             reducer: buildReducer(),
-            view: (PageState state, Dispatch dispatch) {
+            view: (PageState state, Dispatch dispatch, ComponentContext ctx) {
               //如果不带有生命周期处理,则在view中处理网络请求数据
               //然后利用dispatch发送更改数据的reducer
               return Scaffold(

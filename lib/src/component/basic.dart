@@ -10,9 +10,7 @@ Reducer<T> _noop<T>() => (T state, Action action) => state;
 /// 2.Dispatch is used to send actions
 /// 3.ViewService is used to build sub-components or adapter.
 typedef ViewBuilder<T> = Widget Function(
-  T state,
-  Dispatch dispatch,
-);
+    T state, Dispatch dispatch, ComponentContext ctx);
 
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);

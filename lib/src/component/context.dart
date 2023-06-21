@@ -32,7 +32,7 @@ class ComponentContext<T> {
 
   Widget buildView() {
     Widget? result = _widgetCache;
-    result ??= _widgetCache = view(store.getState(), dispatch);
+    result ??= _widgetCache = view(store.getState(), dispatch, this);
     return result;
   }
 
@@ -57,6 +57,29 @@ class ComponentContext<T> {
 
         return result == Object() ? null : result;
       };
+
+  Widget buildComponent(String type) {
+    // final Dependent<T> dependent = _dependencies.slots[type];
+    // assert(dependent != null);
+    // return dependent.buildComponent(
+    //   store,
+    //   getState,
+    //   bus: _bus,
+    // );
+    return Container();
+  }
+
+  List<Widget> buildComponents() {
+    // final Dependent<T> dependent = _dependencies.adapter;
+    // assert(dependent != null);
+    // return dependent.buildComponents(
+    //   store,
+    //   getState,
+    //   bus: _bus,
+    // );
+
+    return <Widget>[Container()];
+  }
 
   static ShouldUpdate<K> _updateByDefault<K>() =>
       (K _, K __) => !identical(_, __);

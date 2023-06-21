@@ -1,8 +1,9 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
 import 'state.dart';
 import '../todo/state.dart';
-import '../report/component.dart';
 
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
   ToDoListPage()
@@ -11,24 +12,28 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
           reducer: asReducer(
             <Object, Reducer<PageState>>{'initToDos': _initToDosReducer},
           ),
-          view: (PageState state, Dispatch dispatch) {
-            //  final List<Widget> _ws = ctx.buildComponents();
+          // dependencies: Dependencies<PageState>(
+          //     adapter: NoneConn<PageState>() + ListDemoComponent(),
+          //     slots: <String, Dependent<PageState>>{
+          //       'report': ReportConnector() + ReportComponent()
+          //     },
+          //   ),
+          view: (PageState state, Dispatch dispatch, ComponentContext ctx) {
+            final List<Widget> _ws = ctx.buildComponents();
             return Scaffold(
                 body: Stack(children: <Widget>[
               Container(
-                  // child: ListView.builder(
-                  //   itemBuilder: (BuildContext context, int index) =>
-                  //       _ws[index],
-                  //   itemCount: _ws?.length ?? 0,
-                  // ),
-                  ),
-              // Positioned(
-              //   bottom: 0,
-              //   left: 0,
-              //   right: 0,
-              //   // child: ReportComponent().buildComponent(
-              //   //     <String, dynamic>{}) //ctx.buildComponent('report'),
-              // )
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) => _ws[index],
+                  itemCount: _ws?.length ?? 0,
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: ctx.buildComponent('report'),
+              )
             ]));
           },
         );

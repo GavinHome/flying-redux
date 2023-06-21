@@ -9,7 +9,7 @@ export 'state.dart';
 class ReportComponent extends Component<ReportState> {
   ReportComponent()
       : super(
-          view: (ReportState state, Dispatch dispatch) {
+          view: (ReportState state, Dispatch dispatch, ComponentContext ctx) {
             return Container(height: 100, child: Text('${state.hashCode}'));
           },
         );
