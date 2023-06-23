@@ -22,10 +22,10 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
+# To automatically upgrade your package dependencies.dart to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
+# dependencies.dart can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies.dart have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_redux:
@@ -68,7 +68,7 @@ flutter:
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
-  # For details regarding adding assets from package dependencies, see
+  # For details regarding adding assets from package dependencies.dart, see
   # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
@@ -88,5 +88,5 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependencies,
+  # For details regarding fonts from package dependencies.dart,
   # see https://flutter.dev/custom-fonts/#from-packages

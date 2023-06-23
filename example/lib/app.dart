@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample/pages/count/page.dart';
+import 'package:sample/pages/todos/page/page.dart';
 
 Widget createApp() {
   return const _App();
@@ -18,7 +19,9 @@ class _App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CountPage().buildPage(<String, dynamic>{}),
+      home: 
+        //CountPage().buildPage(<String, dynamic>{}),
+      ToDoListPage().buildPage(<String, dynamic>{})
     );
   }
 }

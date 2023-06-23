@@ -20,7 +20,7 @@ function(list_prepend LIST_NAME PREFIX)
 endfunction()
 
 # === Flutter Library ===
-# System-level dependencies.
+# System-level dependencies.dart.
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 pkg_check_modules(GLIB REQUIRED IMPORTED_TARGET glib-2.0)

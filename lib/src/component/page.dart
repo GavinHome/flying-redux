@@ -4,9 +4,6 @@ import 'package:flutter/widgets.dart' hide Action;
 
 import '../redux/index.dart';
 import 'basic.dart';
-import 'component.dart';
-import 'context.dart';
-import 'utils.dart';
 
 typedef InitState<T, P> = T Function(P params);
 
@@ -15,24 +12,19 @@ typedef InitState<T, P> = T Function(P params);
  * <T>: Page State 
  * <p>: Page Params
  */
-abstract class Page<T, P> extends Component<T> {
+abstract class Page<T, P> extends ReduxComponent<T> {
   final InitState<T, P> initState;
-  final Reducer<T> reducer;
-  final ViewBuilder<T> view;
-  final ShouldUpdate<T>? shouldUpdate;
 
-  Page(
-      {required this.initState,
-      required this.reducer,
-      required this.view,
-      this.shouldUpdate})
-      : super(
-          reducer: reducer,
-          view: view,
-          shouldUpdate: shouldUpdate,
-        );
+  Page({
+    required this.initState,
+    required Reducer<T> reducer,
+    required ViewBuilder<T> view, ShouldUpdate<T>? shouldUpdate,
+    Setup<T>? setup, Effects<T>? effects
+  })
+      : super(reducer: reducer, view: view, effects:effects,  shouldUpdate: shouldUpdate);
 
-  Widget buildPage(P param) => _PageWidget<T, P>(
+  Widget buildPage(P param) =>
+      _PageWidget<T, P>(
         param: param,
         page: this,
       );
@@ -62,5 +54,6 @@ class _PageState<T, P> extends State<_PageWidget<T, P>> {
 
   @override
   Widget build(BuildContext context) =>
-      widget.page.buildComponent(_store, _store.getState);
+      widget.page.build(_store, _store.getState);
 }
+

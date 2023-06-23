@@ -1,7 +1,8 @@
+import 'package:collection/collection.dart';
 /// Definition of the function type that returns type R.
 typedef Get<R> = R Function();
 
-/// [Action] [Effect] message action
+/// [Action] message action
 class Action {
   const Action(this.type, {this.payload});
   final Object type;
@@ -20,9 +21,9 @@ typedef Reducer<T> = T Function(T, Action);
 Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (T state,
         Action action) =>
     map.entries
-        .firstWhere(
+        .firstWhereOrNull(
             (MapEntry<Object, Reducer<T>> entry) => action.type == entry.key)
-        .value(state, action) ??
+        ?.value(state, action) ??
     state;
 
 /// Definition of a standard subscription function.
@@ -39,7 +40,7 @@ class Store<T> {
 /// Combine an iterable of Reducer<T> into one Reducer<T>
 Reducer<T>? combineReducers<T>(Iterable<Reducer<T>>? reducers) {
   final List<Reducer<T>>? notNullReducers =
-      reducers?.where((Reducer<T>? r) => r != null)!.toList(growable: false);
+      reducers?.where((Reducer<T>? r) => r != null).toList(growable: false);
   if (notNullReducers == null || notNullReducers.isEmpty) {
     return null;
   }
