@@ -8,16 +8,16 @@ import 'context.dart';
 import 'utils.dart';
 
 class Component<T> extends ReduxComponent<T> {
-  Component({Reducer<T>? reducer, required ViewBuilder<T> view, ShouldUpdate<T>? shouldUpdate})
+  Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effects, ShouldUpdate<T>? shouldUpdate})
       : assert(view != null),
         super(
           reducer: reducer,
           view: view,
+          effects: effects,
           shouldUpdate: shouldUpdate,
         );
 
   Widget buildComponent(Store<Object?> store, Get<T> getter) {
-
     return super.build(store, getter);
   }
 }

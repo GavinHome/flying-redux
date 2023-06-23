@@ -18,7 +18,7 @@ typedef ViewBuilder<T> = Widget Function(
 
 /// Setup for component
 // typedef Setup<T> = void Function(Lifecycle lifeCycle, Dispatch dispatch, ComponentContext<T> ctx);
-typedef Setup<T> = Map<Lifecycle, void Function(Dispatch dispatch)>;
+// typedef Setup<T> = Map<Lifecycle, void Function(Dispatch dispatch)>;
 
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);

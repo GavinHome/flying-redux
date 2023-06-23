@@ -10,7 +10,7 @@ class ReportComponent extends Component<ReportState> {
   ReportComponent()
       : super(
           view: (ReportState state, Dispatch dispatch, ComponentContext<ReportState> ctx) {
-            return Container(height: 100, child: Text('${state.hashCode}'));
+            return Container(height: 100, child: Text('${state.toString()}'));
           },
         );
 }

@@ -34,7 +34,7 @@ class ComponentContext<T> {
 
   Widget buildView() {
     Widget? result = _widgetCache;
-    result ??= _widgetCache = view(store.getState() as T, dispatch, this);
+    result ??= _widgetCache = view(getState(), dispatch, this);
     return result;
   }
 

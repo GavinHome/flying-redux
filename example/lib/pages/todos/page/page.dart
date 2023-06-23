@@ -2,8 +2,10 @@
 
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
-import 'state.dart';
+import 'package:sample/pages/todos/todo/component.dart';
+import '../report/component.dart';
 import '../todo/state.dart';
+import 'state.dart';
 
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
   ToDoListPage()
@@ -17,31 +19,31 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
     ),
     view: (PageState state, Dispatch dispatch,
         ComponentContext<PageState> ctx) {
-      List<ToDoState> _ws = state.toDos;
+      final List<ToDoState> ws = state.toDos;
       return Scaffold(
-          body: Stack(children: <Widget>[
-            Container(
-              // child: ListView.builder(
-              //   itemBuilder: (BuildContext context, int index) => _ws[index],
-              //   itemCount: _ws?.length ?? 0,
-              // ),
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) => Text(_ws?[index]?.title ?? "test"),
-                itemCount: _ws?.length ?? 0,
-              ),
+        body: Stack(children: <Widget>[
+          Container(
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) =>
+                  TodoComponent().buildComponent(
+                      ctx.store, () => ws[index]),
+              itemCount: ws?.length ?? 0,
             ),
-            // Positioned(
-            //     bottom: 0,
-            //     left: 0,
-            //     right: 0,
-            //     child: ReportComponent().buildComponent(ctx.store, ReportState.stateGetter(state)) //ctx.buildComponent('report'),
-            // )
-          ]),
+          ),
+          Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: ReportComponent().buildComponent(ctx.store,
+                  ReportState.stateGetter(
+                      state)) //ctx.buildComponent('report'),
+          )
+        ]),
         floatingActionButton: FloatingActionButton(
-              onPressed: () => dispatch(const Action("onAdd")),
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            ),
+          onPressed: () => dispatch(const Action("onAdd")),
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
 
       );
     },

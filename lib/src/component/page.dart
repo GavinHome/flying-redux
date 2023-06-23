@@ -19,7 +19,7 @@ abstract class Page<T, P> extends ReduxComponent<T> {
     required this.initState,
     required Reducer<T> reducer,
     required ViewBuilder<T> view, ShouldUpdate<T>? shouldUpdate,
-    Setup<T>? setup, Effects<T>? effects
+    Effects<T>? effects
   })
       : super(reducer: reducer, view: view, effects:effects,  shouldUpdate: shouldUpdate);
 
