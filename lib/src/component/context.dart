@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart' hide Action;
 import 'dart:async';
 import 'basic.dart';
 import '../redux/index.dart';
+import 'connector.dart';
 
 class ComponentContext<T> {
   final ViewBuilder<T> view;
@@ -38,6 +39,15 @@ class ComponentContext<T> {
     Widget? result = _widgetCache;
     result ??= _widgetCache = view(getState(), dispatch, this);
     return result;
+  }
+
+  Widget buildComponent(Dependent<T> dependent) {
+    // final Dependent<T> dependent = _dependencies.slots[type];
+    assert(dependent != null);
+    return dependent.buildComponent(
+      store,
+      getState,
+    );
   }
 
   /// return [EffectDispatch]

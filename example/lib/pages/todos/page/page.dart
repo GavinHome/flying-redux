@@ -27,6 +27,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
               itemBuilder: (BuildContext context, int index) =>
                   TodoComponent().buildComponent(
                       ctx.store, () => ws[index]),
+              //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
               itemCount: ws?.length ?? 0,
             ),
           ),
