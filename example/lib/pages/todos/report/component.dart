@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'state.dart';
 export 'state.dart';
 
-class ReportComponent extends Component<ReportState> {
+class ReportComponent extends Component<ReportState, dynamic> {
   ReportComponent()
       : super(
           view: (ReportState state, Dispatch dispatch, ComponentContext<ReportState> ctx) {

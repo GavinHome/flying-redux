@@ -8,7 +8,7 @@ import '../redux/index.dart';
 class ComponentContext<T> {
   final ViewBuilder<T> view;
   final Effect<T>? effects;
-  final Store<Object?> store;
+  final Store<Object> store;
   final Get<T> getState;
   late Dispatch _dispatch;
   late ShouldUpdate<T> _shouldUpdate;

@@ -68,10 +68,15 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer) {
     };
   };
 
+  // final ReplaceReducer<T> _replaceReducer = (Reducer<T>? replaceReducer) {
+  //   _reducer = replaceReducer ?? _noop();
+  // };
+
   return Store<T>()
     ..getState = getState
     ..dispatch = dispatch
     ..subscribe = subscribe;
+    // ..replaceReducer = _replaceReducer
 }
 
 /// create a store with enhancer

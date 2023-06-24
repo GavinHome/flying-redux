@@ -54,6 +54,6 @@ class _PageState<T, P> extends State<_PageWidget<T, P>> {
 
   @override
   Widget build(BuildContext context) =>
-      widget.page.build(_store, _store.getState);
+      widget.page.build(_store as Store<Object>, _store.getState);
 }
 

@@ -5,7 +5,13 @@ import 'package:flutter/material.dart' hide Action, ViewBuilder;
 import '../redux/basic.dart';
 import 'basic.dart';
 
-class Component<T> extends ReduxComponent<T> {
+/*
+ * Page Container
+ * <T>: Page State
+ * <p>: Page Params
+ */
+
+class Component<T, P> extends ReduxComponent<T> {
   Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effects, ShouldUpdate<T>? shouldUpdate})
       : assert(view != null),
         super(
@@ -15,7 +21,9 @@ class Component<T> extends ReduxComponent<T> {
           shouldUpdate: shouldUpdate,
         );
 
-  Widget buildComponent(Store<Object?> store, Get<T> getter) {
+  Widget buildComponent(Store<Object> store, Get<T> getter) {
+    // Connect(store, getter);
+    // store.replaceReducer((Object state, Action action) => state);
     return super.build(store, getter);
   }
 }

@@ -81,7 +81,7 @@ abstract class BasicComponent<T> {
         };
   }
 
-  ComponentContext<T> createContext(Store<Object?> store, Get<T> getter,
+  ComponentContext<T> createContext(Store<Object> store, Get<T> getter,
           Function() markNeedsBuild, BuildContext buildContext) =>
       ComponentContext<T>(
         store: store,
@@ -106,13 +106,13 @@ class ReduxComponent<T> extends BasicComponent<T> {
       );
 
   @override
-  Widget build(Store<Object?> store, Get<T> getter) =>
+  Widget build(Store<Object> store, Get<T> getter) =>
       _ComponentWidget<T>(component: this, store: store, getter: getter);
 }
 
 class _ComponentWidget<T> extends StatefulWidget {
   final BasicComponent<T> component;
-  final Store<Object?> store;
+  final Store<Object> store;
   final Get<T> getter;
 
   const _ComponentWidget({
