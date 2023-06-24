@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:collection/collection.dart';
 /// Definition of the function type that returns type R.
 typedef Get<R> = R Function();

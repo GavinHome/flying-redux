@@ -1,8 +1,8 @@
-import 'dart:async';
-import 'package:collection/collection.dart';
+// ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart' hide Action;
-
+import 'package:collection/collection.dart';
+import 'dart:async';
 import '../redux/index.dart';
 import 'context.dart';
 import 'utils.dart';
@@ -22,6 +22,42 @@ typedef ViewBuilder<T> = Widget Function(
 
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);
+
+/// component or page lifecycle
+enum Lifecycle {
+  initState,
+  didChangeDependencies,
+  build,
+  reassemble,
+  didUpdateWidget,
+  deactivate,
+  dispose
+}
+
+/// [Effect]是对副作用函数的定义.
+/// 根据返回值, 判断该Action事件是否被消费.
+typedef Effects<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
+
+typedef Effect<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
+
+/// for action.type which override it's == operator
+/// return [UserEffect]
+Effects<T>? combineEffects<T>(Map<Object, Effect<T>>? map) =>
+    (map == null || map.isEmpty)
+        ? null
+        : (Action action, ComponentContext<T> ctx) {
+      final Effect<T>? subEffect = map.entries
+          .firstWhereOrNull(
+              (MapEntry<Object, Effect<T>> entry) =>
+          action.type == entry.key)?.value;
+
+      if (subEffect != null) {
+        return (subEffect.call(action, ctx) ?? Object()) == null;
+      }
+
+      /// no subEffect
+      return null;
+    };
 
 abstract class BasicComponent<T> {
   BasicComponent({
@@ -62,8 +98,7 @@ abstract class BasicComponent<T> {
 
 class ReduxComponent<T> extends BasicComponent<T> {
   ReduxComponent({Reducer<T>? reducer, required ViewBuilder<T> view, ShouldUpdate<T>? shouldUpdate, Effects<T>? effects})
-      : assert(view != null),
-        super(
+      : super(
         reducer: reducer,
         view: view,
         shouldUpdate: shouldUpdate,
@@ -85,8 +120,7 @@ class _ComponentWidget<T> extends StatefulWidget {
     required this.component,
     required this.store,
     required this.getter,
-  })  : assert(store != null),
-        assert(getter != null);
+  });
 
   @override
   _ComponentState<T> createState() => _ComponentState<T>();
@@ -156,42 +190,3 @@ class _ComponentState<T> extends State<_ComponentWidget<T>> {
     super.dispose();
   }
 }
-
-/// component or page lifecycle
-enum Lifecycle {
-  initState,
-  didChangeDependencies,
-  build,
-  reassemble,
-  didUpdateWidget,
-  deactivate,
-  dispose
-}
-
-
-/// [Effect]是对副作用函数的定义.
-/// 根据返回值, 判断该Action事件是否被消费.
-typedef Effects<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
-
-typedef Effect<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
-
-/// for action.type which override it's == operator
-/// return [UserEffect]
-Effects<T>? combineEffects<T>(Map<Object, Effect<T>> map) =>
-    (map == null || map.isEmpty)
-        ? null
-        : (Action action, ComponentContext<T> ctx) {
-      final Effect<T>? subEffect = map?.entries
-          .firstWhereOrNull(
-            (MapEntry<Object, Effect<T>> entry) =>
-        action.type == entry?.key)?.value;
-
-      if (subEffect != null) {
-        return (subEffect.call(action, ctx) ?? Object()) == null;
-      }
-
-      /// no subEffect
-      return null;
-    };
-
-

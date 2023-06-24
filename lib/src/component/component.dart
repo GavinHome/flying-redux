@@ -4,8 +4,6 @@ import 'package:flutter/material.dart' hide Action, ViewBuilder;
 
 import '../redux/basic.dart';
 import 'basic.dart';
-import 'context.dart';
-import 'utils.dart';
 
 class Component<T> extends ReduxComponent<T> {
   Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effects, ShouldUpdate<T>? shouldUpdate})

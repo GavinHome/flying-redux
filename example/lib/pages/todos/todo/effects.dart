@@ -4,7 +4,6 @@ import 'state.dart';
 
 buildEffects() {
   return combineEffects<ToDoState>(<Object, Effect<ToDoState>>{
-    // Lifecycle.initState: _onInit,
     ToDoAction.onEdit: _onEdit,
     ToDoAction.onRemove: _onRemove,
   });
@@ -13,8 +12,8 @@ buildEffects() {
 void _onEdit(Action action, ComponentContext<ToDoState> ctx) {
   final String uniqueId = action.payload;
   final ToDoState todo = ToDoState()
-    ..title = ""
-    ..desc = "";
+    ..title = "test"
+    ..desc = "test";
   ctx.dispatch(ToDoActionCreator.editAction(todo));
 }
 

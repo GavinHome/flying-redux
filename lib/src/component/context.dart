@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_shadowing_type_parameters
+
 import 'package:flutter/widgets.dart' hide Action;
 import 'dart:async';
 import 'basic.dart';
@@ -58,7 +60,7 @@ class ComponentContext<T> {
       };
 
   Dispatch _createDispatch<T>(
-      Dispatch onEffect, Dispatch next, ComponentContext<T> ctx) =>
+      Dispatch? onEffect, Dispatch next, ComponentContext<T> ctx) =>
           (Action action) {
         final Object? result = onEffect?.call(action);
         if (result == null || result == false) {
@@ -91,29 +93,6 @@ class ComponentContext<T> {
   void onLifecycle(Lifecycle type) {
     effects?.call(Action(type), this);
   }
-
-  // Widget buildComponent(String type) {
-  //   // final Dependent<T> dependent = _dependencies.slots[type];
-  //   // assert(dependent != null);
-  //   // return dependent.buildComponent(
-  //   //   store,
-  //   //   getState,
-  //   //   bus: _bus,
-  //   // );
-  //   return Container();
-  // }
-
-  // List<Widget> buildComponents() {
-  //   // final Dependent<T> dependent = _dependencies.adapter;
-  //   // assert(dependent != null);
-  //   // return dependent.buildComponents(
-  //   //   store,
-  //   //   getState,
-  //   //   bus: _bus,
-  //   // );
-  //
-  //   return <Widget>[Container()];
-  // }
 
   static ShouldUpdate<K> _updateByDefault<K>() =>
       (K _, K __) => !identical(_, __);
