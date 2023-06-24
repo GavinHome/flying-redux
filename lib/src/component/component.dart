@@ -22,7 +22,6 @@ class Component<T, P> extends ReduxComponent<T> {
         );
 
   Widget buildComponent(Store<Object> store, Get<T> getter) {
-    // Connect(store, getter);
     // store.replaceReducer((Object state, Action action) => state);
     return super.build(store, getter);
   }
