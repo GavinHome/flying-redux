@@ -22,10 +22,8 @@ Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) =>
         ? null
         : (Action action, ComponentContext<T> ctx) {
             final SubEffect<T>? subEffect = map.entries
-                .firstWhereOrNull(
-                  (MapEntry<Object, SubEffect<T>> entry) =>
-                      action.type == entry.key
-                )
+                .firstWhereOrNull((MapEntry<Object, SubEffect<T>> entry) =>
+                    action.type == entry.key)
                 ?.value;
 
             if (subEffect != null) {
@@ -48,9 +46,8 @@ Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
     ? (T state, Action action) => state
     : (T state, Action action) =>
         map.entries
-            .firstWhereOrNull(
-                (MapEntry<Object, Reducer<T>> entry) =>
-                    action.type == entry.key)
+            .firstWhereOrNull((MapEntry<Object, Reducer<T>> entry) =>
+                action.type == entry.key)
             ?.value(state, action) ??
         state;
 

@@ -31,6 +31,9 @@ class Dependencies<T> {
       subs.add(adapter.createSubReducer());
     }
 
-    return combineReducers(<Reducer<T>>[combineSubReducers(subs) ?? (T state, Action action) => state]) ?? (T state,_) => state;
+    return combineReducers(<Reducer<T>>[
+          combineSubReducers(subs) ?? (T state, Action action) => state
+        ]) ??
+        (T state, _) => state;
   }
 }

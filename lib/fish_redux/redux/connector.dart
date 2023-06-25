@@ -1,5 +1,6 @@
 import '../redux_component/dependent.dart';
 import 'basic.dart';
+
 abstract class MutableConn<T, P> {
   const MutableConn();
 
@@ -79,8 +80,9 @@ class ConnOp<T, P> extends MutableConn<T, P> with ConnOpMixin<T, P> {
         _setter = set;
 
   @override
-  P get(T state) => _getter != null? _getter!(state): Object() as P;
+  P get(T state) => _getter != null ? _getter!(state) : Object() as P;
 
   @override
-  void set(T state, P subState) => _setter != null? _setter!(state, subState): {};
+  void set(T state, P subState) =>
+      _setter != null ? _setter!(state, subState) : {};
 }

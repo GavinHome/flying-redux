@@ -13,18 +13,21 @@ typedef InitState<T, P> = T Function(P params);
 abstract class Page<T, P> extends ReduxComponent<T> {
   final InitState<T, P> initState;
 
-  Page({
-    required this.initState,
-    required Reducer<T> reducer,
-    required ViewBuilder<T> view,
-    ShouldUpdate<T>? shouldUpdate,
-    Dependencies<T>? dependencies,
-    Effects<T>? effect
-  })
-      : super(reducer: reducer, view: view, effect:effect,  dependencies: dependencies,  shouldUpdate: shouldUpdate);
+  Page(
+      {required this.initState,
+      required Reducer<T> reducer,
+      required ViewBuilder<T> view,
+      ShouldUpdate<T>? shouldUpdate,
+      Dependencies<T>? dependencies,
+      Effects<T>? effect})
+      : super(
+            reducer: reducer,
+            view: view,
+            effect: effect,
+            dependencies: dependencies,
+            shouldUpdate: shouldUpdate);
 
-  Widget buildPage(P param) =>
-      _PageWidget<T, P>(
+  Widget buildPage(P param) => _PageWidget<T, P>(
         param: param,
         page: this,
       );
@@ -56,4 +59,3 @@ class _PageState<T, P> extends State<_PageWidget<T, P>> {
   Widget build(BuildContext context) =>
       widget.page.build(_store as Store<Object>, _store.getState);
 }
-

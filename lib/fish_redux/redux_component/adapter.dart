@@ -103,18 +103,18 @@ class Adapter<T> extends BasicComponent<T> {
     );
     _dependentArray = _adapter(getter());
     final List<Widget> _widgets = <Widget>[];
-     if(_dependentArray != null) {
-       for (int i = 0; i < _dependentArray!.length; i++) {
-         final Dependent<T> _dependent = _dependentArray!.builder(i);
-         _widgets.addAll(
-           _dependent.buildComponents(
-             store,
-             getter,
-             bus: dispatchBus,
-           ),
-         );
-       }
-     }
+    if (_dependentArray != null) {
+      for (int i = 0; i < _dependentArray!.length; i++) {
+        final Dependent<T> _dependent = _dependentArray!.builder(i);
+        _widgets.addAll(
+          _dependent.buildComponents(
+            store,
+            getter,
+            bus: dispatchBus,
+          ),
+        );
+      }
+    }
     _ctx!.onLifecycle(LifecycleCreator.initState());
     return _widgets;
   }

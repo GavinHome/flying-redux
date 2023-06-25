@@ -54,8 +54,8 @@ abstract class ComponentContext<T> {
 
   FutureOr<void> dispatch(Action action) => _dispatch.call(action);
 
-  void broadcastEffect(Action action, {bool? excluded}) => _bus?.dispatch(action,
-      excluded: excluded == true ? _effectDispatch : null);
+  void broadcastEffect(Action action, {bool? excluded}) => _bus
+      ?.dispatch(action, excluded: excluded == true ? _effectDispatch : null);
 
   Widget buildComponent(String type) {
     final Dependent<T>? dependent = _dependencies?.slots[type];

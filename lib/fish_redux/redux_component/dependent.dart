@@ -11,8 +11,8 @@ SubReducer<T>? _conn<T, P>(
     Reducer<Object>? reducer, MutableConn<T, P> connector) {
   return reducer == null
       ? null
-      : connector
-          .subReducer((P state, Action action) => reducer(state as Object, action) as P);
+      : connector.subReducer(
+          (P state, Action action) => reducer(state as Object, action) as P);
 }
 
 class _Dependent<T, P> extends Dependent<T> {
@@ -55,7 +55,8 @@ class _Dependent<T, P> extends Dependent<T> {
   }
 
   @override
-  SubReducer<T> createSubReducer() => _subReducer ?? (T state, Action _, bool __) => state;
+  SubReducer<T> createSubReducer() =>
+      _subReducer ?? (T state, Action _, bool __) => state;
 
   @override
   List<Widget> buildComponents(

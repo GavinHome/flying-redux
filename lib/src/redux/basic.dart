@@ -36,11 +36,11 @@ typedef Reducer<T> = T Function(T, Action);
 /// combine & as
 /// for action.type which override it's == operator
 Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (T state,
-    Action action) =>
-map.entries
-    .firstWhereOrNull(
-        (MapEntry<Object, Reducer<T>> entry) => action.type == entry.key)
-    ?.value(state, action) ??
+        Action action) =>
+    map.entries
+        .firstWhereOrNull(
+            (MapEntry<Object, Reducer<T>> entry) => action.type == entry.key)
+        ?.value(state, action) ??
     state;
 
 /// Combine an iterable of Reducer<T> into one Reducer<T>
@@ -100,4 +100,3 @@ Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>>? subReducers) {
 abstract class Cloneable<T extends Cloneable<T>> {
   T clone();
 }
-

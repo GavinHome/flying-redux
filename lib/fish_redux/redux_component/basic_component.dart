@@ -23,8 +23,10 @@ abstract class BasicComponent<T> {
   final ShouldUpdate<T>? shouldUpdate;
 
   Reducer<T> createReducer() {
-    return combineReducers<T>(
-            <Reducer<T>>[reducer, dependencies?.createReducer() ?? (T state, Action action) => state]) ??
+    return combineReducers<T>(<Reducer<T>>[
+          reducer,
+          dependencies?.createReducer() ?? (T state, Action action) => state
+        ]) ??
         (T state, Action action) {
           return state;
         };

@@ -19,9 +19,11 @@ enum Lifecycle {
 
 /// [Effect]是对副作用函数的定义.
 /// 根据返回值, 判断该Action事件是否被消费.
-typedef Effects<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
+typedef Effects<T> = FutureOr<void> Function(
+    Action action, ComponentContext<T> ctx);
 
-typedef Effect<T> = FutureOr<void> Function(Action action, ComponentContext<T> ctx);
+typedef Effect<T> = FutureOr<void> Function(
+    Action action, ComponentContext<T> ctx);
 
 /// for action.type which override it's == operator
 /// return [UserEffect]
@@ -29,18 +31,18 @@ Effects<T>? combineEffects<T>(Map<Object, Effect<T>>? map) =>
     (map == null || map.isEmpty)
         ? null
         : (Action action, ComponentContext<T> ctx) {
-      final Effect<T>? subEffect = map.entries
-          .firstWhereOrNull(
-              (MapEntry<Object, Effect<T>> entry) =>
-          action.type == entry.key)?.value;
+            final Effect<T>? subEffect = map.entries
+                .firstWhereOrNull((MapEntry<Object, Effect<T>> entry) =>
+                    action.type == entry.key)
+                ?.value;
 
-      if (subEffect != null) {
-        return (subEffect.call(action, ctx) ?? Object()) == null;
-      }
+            if (subEffect != null) {
+              return (subEffect.call(action, ctx) ?? Object()) == null;
+            }
 
-      /// no subEffect
-      return null;
-    };
+            /// no subEffect
+            return null;
+          };
 
 Reducer<T> _noop<T>() => (T state, Action action) => state;
 
@@ -55,13 +57,12 @@ typedef ViewBuilder<T> = Widget Function(
 typedef ShouldUpdate<T> = bool Function(T old, T now);
 
 abstract class BasicComponent<T> {
-  BasicComponent({
-    this.reducer,
-    this.view,
-    this.shouldUpdate,
-    this.effect,
-    this.dependencies
-  });
+  BasicComponent(
+      {this.reducer,
+      this.view,
+      this.shouldUpdate,
+      this.effect,
+      this.dependencies});
 
   final Dependencies<T>? dependencies;
   final Reducer<T>? reducer;
@@ -71,7 +72,8 @@ abstract class BasicComponent<T> {
 
   Reducer<T> createReducer() {
     return combineReducers<T>(<Reducer<T>>[
-          reducer ?? _noop(),dependencies?.createReducer() ?? _noop()
+          reducer ?? _noop(),
+          dependencies?.createReducer() ?? _noop()
         ]) ??
         (T state, Action action) {
           return state;
@@ -79,34 +81,35 @@ abstract class BasicComponent<T> {
   }
 
   ComponentContext<T> createContext(Store<Object> store, Get<T> getter,
-  { Function()? markNeedsBuild, BuildContext? buildContext}) =>
+          {Function()? markNeedsBuild, BuildContext? buildContext}) =>
       ComponentContext<T>(
-        store: store,
-        getState: getter,
-        view: view,
-        effect: effect,
-        markNeedsBuild: markNeedsBuild,
-        buildContext: buildContext,
-        shouldUpdate: shouldUpdate,
-        dependencies: dependencies
-      );
+          store: store,
+          getState: getter,
+          view: view,
+          effect: effect,
+          markNeedsBuild: markNeedsBuild,
+          buildContext: buildContext,
+          shouldUpdate: shouldUpdate,
+          dependencies: dependencies);
 
   Widget build(Store<Object> store, Get<T> getter);
 
-  List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter);
+  List<Widget> buildComponents(Store<Object> store, Get<T> getter);
 }
 
 class ReduxComponent<T> extends BasicComponent<T> {
-  ReduxComponent({Reducer<T>? reducer, required ViewBuilder<T> view, Dependencies<T>? dependencies, ShouldUpdate<T>? shouldUpdate, Effects<T>? effect})
+  ReduxComponent(
+      {Reducer<T>? reducer,
+      required ViewBuilder<T> view,
+      Dependencies<T>? dependencies,
+      ShouldUpdate<T>? shouldUpdate,
+      Effects<T>? effect})
       : super(
-        reducer: reducer,
-        view: view,
-        dependencies: dependencies,
-        shouldUpdate: shouldUpdate,
-          effect: effect
-      );
+            reducer: reducer,
+            view: view,
+            dependencies: dependencies,
+            shouldUpdate: shouldUpdate,
+            effect: effect);
 
   @override
   Widget build(Store<Object> store, Get<T> getter) =>
@@ -147,8 +150,8 @@ class _ComponentState<T> extends State<_ComponentWidget<T>> {
   @override
   void initState() {
     super.initState();
-    _ctx = component.createContext(
-        widget.store, widget.getter, markNeedsBuild: buildUpdate, buildContext: context);
+    _ctx = component.createContext(widget.store, widget.getter,
+        markNeedsBuild: buildUpdate, buildContext: context);
     _ctx.onLifecycle(Lifecycle.initState);
     subscribe = _ctx.store.subscribe(_ctx.onNotify);
   }
@@ -206,13 +209,9 @@ class _ComponentState<T> extends State<_ComponentWidget<T>> {
 
 /// Definition of the component Dependent.
 abstract class Dependent<T> {
-  Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter);
+  Widget buildComponent(Store<Object> store, Get<T> getter);
 
-  List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter);
+  List<Widget> buildComponents(Store<Object> store, Get<T> getter);
 
   SubReducer<T> createSubReducer();
 
@@ -234,7 +233,7 @@ class Dependencies<T> {
     final List<SubReducer<T>> subs = <SubReducer<T>>[];
     if (slots != null && slots!.isNotEmpty) {
       subs.addAll(slots!.entries.map<SubReducer<T>>(
-            (MapEntry<String, Dependent<T>> entry) =>
+        (MapEntry<String, Dependent<T>> entry) =>
             entry.value.createSubReducer(),
       ));
     }
@@ -243,10 +242,11 @@ class Dependencies<T> {
       subs.add(adapter!.createSubReducer());
     }
 
-    return combineReducers(<Reducer<T>>[combineSubReducers(subs) ?? (T state, Action action) => state]);
+    return combineReducers(<Reducer<T>>[
+      combineSubReducers(subs) ?? (T state, Action action) => state
+    ]);
   }
 }
-
 
 //////////////////////////////////////////
 typedef IndexedDependentBuilder<T> = Dependent<T> Function(int);
@@ -272,17 +272,17 @@ class FlowDependencies<T> {
   const FlowDependencies(this.build);
 
   Reducer<T> createReducer() => (T state, Action action) {
-    T copy = state;
-    bool hasChanged = false;
-    final DependentArray<T> list = build(state);
-    for (int i = 0; i < list.length; i++) {
-      final Dependent<T> dep = list[i];
-      final SubReducer<T> subReducer = dep.createSubReducer();
-      copy = subReducer(copy, action, hasChanged);
-      hasChanged = hasChanged || copy != state;
-    }
-    return copy;
-  };
+        T copy = state;
+        bool hasChanged = false;
+        final DependentArray<T> list = build(state);
+        for (int i = 0; i < list.length; i++) {
+          final Dependent<T> dep = list[i];
+          final SubReducer<T> subReducer = dep.createSubReducer();
+          copy = subReducer(copy, action, hasChanged);
+          hasChanged = hasChanged || copy != state;
+        }
+        return copy;
+      };
 }
 
 /// [ComposedComponent]
@@ -300,18 +300,18 @@ class Adapter<T> extends BasicComponent<T> {
   })  : _adapter = dependencies.build,
         _dependencies = dependencies,
         super(
-        reducer: reducer,
-        view: null,
-        shouldUpdate: shouldUpdate,
-      );
+          reducer: reducer,
+          view: null,
+          shouldUpdate: shouldUpdate,
+        );
 
   @override
   Reducer<T> createReducer() {
     return combineReducers<T>(<Reducer<T>>[
-      super.createReducer(),
-      _dependencies.createReducer()
-    ]) ??
-            (T state, Action action) {
+          super.createReducer(),
+          _dependencies.createReducer()
+        ]) ??
+        (T state, Action action) {
           return state;
         };
   }
@@ -323,23 +323,16 @@ class Adapter<T> extends BasicComponent<T> {
 
   @override
   List<Widget> buildComponents(Store<Object> store, Get<T> getter) {
-    _ctx ??= createContext(
-        store,
-        getter,
-        markNeedsBuild: () {
-          Log.doPrint('$runtimeType do reload');
-        }
-    );
+    _ctx ??= createContext(store, getter, markNeedsBuild: () {
+      Log.doPrint('$runtimeType do reload');
+    });
     _dependentArray = _adapter(getter());
     final List<Widget> widgets = <Widget>[];
-    if(_dependentArray != null) {
+    if (_dependentArray != null) {
       for (int i = 0; i < _dependentArray!.length; i++) {
         final Dependent<T> dependent = _dependentArray!.builder(i);
         widgets.add(
-          dependent.buildComponent(
-              store,
-              getter
-          ),
+          dependent.buildComponent(store, getter),
         );
       }
     }
@@ -347,4 +340,3 @@ class Adapter<T> extends BasicComponent<T> {
     return widgets;
   }
 }
-

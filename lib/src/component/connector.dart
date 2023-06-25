@@ -30,8 +30,7 @@ abstract class MutableConnector<T, P> {
       }
       final P newProps = reducer(props, action);
       final bool hasChanged = newProps != props;
-      final T copy =
-      (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
+      final T copy = (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
       if (hasChanged) {
         set(copy, newProps);
       }
@@ -40,8 +39,7 @@ abstract class MutableConnector<T, P> {
   }
 }
 
-class NoneConn<T> extends MutableConnector<T, T> with ConnOpMixin<T, T>
-{
+class NoneConn<T> extends MutableConnector<T, T> with ConnOpMixin<T, T> {
   const NoneConn();
 
   @override
@@ -51,8 +49,8 @@ class NoneConn<T> extends MutableConnector<T, T> with ConnOpMixin<T, T>
   T set(T state, T subState) => subState;
 }
 
-abstract class ConnOp<T, P> extends MutableConnector<T, P> with ConnOpMixin<T, P>
-{
+abstract class ConnOp<T, P> extends MutableConnector<T, P>
+    with ConnOpMixin<T, P> {
   const ConnOp();
 
   @override
@@ -80,8 +78,8 @@ dynamic _clone<T>(T state) {
 
 SubReducer<T>? _conn<T, P>(
     Reducer<Object> reducer, MutableConnector<T, P> connector) {
-  return connector
-      .subReducer((P state, Action action) => reducer(state as Object, action) as P);
+  return connector.subReducer(
+      (P state, Action action) => reducer(state as Object, action) as P);
 }
 
 class _Dependent<T, P> extends Dependent<T> {
@@ -95,21 +93,14 @@ class _Dependent<T, P> extends Dependent<T> {
     required this.connector,
   })  : _reducer = component.createReducer(),
         _component = component {
-    _subReducer = _conn<T, P>(
-            (Object state, Action action) {
-          return _reducer(state as P, action) as Object;
-        },
-        connector);
+    _subReducer = _conn<T, P>((Object state, Action action) {
+      return _reducer(state as P, action) as Object;
+    }, connector);
   }
 
   @override
-  Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter) {
-    return _component.build(
-      store,
-          () => connector.get(getter())
-    );
+  Widget buildComponent(Store<Object> store, Get<T> getter) {
+    return _component.build(store, () => connector.get(getter()));
   }
 
   @override
@@ -122,22 +113,23 @@ class _Dependent<T, P> extends Dependent<T> {
   List<Widget> buildComponents(Store<Object> store, Get<T> getter) {
     return _component.buildComponents(
       store,
-          () => connector.get(getter()),
+      () => connector.get(getter()),
     );
   }
 }
 
 _Dependent<K, T> createDependent<K, T>(
-    MutableConnector<K, T> connector,
-    BasicComponent<T> component,
-    ) => (_Dependent<K, T>(
+  MutableConnector<K, T> connector,
+  BasicComponent<T> component,
+) =>
+    (_Dependent<K, T>(
       connector: connector,
       component: component,
     ));
 
 mixin ConnOpMixin<T, P> on MutableConnector<T, P> {
   Dependent<T> operator +(BasicComponent<P> component) => createDependent<T, P>(
-    this,
-    component,
-  );
+        this,
+        component,
+      );
 }

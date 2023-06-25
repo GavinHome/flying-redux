@@ -20,13 +20,14 @@ class ComponentContext<T> {
       {required this.store,
       required this.getState,
       this.view,
-        this.dependencies,
+      this.dependencies,
       this.markNeedsBuild,
       this.buildContext,
       ShouldUpdate<T>? shouldUpdate,
-        this.effect}) {
+      this.effect}) {
     _shouldUpdate = shouldUpdate ?? _updateByDefault<T>();
-    _dispatch = _createDispatch(_createEffectDispatch(effect, this), _createNextDispatch(this), this);
+    _dispatch = _createDispatch(
+        _createEffectDispatch(effect, this), _createNextDispatch(this), this);
     _latestState = getState();
   }
 
@@ -44,7 +45,8 @@ class ComponentContext<T> {
 
   Widget buildComponent(String type) {
     final Dependent<T>? dependent = dependencies?.slot(type);
-    if(dependent == null) throw Exception("The dependent $type is not defined");
+    if (dependent == null)
+      throw Exception("The dependent $type is not defined");
     return dependent.buildComponent(
       store,
       getState,
@@ -53,7 +55,7 @@ class ComponentContext<T> {
 
   List<Widget> buildComponents() {
     final Dependent<T>? dependent = dependencies?.adapter;
-    if(dependent == null) throw Exception("The adapter is not defined");
+    if (dependent == null) throw Exception("The adapter is not defined");
     return dependent.buildComponents(
       store,
       getState,
@@ -80,8 +82,8 @@ class ComponentContext<T> {
       };
 
   Dispatch _createDispatch<T>(
-      Dispatch? onEffect, Dispatch next, ComponentContext<T> ctx) =>
-          (Action action) {
+          Dispatch? onEffect, Dispatch next, ComponentContext<T> ctx) =>
+      (Action action) {
         final Object? result = onEffect?.call(action);
         if (result == null || result == false) {
           next(action);
@@ -90,8 +92,7 @@ class ComponentContext<T> {
         return result == Object() ? null : result;
       };
 
-  void dispose() {
-  }
+  void dispose() {}
 
   void onNotify() {
     final T now = state;

@@ -1,14 +1,13 @@
-
-/// 1.简单使用Redux概念 
+/// 1.简单使用Redux概念
 /// [Store]
-///   [getState] page state tree 
-///   [dispatch] 
+///   [getState] page state tree
+///   [dispatch]
 ///   [subscribe]
 ///   [Reducer]
 /// [Effect]
 /// [Reducer]
 /// [Middleware]
-/// 
+///
 /// [组件间的通讯]
 ///   1. 数据状态通信
 ///     同一个[Store]下的[组件]｜[组件组], 持有并订阅了同一个[Store], 使得数据流转变得非常天然.
@@ -21,16 +20,16 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// 组件层
 /// [Page]: 基于Component封装的Page层，页面级别
-/// 
+///
 /// [BasicComponent]: 组件单元模块，
 ///   [Dependencies]: 组件依赖部分
 ///   [Effect]: [副作用]部分
 ///   [Reducer]; [数据状态管理]部分
 ///   [View]: render 部分处理
-/// 
+///
 /// [Component]: 单组件模式实现，单个RenderWidget绘制处理, [child]模式处理。
 /// [Adapter]: 多组件模式实现，虚拟组组件，[chidlren]模式处理。
-/// 
+///
 /// [Dependencies]
 ///   [Dependent]
 ///     [Connector] + [Component]
@@ -41,7 +40,7 @@
 ///
 ///   1. 依赖的描述性和可编排性.
 ///   2. 依赖为[组件上下文]提供了,构建子[Widget]和[Widgets]的能力.
-/// 
+///
 /// [ComponentWidget]
 ///   [Context]
 ///     0. [状态] 获取当前状态的能力
