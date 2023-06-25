@@ -17,12 +17,12 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
         'add': _add,
       },
     ),
-    effects: combineEffects<PageState>(<Object, Effect<PageState>>{
+    effect: combineEffects<PageState>(<Object, Effect<PageState>>{
       Lifecycle.initState: _onInit,
       'onAdd': _onAdd
     }),
     dependencies: Dependencies<PageState>(
-      adapter: NoneConnector<PageState>() + TodoListAdapter(),
+      adapter: NoneConn<PageState>() + TodoListAdapter(),
       slots:  <String, Dependent<PageState>>{
         'report': ReportConnector() + ReportComponent()
       },

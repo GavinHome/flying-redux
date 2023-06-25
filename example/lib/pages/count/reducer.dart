@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<PageState> buildReducer() {
+buildReducer() {
   return asReducer(<Object, Reducer<PageState>>{
     CounterAction.increment: _increment,
   });

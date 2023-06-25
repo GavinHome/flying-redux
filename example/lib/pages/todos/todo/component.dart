@@ -8,7 +8,7 @@ import 'state.dart';
 class TodoComponent extends Component<ToDoState> {
   TodoComponent() : super(
     reducer: buildReducer(),
-    effects: buildEffects(),
+    effect: buildEffects(),
     view: (ToDoState state, Dispatch dispatch,
         ComponentContext<ToDoState> ctx) {
       return Container(

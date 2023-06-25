@@ -2,7 +2,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<ToDoState> buildReducer() {
+buildReducer() {
   return asReducer(<Object, Reducer<ToDoState>>{
     ToDoAction.edit: _edit,
     ToDoAction.done: _markDone,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample/pages/count/page.dart';
-import 'package:sample/pages/todos/page/page.dart';
+// import 'pages/count/page.dart';
+import 'pages/todos/page/page.dart';
 
 Widget createApp() {
   return const _App();

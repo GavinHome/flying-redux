@@ -22,7 +22,7 @@ class TodoListAdapter extends Adapter<PageState> {
   );
 }
 
-class TodoConnector extends Connector<PageState, ToDoState> {
+class TodoConnector extends ConnOp<PageState, ToDoState> {
   TodoConnector({required this.toDoStates, required this.index}) : super();
 
   final List<ToDoState> toDoStates;
@@ -39,7 +39,7 @@ class TodoConnector extends Connector<PageState, ToDoState> {
   }
 }
 
-class ReportConnector extends Connector<PageState, ReportState> {
+class ReportConnector extends ConnOp<PageState, ReportState> {
   @override
   ReportState get(PageState state) {
     return ReportState()

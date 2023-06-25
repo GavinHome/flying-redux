@@ -1,5 +1,6 @@
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:sample/pages/count/state.dart';
+import 'action.dart';
+import 'state.dart';
 
 enum CounterAction { increment }
 

@@ -18,10 +18,12 @@ abstract class Page<T, P> extends ReduxComponent<T> {
   Page({
     required this.initState,
     required Reducer<T> reducer,
-    required ViewBuilder<T> view, ShouldUpdate<T>? shouldUpdate,
-    Effects<T>? effects
+    required ViewBuilder<T> view,
+    ShouldUpdate<T>? shouldUpdate,
+    Dependencies<T>? dependencies,
+    Effects<T>? effect
   })
-      : super(reducer: reducer, view: view, effects:effects,  shouldUpdate: shouldUpdate);
+      : super(reducer: reducer, view: view, effect:effect,  dependencies: dependencies,  shouldUpdate: shouldUpdate);
 
   Widget buildPage(P param) =>
       _PageWidget<T, P>(

@@ -11,18 +11,18 @@ import 'basic.dart';
  * <p>: Page Params
  */
 
-class Component<T, P> extends ReduxComponent<T> {
-  Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effects, ShouldUpdate<T>? shouldUpdate})
+class Component<T> extends ReduxComponent<T> {
+  Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effect, ShouldUpdate<T>? shouldUpdate, Dependencies<T>? dependencies})
       : assert(view != null),
         super(
           reducer: reducer,
           view: view,
-          effects: effects,
+          effect: effect,
           shouldUpdate: shouldUpdate,
+          dependencies: dependencies
         );
 
   Widget buildComponent(Store<Object> store, Get<T> getter) {
-    // store.replaceReducer((Object state, Action action) => state);
     return super.build(store, getter);
   }
 }

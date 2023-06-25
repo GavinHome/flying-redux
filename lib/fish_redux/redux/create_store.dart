@@ -1,4 +1,5 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unnecessary_null_comparison, dead_code, prefer_function_declarations_over_variables
+import 'dart:async';
+
 import 'basic.dart';
 
 Reducer<T> _noop<T>() => (T state, Action action) => state;
@@ -11,23 +12,31 @@ void _throwIfNot(bool condition, [String? message]) {
   }
 }
 
-Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer) {
+Store<T> _createStore<T>(final T preloadedState, final Reducer<T> reducer,
+    {List<Middleware<T>>? middleware}) {
   _throwIfNot(
     preloadedState != null,
     'Expected the preloadedState to be non-null value.',
   );
 
   final List<_VoidCallback> _listeners = <_VoidCallback>[];
+  final StreamController<T> _notifyController =
+      StreamController<T>.broadcast(sync: true);
 
   T _state = preloadedState;
   Reducer<T> _reducer = reducer ?? _noop<T>();
   bool _isDispatching = false;
+  bool _isDisposed = false;
 
   Dispatch dispatch = (Action action) {
     _throwIfNot(action != null, 'Expected the action to be non-null value.');
     _throwIfNot(
         action.type != null, 'Expected the action.type to be non-null value.');
     _throwIfNot(!_isDispatching, 'Reducers may not dispatch actions.');
+
+    if (_isDisposed) {
+      return;
+    }
 
     try {
       _isDispatching = true;
@@ -39,14 +48,29 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer) {
     final List<_VoidCallback> _notifyListeners = _listeners.toList(
       growable: false,
     );
-
     for (_VoidCallback listener in _notifyListeners) {
       listener();
     }
-  };
 
+    _notifyController.add(_state);
+  };
   final Get<T> getState = (() => _state);
 
+  dispatch = (middleware?.isNotEmpty ?? false)
+      ? middleware!
+          .map((Middleware<T> middleware) => middleware(
+                dispatch: (Action action) => dispatch(action),
+                getState: getState,
+              ))
+          .fold(
+            dispatch,
+            (Dispatch previousValue, Dispatch Function(Dispatch) element) =>
+                element(previousValue),
+          )
+      : dispatch;
+  final ReplaceReducer<T> _replaceReducer = (Reducer<T> replaceReducer) {
+    _reducer = replaceReducer ?? _noop();
+  };
   final Subscribe subscribe = (_VoidCallback listener) {
     _throwIfNot(
       listener != null,
@@ -67,21 +91,24 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer) {
       _listeners.remove(listener);
     };
   };
-
-  final ReplaceReducer<T> _replaceReducer = (Reducer<T>? replaceReducer) {
-    _reducer = replaceReducer ?? _noop();
-  };
-
+  final Observable<T> observable = (() => _notifyController.stream);
   return Store<T>()
     ..getState = getState
     ..dispatch = dispatch
     ..replaceReducer = _replaceReducer
-    ..subscribe = subscribe;
+    ..subscribe = subscribe
+    ..observable = observable
+    ..teardown = () {
+      _isDisposed = true;
+      _listeners.clear();
+      return _notifyController.close();
+    };
 }
 
 /// create a store with enhancer
 Store<T> createStore<T>(
   T preloadedState,
-  Reducer<T>? reducer,
-) =>
-    _createStore(preloadedState, reducer);
+  Reducer<T> reducer, {
+  List<Middleware<T>>? middleware,
+}) =>
+    _createStore(preloadedState, reducer, middleware: middleware);

@@ -2,30 +2,31 @@
 
 import 'package:flutter/widgets.dart' hide Action;
 import 'dart:async';
-import 'basic.dart';
 import '../redux/index.dart';
-import 'connector.dart';
+import 'basic.dart';
 
 class ComponentContext<T> {
-  final ViewBuilder<T> view;
-  final Effect<T>? effects;
+  final ViewBuilder<T>? view;
+  final Effect<T>? effect;
   final Store<Object> store;
   final Get<T> getState;
   late Dispatch _dispatch;
   late ShouldUpdate<T> _shouldUpdate;
-  final BuildContext buildContext;
-  final Function() markNeedsBuild;
+  final BuildContext? buildContext;
+  final Function()? markNeedsBuild;
+  final Dependencies<T>? dependencies;
 
   ComponentContext(
       {required this.store,
       required this.getState,
-      required this.view,
-      required this.markNeedsBuild,
-      required this.buildContext,
+      this.view,
+        this.dependencies,
+      this.markNeedsBuild,
+      this.buildContext,
       ShouldUpdate<T>? shouldUpdate,
-        this.effects}) {
+        this.effect}) {
     _shouldUpdate = shouldUpdate ?? _updateByDefault<T>();
-    _dispatch = _createDispatch(_createEffectDispatch(effects, this), _createNextDispatch(this), this);
+    _dispatch = _createDispatch(_createEffectDispatch(effect, this), _createNextDispatch(this), this);
     _latestState = getState();
   }
 
@@ -35,16 +36,25 @@ class ComponentContext<T> {
 
   FutureOr<void> dispatch(Action action) => _dispatch.call(action);
 
-  Widget buildView() {
+  Widget? buildView() {
     Widget? result = _widgetCache;
-    result ??= _widgetCache = view(getState(), dispatch, this);
+    result ??= _widgetCache = view?.call(getState(), dispatch, this);
     return result;
   }
 
-  Widget buildComponent(Dependent<T> dependent) {
-    // final Dependent<T> dependent = _dependencies.slots[type];
-    assert(dependent != null);
-    return dependent.buildComponent(
+  Widget buildComponent(String type) {
+    final Dependent<T>? dependent = dependencies?.slot(type);
+    if(dependent == null) throw Exception("The dependent $type is not defined");
+    return dependent!.buildComponent(
+      store,
+      getState,
+    );
+  }
+
+  List<Widget> buildComponents() {
+    final Dependent<T>? dependent = dependencies?.adapter;
+    if(dependent == null) throw Exception("The adapter is not defined");
+    return dependent.buildComponents(
       store,
       getState,
     );
@@ -87,7 +97,7 @@ class ComponentContext<T> {
     final T now = state;
     if (_shouldUpdate(_latestState, now)) {
       _widgetCache = null;
-      markNeedsBuild();
+      markNeedsBuild?.call();
       _latestState = now;
     }
   }
@@ -101,7 +111,11 @@ class ComponentContext<T> {
   }
 
   void onLifecycle(Lifecycle type) {
-    effects?.call(Action(type), this);
+    effect?.call(Action(type), this);
+  }
+
+  void clearCache() {
+    _widgetCache = null;
   }
 
   static ShouldUpdate<K> _updateByDefault<K>() =>
