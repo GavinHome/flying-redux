@@ -1,3 +1,4 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/widgets.dart' hide Action;
 
 import '../redux/index.dart';
@@ -22,22 +23,20 @@ abstract class MutableConnector<T, P> {
   ///
   /// See in [connector].
   SubReducer<T>? subReducer(Reducer<P> reducer) {
-    return reducer == null
-        ? null
-        : (T state, Action action, bool isStateCopied) {
-            final P props = get(state);
-            if (props == null) {
-              return state;
-            }
-            final P newProps = reducer(props, action);
-            final bool hasChanged = newProps != props;
-            final T copy =
-                (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
-            if (hasChanged) {
-              set(copy, newProps);
-            }
-            return copy;
-          };
+    return (T state, Action action, bool isStateCopied) {
+      final P props = get(state);
+      if (props == null) {
+        return state;
+      }
+      final P newProps = reducer(props, action);
+      final bool hasChanged = newProps != props;
+      final T copy =
+      (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
+      if (hasChanged) {
+        set(copy, newProps);
+      }
+      return copy;
+    };
   }
 }
 
@@ -81,9 +80,7 @@ dynamic _clone<T>(T state) {
 
 SubReducer<T>? _conn<T, P>(
     Reducer<Object> reducer, MutableConnector<T, P> connector) {
-  return reducer == null
-      ? null
-      : connector
+  return connector
       .subReducer((P state, Action action) => reducer(state as Object, action) as P);
 }
 

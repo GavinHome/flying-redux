@@ -45,7 +45,7 @@ class ComponentContext<T> {
   Widget buildComponent(String type) {
     final Dependent<T>? dependent = dependencies?.slot(type);
     if(dependent == null) throw Exception("The dependent $type is not defined");
-    return dependent!.buildComponent(
+    return dependent.buildComponent(
       store,
       getState,
     );

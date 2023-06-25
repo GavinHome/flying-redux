@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:collection/collection.dart';
 
 /// Definition of the standard Store.
@@ -67,11 +66,12 @@ Reducer<T>? combineReducers<T>(Iterable<Reducer<T>>? reducers) {
 }
 
 typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
+
 /// Combine an iterable of SubReducer<T> into one Reducer<T>
 Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>>? subReducers) {
   final List<SubReducer<T>>? notNullReducers = subReducers
-      ?.where((SubReducer<T> e) => e != null)
-      ?.toList(growable: false);
+      ?.where((SubReducer<T>? e) => e != null)
+      .toList(growable: false);
 
   if (notNullReducers == null || notNullReducers.isEmpty) {
     return null;

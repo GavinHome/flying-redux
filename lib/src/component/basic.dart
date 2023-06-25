@@ -256,7 +256,7 @@ class DependentArray<T> {
   final int length;
 
   DependentArray({required this.builder, required this.length})
-      : assert(builder != null && length >= 0);
+      : assert(length >= 0);
 
   DependentArray.fromList(List<Dependent<T>> list)
       : this(builder: (int index) => list[index], length: list.length);
@@ -275,15 +275,11 @@ class FlowDependencies<T> {
     T copy = state;
     bool hasChanged = false;
     final DependentArray<T> list = build(state);
-    if (list != null) {
-      for (int i = 0; i < list.length; i++) {
-        final Dependent<T> dep = list[i];
-        final SubReducer<T>? subReducer = dep?.createSubReducer();
-        if (subReducer != null) {
-          copy = subReducer(copy, action, hasChanged);
-          hasChanged = hasChanged || copy != state;
-        }
-      }
+    for (int i = 0; i < list.length; i++) {
+      final Dependent<T> dep = list[i];
+      final SubReducer<T> subReducer = dep.createSubReducer();
+      copy = subReducer(copy, action, hasChanged);
+      hasChanged = hasChanged || copy != state;
     }
     return copy;
   };
@@ -331,24 +327,24 @@ class Adapter<T> extends BasicComponent<T> {
         store,
         getter,
         markNeedsBuild: () {
-          Log.doPrint('$runtimeType do relaod');
+          Log.doPrint('$runtimeType do reload');
         }
     );
     _dependentArray = _adapter(getter());
-    final List<Widget> _widgets = <Widget>[];
+    final List<Widget> widgets = <Widget>[];
     if(_dependentArray != null) {
       for (int i = 0; i < _dependentArray!.length; i++) {
-        final Dependent<T> _dependent = _dependentArray!.builder(i);
-        _widgets.add(
-          _dependent.buildComponent(
+        final Dependent<T> dependent = _dependentArray!.builder(i);
+        widgets.add(
+          dependent.buildComponent(
               store,
               getter
           ),
         );
       }
     }
-    // _ctx.onLifecycle(LifecycleCreator.initState());
-    return _widgets;
+    _ctx?.onLifecycle(Lifecycle.initState);
+    return widgets;
   }
 }
 

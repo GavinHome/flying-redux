@@ -22,7 +22,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
       'onAdd': _onAdd
     }),
     dependencies: Dependencies<PageState>(
-      adapter: NoneConn<PageState>() + TodoListAdapter(),
+      adapter: const NoneConn<PageState>() + TodoListAdapter(),
       slots:  <String, Dependent<PageState>>{
         'report': ReportConnector() + ReportComponent()
       },
@@ -39,7 +39,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
                   // TodoComponent().buildComponent(
                   //     ctx.store, () => ws[index]),
               //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
-              itemCount: ws?.length ?? 0,
+              itemCount: ws.length,
             ),
           ),
           Positioned(
@@ -109,7 +109,7 @@ PageState _init(PageState state, Action action) {
 }
 
 PageState _add(PageState state, Action action) {
-  final ToDoState toDo = action.payload;
+  final ToDoState? toDo = action.payload;
   final PageState newState = state.clone();
   if(toDo != null) {
     newState.toDos.add(toDo);

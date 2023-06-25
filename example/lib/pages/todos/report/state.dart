@@ -1,7 +1,5 @@
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../page/state.dart';
-
 class ReportState implements Cloneable<ReportState> {
   int total;
   int done;

@@ -9,7 +9,7 @@ class ToDoState implements Cloneable<ToDoState> {
   static int _seed = 202103051044;
 
   ToDoState({this.uniqueId = '', this.title, this.desc, this.isDone = false}) {
-    uniqueId ??= '${_seed++}';
+    uniqueId = uniqueId.isEmpty ? '${_seed++}' : uniqueId;
   }
 
   @override

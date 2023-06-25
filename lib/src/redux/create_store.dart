@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unnecessary_null_comparison, dead_code, prefer_function_declarations_over_variables
+// ignore_for_file:  no_leading_underscores_for_local_identifiers, prefer_function_declarations_over_variables
 import 'basic.dart';
 
 Reducer<T> _noop<T>() => (T state, Action action) => state;
@@ -17,65 +17,58 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer) {
     'Expected the preloadedState to be non-null value.',
   );
 
-  final List<_VoidCallback> _listeners = <_VoidCallback>[];
+  final List<_VoidCallback> listeners = <_VoidCallback>[];
 
-  T _state = preloadedState;
+  T state = preloadedState;
   Reducer<T> _reducer = reducer ?? _noop<T>();
-  bool _isDispatching = false;
+  bool isDispatching = false;
 
   Dispatch dispatch = (Action action) {
-    _throwIfNot(action != null, 'Expected the action to be non-null value.');
-    _throwIfNot(
-        action.type != null, 'Expected the action.type to be non-null value.');
-    _throwIfNot(!_isDispatching, 'Reducers may not dispatch actions.');
+    _throwIfNot(!isDispatching, 'Reducers may not dispatch actions.');
 
     try {
-      _isDispatching = true;
-      _state = _reducer(_state, action);
+      isDispatching = true;
+      state = _reducer(state, action);
     } finally {
-      _isDispatching = false;
+      isDispatching = false;
     }
 
-    final List<_VoidCallback> _notifyListeners = _listeners.toList(
+    final List<_VoidCallback> notifyListeners = listeners.toList(
       growable: false,
     );
 
-    for (_VoidCallback listener in _notifyListeners) {
+    for (_VoidCallback listener in notifyListeners) {
       listener();
     }
   };
 
-  final Get<T> getState = (() => _state);
+  final Get<T> getState = (() => state);
 
   final Subscribe subscribe = (_VoidCallback listener) {
     _throwIfNot(
-      listener != null,
-      'Expected the listener to be non-null value.',
-    );
-    _throwIfNot(
-      !_isDispatching,
+      !isDispatching,
       'You may not call store.subscribe() while the reducer is executing.',
     );
 
-    _listeners.add(listener);
+    listeners.add(listener);
 
     return () {
       _throwIfNot(
-        !_isDispatching,
+        !isDispatching,
         'You may not unsubscribe from a store listener while the reducer is executing.',
       );
-      _listeners.remove(listener);
+      listeners.remove(listener);
     };
   };
 
-  final ReplaceReducer<T> _replaceReducer = (Reducer<T>? replaceReducer) {
+  final ReplaceReducer<T> replaceReducer = (Reducer<T>? replaceReducer) {
     _reducer = replaceReducer ?? _noop();
   };
 
   return Store<T>()
     ..getState = getState
     ..dispatch = dispatch
-    ..replaceReducer = _replaceReducer
+    ..replaceReducer = replaceReducer
     ..subscribe = subscribe;
 }
 

@@ -57,17 +57,13 @@ class TodoComponent extends Component<ToDoState> {
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                        child: Container(
-                          child: Text(
-                            state.desc ?? '',
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 16.0),
-                          ),
+                        child: Text(
+                          state.desc ?? '',
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 16.0),
                         )),
                     GestureDetector(
-                      child: Container(
-                        child: const Icon(Icons.edit),
-                      ),
+                      child: const Icon(Icons.edit),
                       onTap: () {
                         dispatch(ToDoActionCreator.onEditAction(
                             state.uniqueId));

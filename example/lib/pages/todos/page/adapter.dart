@@ -9,14 +9,14 @@ class TodoListAdapter extends Adapter<PageState> {
       : super(
     dependencies: FlowDependencies<PageState>(
             (PageState indexs) {
-          final List<Dependent<PageState>> _dependents = <Dependent<PageState>>[];
+          final List<Dependent<PageState>> dependents = <Dependent<PageState>>[];
           int index = 0;
-          for (ToDoState item in indexs.toDos ?? []) {
-            _dependents.add(TodoConnector(toDoStates: indexs.toDos, index: index) + TodoComponent());
+          for (ToDoState _ in indexs.toDos) {
+            dependents.add(TodoConnector(toDoStates: indexs.toDos, index: index) + TodoComponent());
             index++;
           }
           return DependentArray<PageState>.fromList(
-              _dependents
+              dependents
           );
         }),
   );
@@ -43,10 +43,10 @@ class ReportConnector extends ConnOp<PageState, ReportState> {
   @override
   ReportState get(PageState state) {
     return ReportState()
-      ..total = state?.toDos?.length ?? 0
-      ..done = state?.toDos
-          ?.where((e) => e.isDone)
-          ?.length ?? 0;
+      ..total = state.toDos.length
+      ..done = state.toDos
+          .where((e) => e.isDone)
+          .length;
   }
 
   @override

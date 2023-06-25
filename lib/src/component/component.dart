@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison, library_private_types_in_public_api
-
 import 'package:flutter/material.dart' hide Action, ViewBuilder;
 
 import '../redux/basic.dart';
@@ -13,8 +11,7 @@ import 'basic.dart';
 
 class Component<T> extends ReduxComponent<T> {
   Component({Reducer<T>? reducer, required ViewBuilder<T> view, Effects<T>? effect, ShouldUpdate<T>? shouldUpdate, Dependencies<T>? dependencies})
-      : assert(view != null),
-        super(
+      : super(
           reducer: reducer,
           view: view,
           effect: effect,

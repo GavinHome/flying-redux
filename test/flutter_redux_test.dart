@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_redux/flutter_redux.dart';
-
 // /// A Calculator.
 class Calculator {
   /// Returns [value] plus 1.
