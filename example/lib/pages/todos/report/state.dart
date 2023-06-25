@@ -19,13 +19,4 @@ class ReportState implements Cloneable<ReportState> {
   String toString() {
     return 'ReportState{total: $total, done: $done}';
   }
-
-  static Get<ReportState> stateGetter(PageState state) {
-    return () =>
-    ReportState()
-      ..total = state?.toDos?.length ?? 0
-      ..done = state?.toDos
-          ?.where((e) => e.isDone)
-          ?.length ?? 0;
-  }
 }

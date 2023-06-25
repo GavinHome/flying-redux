@@ -5,7 +5,7 @@ import 'action.dart';
 import 'reducer.dart';
 import 'state.dart';
 
-class TodoComponent extends Component<ToDoState, dynamic> {
+class TodoComponent extends Component<ToDoState> {
   TodoComponent() : super(
     reducer: buildReducer(),
     effects: buildEffects(),

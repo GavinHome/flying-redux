@@ -2,9 +2,9 @@
 
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
-import 'package:sample/pages/todos/todo/component.dart';
 import '../report/component.dart';
 import '../todo/state.dart';
+import 'adapter.dart';
 import 'state.dart';
 
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
@@ -17,16 +17,27 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
         'add': _add,
       },
     ),
+    effects: combineEffects<PageState>(<Object, Effect<PageState>>{
+      Lifecycle.initState: _onInit,
+      'onAdd': _onAdd
+    }),
+    dependencies: Dependencies<PageState>(
+      adapter: NoneConnector<PageState>() + TodoListAdapter(),
+      slots:  <String, Dependent<PageState>>{
+        'report': ReportConnector() + ReportComponent()
+      },
+    ),
     view: (PageState state, Dispatch dispatch,
         ComponentContext<PageState> ctx) {
-      final List<ToDoState> ws = state.toDos;
+      // final List<ToDoState> ws = state.toDos;
+      final List<Widget> ws = ctx.buildComponents();
       return Scaffold(
         body: Stack(children: <Widget>[
           Container(
             child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  TodoComponent().buildComponent(
-                      ctx.store, () => ws[index]),
+              itemBuilder: (BuildContext context, int index) => ws[index],
+                  // TodoComponent().buildComponent(
+                  //     ctx.store, () => ws[index]),
               //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
               itemCount: ws?.length ?? 0,
             ),
@@ -35,9 +46,10 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: ReportComponent().buildComponent(ctx.store,
-                  ReportState.stateGetter(
-                      state)) //ctx.buildComponent('report'),
+              child: ctx.buildComponent('report'),
+              // child: ReportComponent().buildComponent(ctx.store,
+              //     ReportState.stateGetter(
+              //         state)) //ctx.buildComponent('report'),
           )
         ]),
         floatingActionButton: FloatingActionButton(
@@ -48,13 +60,10 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
 
       );
     },
-    effects: combineEffects<PageState>(<Object, Effect<PageState>>{
-      Lifecycle.initState: _onInit,
-      'onAdd': _onAdd
-    }),
   );
 }
 
+/// effects
 void _onInit(Action action, ComponentContext<PageState> ctx) {
   final List<ToDoState> initToDos = <ToDoState>[
     ToDoState(
@@ -91,6 +100,7 @@ void _onAdd(Action action, ComponentContext<PageState> ctx) {
   ));
 }
 
+/// reducers
 PageState _init(PageState state, Action action) {
   final List<ToDoState> toDos = action.payload ?? <ToDoState>[];
   final PageState newState = state.clone();
@@ -107,3 +117,4 @@ PageState _add(PageState state, Action action) {
 
   return newState;
 }
+

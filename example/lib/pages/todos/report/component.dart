@@ -2,16 +2,20 @@
 
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
-
 import 'state.dart';
-export 'state.dart';
 
-class ReportComponent extends Component<ReportState, dynamic> {
+class ReportComponent extends Component<ReportState> {
   ReportComponent()
-      : super(
+      : super(reducer: asReducer(
+    <Object, Reducer<ReportState>>{
+      'update': (ReportState state, _) {
+        return ReportState()
+          ..done = 111
+          ..total = 222;
+      },
+    },
+  ),
           view: (ReportState state, Dispatch dispatch, ComponentContext<ReportState> ctx) {
-            //return Container(height: 100, child: Text('${state.toString()}'));
-
             return Container(
                 margin: const EdgeInsets.all(8.0),
                 padding: const EdgeInsets.all(8.0),
@@ -31,3 +35,4 @@ class ReportComponent extends Component<ReportState, dynamic> {
           },
         );
 }
+
