@@ -2,10 +2,8 @@ import 'package:flutter/widgets.dart' hide Action, Page;
 
 import '../redux/redux.dart';
 import 'basic.dart';
-import 'basic_component.dart';
 import 'component.dart';
-import 'context.dart';
-import 'dependencies.dart';
+import 'dispatch_bus.dart';
 
 typedef InitState<T, P> = T Function(P params);
 

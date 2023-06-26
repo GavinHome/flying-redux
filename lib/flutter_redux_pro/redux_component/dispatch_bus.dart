@@ -1,6 +1,6 @@
-import 'log.dart';
+import '../redux/log.dart';
 
-import 'basic.dart';
+import '../redux/basic.dart';
 
 class DispatchBusDefault implements DispatchBus {
   final List<Dispatch> _dispatchList = <Dispatch>[];
