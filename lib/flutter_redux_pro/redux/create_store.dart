@@ -68,9 +68,11 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
                 element(previousValue),
           )
       : dispatch;
+
   final ReplaceReducer<T> replaceReducer = (Reducer<T>? replaceReducer) {
     _reducer = replaceReducer ?? _noop();
   };
+
   final Subscribe subscribe = (_VoidCallback listener) {
     _throwIfNot(
       listener != null,
@@ -91,6 +93,7 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
       listeners.remove(listener);
     };
   };
+
   final Observable<T> observable = (() => notifyController.stream);
   return Store<T>()
     ..getState = getState

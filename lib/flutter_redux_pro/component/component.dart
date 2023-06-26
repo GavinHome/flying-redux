@@ -3,6 +3,8 @@ import 'package:flutter/material.dart' hide ViewBuilder, Action;
 import '../redux/index.dart';
 import 'basic.dart';
 
+/// [Component]
+/// Implementation of Component
 class Component<T> extends BasicComponent<T> {
   Component({
     Effect<T>? effect,

@@ -4,6 +4,7 @@ import '../redux/index.dart';
 import 'basic.dart';
 import 'component.dart';
 
+/// [Connector]
 abstract class MutableConn<T, P> {
   const MutableConn();
 
@@ -98,6 +99,8 @@ SubReducer<T>? _conn<T, P>(
           (P state, Action action) => reducer(state as Object, action) as P);
 }
 
+/// [_Dependent]
+/// Implementation of Dependent
 class _Dependent<T, P> extends Dependent<T> {
   final MutableConn<T, P> connector;
   SubReducer<T>? _subReducer;
@@ -113,8 +116,8 @@ class _Dependent<T, P> extends Dependent<T> {
         _reducer == null
             ? null
             : (Object state, Action action) {
-          return _reducer(state as P, action) as Object;
-        },
+                return _reducer(state as P, action) as Object;
+              },
         connector);
   }
 
@@ -126,13 +129,13 @@ class _Dependent<T, P> extends Dependent<T> {
 
   @override
   Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? bus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? bus,
+  }) {
     return _component.buildComponent(
       store,
-          () => connector.get(getter()),
+      () => connector.get(getter()),
       dispatchBus: bus,
     );
   }
@@ -143,13 +146,13 @@ class _Dependent<T, P> extends Dependent<T> {
 
   @override
   List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? bus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? bus,
+  }) {
     return _component.buildComponents(
       store,
-          () => connector.get(getter()),
+      () => connector.get(getter()),
       dispatchBus: bus,
     );
   }
@@ -158,19 +161,20 @@ class _Dependent<T, P> extends Dependent<T> {
   BasicComponent<Object> get component => _component as BasicComponent<Object>;
 }
 
+/// create a dependent
 Dependent<K> createDependent<K, T>(
-    MutableConn<K, T> connector,
-    BasicComponent<T> component,
-    ) =>
+  MutableConn<K, T> connector,
+  BasicComponent<T> component,
+) =>
     (_Dependent<K, T>(
       connector: connector,
       component: component,
     ));
-
+/// [ConnOpMixin]
+/// Mixin of Connector for Component
 mixin ConnOpMixin<T, P> on MutableConn<T, P> {
   Dependent<T> operator +(BasicComponent<P> component) => createDependent<T, P>(
-    this,
-    component,
-  );
+        this,
+        component,
+      );
 }
-

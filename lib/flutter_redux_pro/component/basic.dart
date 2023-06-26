@@ -19,30 +19,33 @@ class Log {
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);
 
+/// [ComponentBase]
 abstract class ComponentBase<T> {}
 
+/// [Dependent]
 abstract class Dependent<T> {
   bool isComponent();
 
   bool isAdapter();
 
   Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? bus,
-      });
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? bus,
+  });
 
   List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? bus,
-      });
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? bus,
+  });
 
   SubReducer<T> createSubReducer();
 
   ComponentBase<Object> get component;
 }
 
+/// [Dependencies]
 class Dependencies<T> {
   final Map<String, Dependent<T>> slots;
   final Dependent<T> adapter;
@@ -53,7 +56,7 @@ class Dependencies<T> {
     required this.slots,
     required this.adapter,
   }) : assert(adapter == null || adapter.isAdapter(),
-  'The dependent must contains adapter.');
+            'The dependent must contains adapter.');
 
   Dependent<T>? slot(String type) => slots[type];
 
@@ -64,7 +67,7 @@ class Dependencies<T> {
     final List<SubReducer<T>> subs = <SubReducer<T>>[];
     if (slots != null && slots.isNotEmpty) {
       subs.addAll(slots.entries.map<SubReducer<T>>(
-            (MapEntry<String, Dependent<T>> entry) =>
+        (MapEntry<String, Dependent<T>> entry) =>
             entry.value.createSubReducer(),
       ));
     }
@@ -74,12 +77,13 @@ class Dependencies<T> {
     }
 
     return combineReducers(<Reducer<T>>[
-      combineSubReducers(subs) ?? (T state, Action action) => state
-    ]) ??
-            (T state, _) => state;
+          combineSubReducers(subs) ?? (T state, Action action) => state
+        ]) ??
+        (T state, _) => state;
   }
 }
 
+/// [Lifecycle]
 enum Lifecycle {
   /// component(page) or adapter receives the following events
   initState,
@@ -133,13 +137,7 @@ class LifecycleCreator {
       Action(Lifecycle.disappear, payload: index);
 }
 
-/// A little different with Dispatch (with if it is interrupted).
-/// bool for sync-functions, interrupted if true
-/// Future<void> for async-functions, should always be interrupted.
-// typedef OnAction = Dispatch;
-
-/////////////////////////////////////////////////////////
-/// context
+/// [ComponentContext]
 class ComponentContext<T> {
   ComponentContext({
     Dependencies<T>? dependencies,
@@ -210,8 +208,8 @@ class ComponentContext<T> {
   Function()? _dispatchDispose;
 
   Dispatch _createNextDispatch<T>(ComponentContext<T> ctx) => (Action action) {
-    ctx.store.dispatch(action);
-  };
+        ctx.store.dispatch(action);
+      };
 
   void _init() {
     _effectDispatch = _createEffectDispatch(effect, this);
@@ -269,8 +267,8 @@ class ComponentContext<T> {
   }
 
   Dispatch _createDispatch<T>(
-      Dispatch onEffect, Dispatch next, ComponentContext<T> ctx) =>
-          (Action action) {
+          Dispatch onEffect, Dispatch next, ComponentContext<T> ctx) =>
+      (Action action) {
         final Object? result = onEffect?.call(action);
         if (result == null || result == false) {
           next(action);
@@ -280,18 +278,19 @@ class ComponentContext<T> {
       };
 
   static ShouldUpdate<K> _updateByDefault<K>() =>
-          (K _, K __) => !identical(_, __);
+      (K _, K __) => !identical(_, __);
 }
 
+/// [ViewBuilder]
 /// Component's view part
 /// 1.State is used to decide how to render
 /// 2.Dispatch is used to send actions
 /// 3.ViewService is used to build sub-components or adapter.
 typedef ViewBuilder<T> = Widget Function(
-    T state,
-    Dispatch dispatch,
-    ComponentContext<T> context,
-    );
+  T state,
+  Dispatch dispatch,
+  ComponentContext<T> context,
+);
 
 /// [Effect] is the definition of the side effect function.
 /// According to the return value, determine whether the Action event is consumed.
@@ -310,24 +309,22 @@ Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) {
   return (map == null || map.isEmpty)
       ? null
       : (Action action, ComponentContext<T> ctx) {
-    final SubEffect<T>? subEffect = map.entries
-        .firstWhereOrNull((MapEntry<Object, SubEffect<T>> entry) =>
-    action.type == entry.key)
-        ?.value;
+          final SubEffect<T>? subEffect = map.entries
+              .firstWhereOrNull((MapEntry<Object, SubEffect<T>> entry) =>
+                  action.type == entry.key)
+              ?.value;
 
-    if (subEffect != null) {
-      return (subEffect.call(action, ctx) ?? _SUB_EFFECT_RETURN_NULL) ==
-          null;
-    }
+          if (subEffect != null) {
+            return (subEffect.call(action, ctx) ?? _SUB_EFFECT_RETURN_NULL) ==
+                null;
+          }
 
-    /// no subEffect
-    return null;
-  };
+          /// no subEffect
+          return null;
+        };
 }
 
-
-/////////////////////////////////////////////////////////
-/// BasicComponent
+/// [BasicComponent]
 abstract class BasicComponent<T> extends ComponentBase<T> {
   BasicComponent({
     this.effect,
@@ -345,21 +342,21 @@ abstract class BasicComponent<T> extends ComponentBase<T> {
 
   Reducer<T> createReducer() {
     return combineReducers<T>(<Reducer<T>>[
-      reducer,
-      dependencies?.createReducer() ?? (T state, Action action) => state
-    ]) ??
-            (T state, Action action) {
+          reducer,
+          dependencies?.createReducer() ?? (T state, Action action) => state
+        ]) ??
+        (T state, Action action) {
           return state;
         };
   }
 
   ComponentContext<T> createContext(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? bus,
-        Function()? markNeedsBuild,
-        BuildContext? buildContext,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? bus,
+    Function()? markNeedsBuild,
+    BuildContext? buildContext,
+  }) {
     return ComponentContext<T>(
       store: store,
       bus: bus,
@@ -374,20 +371,25 @@ abstract class BasicComponent<T> extends ComponentBase<T> {
   }
 
   Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      });
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  });
 
   List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      });
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  });
 }
 
-//////////////////////////////////////////////////////////////
-/// ComposedComponent
+/// [ComposedComponent]
+abstract class ComposedComponent<T> extends BasicComponent<T> {
+  ComposedComponent(
+      {required Reducer<T> reducer, ShouldUpdate<T>? shouldUpdate})
+      : super(reducer: reducer, view: null, shouldUpdate: shouldUpdate);
+}
+
 typedef IndexedDependentBuilder<T> = Dependent<T> Function(int);
 
 class DependentArray<T> {
@@ -411,34 +413,24 @@ class FlowDependencies<T> {
   const FlowDependencies(this.build);
 
   Reducer<T> createReducer() => (T state, Action action) {
-    T copy = state;
-    bool hasChanged = false;
-    final DependentArray<T> list = build(state);
-    if (list != null) {
-      for (int i = 0; i < list.length; i++) {
-        final Dependent<T> dep = list[i];
-        final SubReducer<T>? subReducer = dep?.createSubReducer();
-        if (subReducer != null) {
-          copy = subReducer(copy, action, hasChanged);
-          hasChanged = hasChanged || copy != state;
+        T copy = state;
+        bool hasChanged = false;
+        final DependentArray<T> list = build(state);
+        if (list != null) {
+          for (int i = 0; i < list.length; i++) {
+            final Dependent<T> dep = list[i];
+            final SubReducer<T>? subReducer = dep?.createSubReducer();
+            if (subReducer != null) {
+              copy = subReducer(copy, action, hasChanged);
+              hasChanged = hasChanged || copy != state;
+            }
+          }
         }
-      }
-    }
-    return copy;
-  };
-}
-
-abstract class ComposedComponent<T> extends BasicComponent<T> {
-  ComposedComponent(
-      {required Reducer<T> reducer, ShouldUpdate<T>? shouldUpdate}) : super(
-      reducer: reducer,
-      view: null,
-      shouldUpdate: shouldUpdate
-  );
+        return copy;
+      };
 }
 
 /// [Adapter]
-///
 class Adapter<T> extends ComposedComponent<T> {
   final FlowAdapterView<T> _adapter;
   final FlowDependencies<T> _dependencies;
@@ -451,27 +443,27 @@ class Adapter<T> extends ComposedComponent<T> {
   })  : _adapter = dependencies.build,
         _dependencies = dependencies,
         super(
-        reducer: reducer ?? (T state, Action _) => state,
-        shouldUpdate: shouldUpdate,
-      );
+          reducer: reducer ?? (T state, Action _) => state,
+          shouldUpdate: shouldUpdate,
+        );
 
   @override
   Reducer<T> createReducer() {
     return combineReducers<T>(<Reducer<T>>[
-      super.createReducer(),
-      _dependencies.createReducer()
-    ]) ??
-            (T state, Action action) {
+          super.createReducer(),
+          _dependencies.createReducer()
+        ]) ??
+        (T state, Action action) {
           return state;
         };
   }
 
   @override
   Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  }) {
     throw Exception('ComposedComponent could not build single component');
   }
 
@@ -479,10 +471,10 @@ class Adapter<T> extends ComposedComponent<T> {
 
   @override
   List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  }) {
     _ctx ??= createContext(
       store,
       getter,
@@ -510,11 +502,8 @@ class Adapter<T> extends ComposedComponent<T> {
   }
 }
 
-
-
-//////////////////////////////////////////////////////////////
-/// dispatch about
-/// [DispatchBus] global eventBus
+/// [DispatchBus]
+/// global eventBus
 abstract class DispatchBus {
   void attach(DispatchBus parent);
 
@@ -527,7 +516,7 @@ abstract class DispatchBus {
   void Function() registerReceiver(Dispatch? dispatch);
 }
 
-
+/// DispatchBusDefault
 class DispatchBusDefault implements DispatchBus {
   final List<Dispatch> _dispatchList = <Dispatch>[];
   DispatchBus? parent;
@@ -567,7 +556,7 @@ class DispatchBusDefault implements DispatchBus {
   void Function() registerReceiver(Dispatch? dispatch) {
     Log.doPrint('register dispatch: $dispatch');
     assert(!_dispatchList.contains(dispatch),
-    'Do not register a dispatch which is already existed');
+        'Do not register a dispatch which is already existed');
 
     if (dispatch != null) {
       _dispatchList.add(dispatch);
@@ -579,4 +568,3 @@ class DispatchBusDefault implements DispatchBus {
     }
   }
 }
-

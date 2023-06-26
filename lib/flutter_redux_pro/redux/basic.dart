@@ -1,12 +1,63 @@
 import 'package:collection/collection.dart';
 
+/// [Action] Effect or Reducer message action
+class Action {
+  const Action(this.type, {this.payload});
+  final Object type;
+  final dynamic payload;
+}
+
+/// [Store]
+/// Definition of the standard Store.
+class Store<T> {
+  late Get<T> getState;
+  late Dispatch dispatch;
+  late Subscribe subscribe;
+  late Observable<T> observable;
+  late ReplaceReducer<T> replaceReducer;
+  late Future<dynamic> Function() teardown;
+}
+
+/// [Get]
 /// Definition of the function type that returns type R.
 typedef Get<R> = R Function();
 
-/// [Reducer]是对状态变化函数的定义
-/// 如果对状态有修改, 需要返回一个包含修改的新的对象.
+/// [Dispatch] patch action function
+typedef Dispatch = dynamic Function(Action action);
+
+/// [Subscribe]
+/// Definition of a standard subscription function.
+/// input a subscriber and output an anti-subscription function.
+typedef Subscribe = void Function() Function(void Function() callback);
+
+/// [Observable]
+/// Definition of the standard observable flow.
+typedef Observable<T> = Stream<T> Function();
+
+/// [ReplaceReducer]
+/// ReplaceReducer 的定义
+typedef ReplaceReducer<T> = void Function(Reducer<T> reducer);
+
+/// [Middleware]
+/// Definition of the standard Middleware.
+typedef Middleware<T> = Composable<Dispatch> Function({
+  Dispatch dispatch,
+  Get<T> getState,
+});
+
+/// Definition of synthesize functions.
+typedef Composable<T> = T Function(T next);
+
+/// [Reducer]
+/// Definition of the state change function
+/// If there is a modification to the state, a new object containing the modification needs to be returned.
 typedef Reducer<T> = T Function(T, Action);
 
+/// [SubReducer]
+/// Definition of the sub-state change function
+typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
+
+/// [asReducer]
 /// combine & as
 /// for action.type which override it's == operator
 Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
@@ -19,53 +70,7 @@ Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
             ?.value(state, action) ??
         state;
 
-typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
-
-/// [Dispatch] patch action function
-typedef Dispatch = dynamic Function(Action action);
-
-/// [Action] [Effect] message action
-class Action {
-  const Action(this.type, {this.payload});
-  final Object type;
-  final dynamic payload;
-}
-
-/// [Store]
-///
-
-/// Definition of a standard subscription function.
-/// input a subscriber and output an anti-subscription function.
-typedef Subscribe = void Function() Function(void Function() callback);
-
-/// Definition of the standard observable flow.
-typedef Observable<T> = Stream<T> Function();
-
-/// ReplaceReducer 的定义
-typedef ReplaceReducer<T> = void Function(Reducer<T> reducer);
-
-/// Definition of the standard Store.
-class Store<T> {
-  late Get<T> getState;
-  late Dispatch dispatch;
-  late Subscribe subscribe;
-  late Observable<T> observable;
-  late ReplaceReducer<T> replaceReducer;
-  late Future<dynamic> Function() teardown;
-}
-
-/// Definition of synthesize functions.
-typedef Composable<T> = T Function(T next);
-
-/// Definition of the standard Middleware.
-typedef Middleware<T> = Composable<Dispatch> Function({
-  Dispatch dispatch,
-  Get<T> getState,
-});
-
-
-////////////////////////////////////////////////////
-/// combine_reducers
+/// [CombineReducers]
 /// Combine an iterable of SubReducer<T> into one Reducer<T>
 Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
   final List<SubReducer<T>>? notNullReducers = subReducers
@@ -96,7 +101,7 @@ Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
 /// Combine an iterable of Reducer<T> into one Reducer<T>
 Reducer<T>? combineReducers<T>(Iterable<Reducer<T>> reducers) {
   final List<Reducer<T>>? notNullReducers =
-  reducers?.where((Reducer<T> r) => r != null)?.toList(growable: false);
+      reducers?.where((Reducer<T> r) => r != null)?.toList(growable: false);
   if (notNullReducers == null || notNullReducers.isEmpty) {
     return null;
   }
@@ -114,4 +119,3 @@ Reducer<T>? combineReducers<T>(Iterable<Reducer<T>> reducers) {
     return nextState;
   };
 }
-
