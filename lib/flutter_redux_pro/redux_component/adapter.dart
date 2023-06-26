@@ -99,7 +99,7 @@ class Adapter<T> extends BasicComponent<T> {
       getter,
       bus: dispatchBus,
       markNeedsBuild: () {
-        Log.doPrint('$runtimeType do reload');
+        Log.doPrint('$runtimeType do relaod');
       },
     );
     _dependentArray = _adapter(getter());

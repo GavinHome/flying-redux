@@ -7,5 +7,5 @@ library flutter_redux;
 // export 'flutter_redux/redux_component/redux_component.dart';
 
 
-export 'fish_redux_v2/redux/redux.dart';
-export 'fish_redux_v2/redux_component/redux_component.dart';
+export 'flutter_redux_pro/redux/redux.dart';
+export 'flutter_redux_pro/redux_component/redux_component.dart';

@@ -104,7 +104,7 @@ class _ComponentState<T> extends State<ComponentWidget<T>> {
         if (mounted) {
           setState(() {});
         }
-        Log.doPrint('${component.runtimeType} do reload');
+        Log.doPrint('${component.runtimeType} do relaod');
       },
     );
     _ctx.onLifecycle(LifecycleCreator.initState());
