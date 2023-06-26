@@ -70,7 +70,7 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
-  flutter_redux:
+  flutter_redux_beta:
     dependency: "direct main"
     description:
       path: ".."

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' hide ViewBuilder, Action;
 
 import '../redux/index.dart';
 import 'basic.dart';
-import 'log.dart';
 
 class Component<T> extends BasicComponent<T> {
   Component({

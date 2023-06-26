@@ -21,20 +21,6 @@ Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
 
 typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
 
-/// dispatch about
-/// [DispatchBus] global eventBus
-abstract class DispatchBus {
-  void attach(DispatchBus parent);
-
-  void detach();
-
-  void dispatch(Action action, {Dispatch? excluded});
-
-  void broadcast(Action action, {DispatchBus? excluded});
-
-  void Function() registerReceiver(Dispatch? dispatch);
-}
-
 /// [Dispatch] patch action function
 typedef Dispatch = dynamic Function(Action action);
 

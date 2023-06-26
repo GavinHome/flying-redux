@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart' hide Action, Page;
 import '../redux/index.dart';
 import 'basic.dart';
 import 'component.dart';
-import 'dispatch_bus.dart';
 
 typedef InitState<T, P> = T Function(P params);
 
