@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart' hide Action, Page;
 
-import '../redux/redux.dart';
+import '../redux/index.dart';
 import 'basic.dart';
 import 'component.dart';
 import 'dispatch_bus.dart';

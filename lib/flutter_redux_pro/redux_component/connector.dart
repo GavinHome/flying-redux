@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Action;
 
-import '../redux/redux.dart';
+import '../redux/index.dart';
 import 'basic.dart';
 import 'component.dart';
 
