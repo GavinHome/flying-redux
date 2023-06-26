@@ -8,15 +8,9 @@ class TodoListAdapter extends Adapter<PageState> {
   TodoListAdapter()
       : super(
     dependencies: FlowDependencies<PageState>(
-            (PageState indexs) {
-          final List<Dependent<PageState>> dependents = <Dependent<PageState>>[];
-          int index = 0;
-          for (ToDoState _ in indexs.toDos) {
-            dependents.add(TodoConnector(toDoStates: indexs.toDos, index: index) + TodoComponent());
-            index++;
-          }
+            (PageState state) {
           return DependentArray<PageState>.fromList(
-              dependents
+              state.toDos.asMap().keys.map((index) => TodoConnector(toDoStates: state.toDos, index: index) + TodoComponent()).toList()
           );
         }),
   );

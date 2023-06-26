@@ -1,7 +1,4 @@
-library flutter_redux_beta;
+library flutter_redux;
 
-// export 'flutter_redux_beta/redux/index.dart';
-// export 'flutter_redux_beta/component/index.dart';
-
-export 'flutter_redux_pro/redux/index.dart';
-export 'flutter_redux_pro/component/index.dart';
+export 'src/redux/index.dart';
+export 'src/component/index.dart';

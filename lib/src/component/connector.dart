@@ -170,6 +170,7 @@ Dependent<K> createDependent<K, T>(
       connector: connector,
       component: component,
     ));
+
 /// [ConnOpMixin]
 /// Mixin of Connector for Component
 mixin ConnOpMixin<T, P> on MutableConn<T, P> {

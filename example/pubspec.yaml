@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_redux:
-    path: ..
+    path: ../
   flutter:
     sdk: flutter
 

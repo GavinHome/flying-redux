@@ -7,6 +7,36 @@ import '../todo/state.dart';
 import 'adapter.dart';
 import 'state.dart';
 
+/// Middleware for print action dispatch.
+/// It works on debug mode.
+Middleware<T> logMiddleware<T>({
+  String tag = 'redux',
+  required String Function(T?) monitor,
+}) {
+  return ({Dispatch? dispatch, Get<T>? getState}) {
+    return (Dispatch next) {
+      return (Action action) {
+        print('---------- [$tag] ----------');
+        print('[$tag] ${action.type} ${action.payload}');
+
+        final T? prevState = getState?.call();
+        if (monitor != null) {
+          print('[$tag] prev-state: ${ monitor(prevState)}');
+        }
+
+        next(action);
+
+        final T? nextState = getState?.call();
+        if (monitor != null) {
+          print('[$tag] next-state: ${monitor(nextState)}');
+        }
+
+        print('========== [$tag] ================');
+      };
+    };
+  };
+}
+
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
   ToDoListPage()
       : super(
@@ -17,6 +47,13 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
         'add': _add,
       },
     ),
+    middleware: <Middleware<PageState>>[
+      logMiddleware<PageState>(
+          tag: 'ToDoListPage',
+          monitor: (PageState? state) {
+            return state.toString();
+          })
+    ],
     effect: combineEffects<PageState>(<Object, Effect<PageState>>{
       Lifecycle.initState: _onInit,
       'onAdd': _onAdd
@@ -90,6 +127,14 @@ void _onInit(Action action, ComponentContext<PageState> ctx) {
 }
 
 void _onAdd(Action action, ComponentContext<PageState> ctx) {
+  // Navigator.of(ctx.context)
+  //     .pushNamed('todo_edit', arguments: null)
+  //     .then((dynamic toDo) {
+  //   if (toDo != null &&
+  //       (toDo.title?.isNotEmpty == true || toDo.desc?.isNotEmpty == true)) {
+  //     ctx.dispatch(list_action.ToDoListActionCreator.add(toDo));
+  //   }
+  // });
   ctx.dispatch(Action('add', payload:
           ToDoState(
             uniqueId: '',
