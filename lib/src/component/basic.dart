@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart' hide Action;
 import 'package:collection/collection.dart';
 import 'dart:async';

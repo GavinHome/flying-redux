@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_shadowing_type_parameters
-
 import 'package:flutter/widgets.dart' hide Action;
 import 'dart:async';
 import '../redux/index.dart';
@@ -45,8 +43,10 @@ class ComponentContext<T> {
 
   Widget buildComponent(String type) {
     final Dependent<T>? dependent = dependencies?.slot(type);
-    if (dependent == null)
+    if (dependent == null) {
       throw Exception("The dependent $type is not defined");
+    }
+
     return dependent.buildComponent(
       store,
       getState,

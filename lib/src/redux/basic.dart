@@ -1,4 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 
 /// Definition of the standard Store.
@@ -93,8 +92,6 @@ Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>>? subReducers) {
     return copy;
   };
 }
-
-/// Middleware
 
 /// Definition of Cloneable
 abstract class Cloneable<T extends Cloneable<T>> {
