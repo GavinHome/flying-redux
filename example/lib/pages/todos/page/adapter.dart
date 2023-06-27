@@ -31,15 +31,3 @@ class ReportConnector extends ConnOp<PageState, ReportState> {
   @override
   void set(PageState state, ReportState subState) {}
 }
-
-// class TodoListAdapter extends Adapter<PageState> {
-//   TodoListAdapter()
-//       : super(
-//     dependencies: FlowDependencies<PageState>(
-//             (PageState state) {
-//           return DependentArray<PageState>.fromList(
-//               state.toDos.asMap().keys.map((index) => TodoConnector(toDoStates: state.toDos, index: index) + TodoComponent()).toList()
-//           );
-//         }),
-//   );
-// }

@@ -6,7 +6,6 @@ buildReducer() {
   return asReducer(<Object, Reducer<ToDoState>>{
     ToDoAction.edit: _edit,
     ToDoAction.done: _markDone,
-    ToDoAction.remove: _remove
   });
 }
 
@@ -24,14 +23,6 @@ ToDoState _markDone(ToDoState state, Action action) {
   final String uniqueId = action.payload;
   if (state.uniqueId == uniqueId) {
     return state.clone()..isDone = !state.isDone;
-  }
-  return state;
-}
-
-ToDoState _remove(ToDoState state, Action action) {
-  final String uniqueId = action.payload;
-  if (state.uniqueId == uniqueId) {
-    //return state.clone()..isDone = !state.isDone;
   }
   return state;
 }

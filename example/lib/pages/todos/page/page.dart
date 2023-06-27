@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
+import 'package:sample/pages/todos/todo/action.dart';
 import '../report/component.dart';
 import '../todo/component.dart';
 import '../todo/state.dart';
@@ -46,6 +45,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
             <Object, Reducer<PageState>>{
               'initToDos': _init,
               'add': _add,
+              ToDoAction.remove: _remove
             },
           ),
           middleware: <Middleware<PageState>>[
@@ -69,7 +69,6 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
                             TodoConnector(toDos: state.toDos, index: index) +
                             TodoComponent())
                         .toList()),
-            // adapter: const NoneConn<PageState>() + TodoListAdapter(),
             slots: <String, Dependent<PageState>>{
               'report': ReportConnector() + ReportComponent(),
             },
@@ -79,11 +78,9 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
             final List<Widget> ws = ctx.buildComponents();
             return Scaffold(
               body: Stack(children: <Widget>[
-                Container(
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) => ws[index],
-                    itemCount: ws.length,
-                  ),
+                ListView.builder(
+                  itemBuilder: (BuildContext context, int index) => ws[index],
+                  itemCount: ws.length,
                 ),
                 Positioned(
                   bottom: 0,
@@ -155,4 +152,11 @@ PageState _add(PageState state, Action action) {
   }
 
   return newState;
+}
+
+PageState _remove(PageState state, Action action) {
+  final String unique = action.payload;
+  return state.clone()
+    ..toDos = (state.toDos.toList()
+      ..removeWhere((ToDoState state) => state.uniqueId == unique));
 }
