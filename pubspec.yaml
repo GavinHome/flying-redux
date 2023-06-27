@@ -1,7 +1,7 @@
 name: flutter_redux
-description: A new Flutter package project.
+description: Flutter Redux is an assembled flutter application framework based on Redux state management.
 version: 0.0.1
-homepage:
+homepage: https://github.com/GavinHome/flutter-redux
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
