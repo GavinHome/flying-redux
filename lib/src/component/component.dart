@@ -86,8 +86,8 @@ class _ComponentState<T> extends State<ComponentWidget<T>> {
     _ctx = component.createContext(
       widget.store,
       widget.getter,
-      bus: widget.bus,
       buildContext: context,
+      bus: widget.bus,
       markNeedsBuild: () {
         if (mounted) {
           setState(() {});

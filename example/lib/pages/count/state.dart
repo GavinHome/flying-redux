@@ -9,7 +9,7 @@ class PageState extends Cloneable<PageState> {
   }
 }
 
-PageState initState(Map<String, dynamic> args) {
+PageState initState(Map<String, dynamic>? args) {
   //just do nothing here...
   return PageState()..count = 99;
 }

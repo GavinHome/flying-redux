@@ -171,6 +171,8 @@ class ComponentContext<T> {
   Widget? _widgetCache;
   late T _latestState;
 
+  BuildContext get context => buildContext!;
+
   Widget buildView() {
     Widget? result = _widgetCache;
     if (result == null) {

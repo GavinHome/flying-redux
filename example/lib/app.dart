@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'pages/count/page.dart';
-import 'pages/todos/page/page.dart';
+import 'routes.dart';
 
 Widget createApp() {
   return const _App();
@@ -8,20 +7,27 @@ Widget createApp() {
 
 class _App extends StatelessWidget {
   // ignore: unused_element
-  const _App({super.key});
+  const _App
+
+  ({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'flutter redux pro',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: 
-        //CountPage().buildPage(<String, dynamic>{}),
-      ToDoListPage().buildPage(<String, dynamic>{})
+      home: routes.home,
+      onGenerateRoute: (RouteSettings settings) {
+        return MaterialPageRoute(builder: (BuildContext context) =>
+            routes.buildPage(settings.name, settings.arguments)
+        );
+      },
     );
   }
 }
+
+

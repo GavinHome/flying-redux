@@ -11,7 +11,7 @@ class PageState implements Cloneable<PageState> {
   }
 }
 
-PageState initState(Map<String, dynamic> args) {
+PageState initState(Map<String, dynamic>? args) {
   //just demo, do nothing here...
   return PageState()..toDos = [];
 }

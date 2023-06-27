@@ -127,22 +127,23 @@ void _onInit(Action action, ComponentContext<PageState> ctx) {
 }
 
 void _onAdd(Action action, ComponentContext<PageState> ctx) {
-  // Navigator.of(ctx.context)
-  //     .pushNamed('todo_edit', arguments: null)
-  //     .then((dynamic toDo) {
-  //   if (toDo != null &&
-  //       (toDo.title?.isNotEmpty == true || toDo.desc?.isNotEmpty == true)) {
-  //     ctx.dispatch(list_action.ToDoListActionCreator.add(toDo));
-  //   }
-  // });
-  ctx.dispatch(Action('add', payload:
-          ToDoState(
-            uniqueId: '',
-            title: 'Hello Flutter Redux',
-            desc: 'Learn how to flutter redux program.',
-            isDone: true,
-          )
-  ));
+  Navigator.of(ctx.context)
+      .pushNamed('todo_edit', arguments: null)
+      .then((dynamic toDo) {
+    if (toDo != null &&
+        (toDo.title?.isNotEmpty == true || toDo.desc?.isNotEmpty == true)) {
+      ctx.dispatch(Action('add', payload: toDo)
+      );
+    }
+  });
+  // ctx.dispatch(Action('add', payload:
+  //         ToDoState(
+  //           uniqueId: '',
+  //           title: 'Hello Flutter Redux',
+  //           desc: 'Learn how to flutter redux program.',
+  //           isDone: true,
+  //         )
+  // ));
 }
 
 /// reducers

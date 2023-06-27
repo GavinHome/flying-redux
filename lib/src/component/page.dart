@@ -4,7 +4,7 @@ import '../redux/index.dart';
 import 'basic.dart';
 import 'component.dart';
 
-typedef InitState<T, P> = T Function(P params);
+typedef InitState<T, P> = T Function(P? params);
 
 /// [Page]
 /// Implementation of Page
@@ -30,19 +30,19 @@ abstract class Page<T, P> extends Component<T> {
   final List<Middleware<T>>? middleware;
 
   ///  build about
-  Widget buildPage(P param) => _PageWidget<T, P>(
+  Widget buildPage(P? param) => _PageWidget<T, P>(
         param: param,
         page: this,
       );
 }
 
 class _PageWidget<T, P> extends StatefulWidget {
-  final P param;
+  final P? param;
   final Page<T, P> page;
 
   const _PageWidget({
     Key? key,
-    required this.param,
+    this.param,
     required this.page,
   }) : super(key: key);
 
