@@ -23,7 +23,7 @@ Flutter Redux is also an assembled flutter application framework based on Redux 
 
 <!--TODO: List what your package can do. Maybe include images, gifs, or videos.-->
 
-It has four characteristics:
+It has three characteristics:
 
 > 1. Functional Programming
 
@@ -36,7 +36,7 @@ It has four characteristics:
 <!-- TODO: List prerequisites and provide or point to information on how to
 start using the package. -->
 
-There are three steps to use the counter as an example:
+There are five steps to use the counter as an example:
 
 > 0. Add flutter_redux package
 
