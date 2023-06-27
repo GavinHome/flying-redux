@@ -17,22 +17,22 @@ Middleware<T> logMiddleware<T>({
   return ({Dispatch? dispatch, Get<T>? getState}) {
     return (Dispatch next) {
       return (Action action) {
-        print('---------- [$tag] ----------');
-        print('[$tag] ${action.type} ${action.payload}');
+        Log.doPrint('---------- [$tag] ----------');
+        Log.doPrint('[$tag] ${action.type} ${action.payload}');
 
         final T? prevState = getState?.call();
         if (monitor != null) {
-          print('[$tag] prev-state: ${monitor(prevState)}');
+          Log.doPrint('[$tag] prev-state: ${monitor(prevState)}');
         }
 
         next(action);
 
         final T? nextState = getState?.call();
         if (monitor != null) {
-          print('[$tag] next-state: ${monitor(nextState)}');
+          Log.doPrint('[$tag] next-state: ${monitor(nextState)}');
         }
 
-        print('========== [$tag] ================');
+        Log.doPrint('========== [$tag] ================');
       };
     };
   };
@@ -61,11 +61,14 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
           }),
           dependencies: Dependencies<PageState>(
             adapter: const NoneConn<PageState>() +
-                BasicAdapter<PageState>(builder: (PageState state) {
-                  return state.toDos.asMap().keys.map((index) =>
-                    TodoConnector(toDoStates: state.toDos, index: index) +
-                        TodoComponent()).toList();
-                }),
+                BasicAdapter<PageState>(
+                    builder: (PageState state) => state.toDos
+                        .asMap()
+                        .keys
+                        .map((index) =>
+                            TodoConnector(toDos: state.toDos, index: index) +
+                            TodoComponent())
+                        .toList()),
             // adapter: const NoneConn<PageState>() + TodoListAdapter(),
             slots: <String, Dependent<PageState>>{
               'report': ReportConnector() + ReportComponent(),
@@ -79,8 +82,6 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
                 Container(
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) => ws[index],
-                    //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
-                    //TodoComponent().buildComponent(ctx.store, () => ws[index]),
                     itemCount: ws.length,
                   ),
                 ),
@@ -89,8 +90,6 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
                   left: 0,
                   right: 0,
                   child: ctx.buildComponent('report'),
-                  // ctx.buildComponent(ReportConnector() + ReportComponent())
-                  // ReportComponent().buildComponent(ctx.store, () => getter)
                 )
               ]),
               floatingActionButton: FloatingActionButton(
@@ -157,15 +156,3 @@ PageState _add(PageState state, Action action) {
 
   return newState;
 }
-
-// class TodoListAdapter extends Adapter<PageState> {
-//   TodoListAdapter()
-//       : super(
-//     dependencies: FlowDependencies<PageState>(
-//             (PageState state) {
-//           return DependentArray<PageState>.fromList(
-//               state.toDos.asMap().keys.map((index) => TodoConnector(toDoStates: state.toDos, index: index) + TodoComponent()).toList()
-//           );
-//         }),
-//   );
-// }

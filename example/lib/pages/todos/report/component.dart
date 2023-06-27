@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
 import 'state.dart';

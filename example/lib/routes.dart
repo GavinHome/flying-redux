@@ -21,7 +21,7 @@ class PageRoutes implements AbstractRoutes {
 
     /// For common enhance
     void Function(String, Page<Object, dynamic>)? visitor,
-  }) : assert(pages != null, 'Expected the pages to be non-null value.') {
+  }) {
     if (visitor != null) {
       pages.forEach(visitor);
     }

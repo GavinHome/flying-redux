@@ -50,7 +50,7 @@ class Dependencies<T> {
   final Map<String, Dependent<T>>? slots;
   final Dependent<T>? adapter;
 
-  /// Use [adapter: NoneConn<T>() + Adapter<T>()] instead of [adapter: Adapter<T>()],
+  /// Use [adapter: NoneConn<T>() + Adapter<T>()],
   /// Which is better reusability and consistency.
   Dependencies({
     this.slots,
@@ -301,8 +301,7 @@ typedef Effect<T> = FutureOr<void> Function(
 typedef SubEffect<T> = FutureOr<void> Function(
     Action action, ComponentContext<T> ctx);
 
-// ignore: constant_identifier_names
-const Object _SUB_EFFECT_RETURN_NULL = Object();
+const Object subEffectReturnNull = Object();
 
 /// for action.type which override it's == operator
 /// return [UserEffect]
@@ -316,8 +315,7 @@ Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) {
               ?.value;
 
           if (subEffect != null) {
-            return (subEffect.call(action, ctx) ?? _SUB_EFFECT_RETURN_NULL) ==
-                null;
+            return (subEffect.call(action, ctx) ?? subEffectReturnNull) == null;
           }
 
           /// no subEffect
@@ -481,7 +479,7 @@ class Adapter<T> extends ComposedComponent<T> {
       getter,
       bus: dispatchBus,
       markNeedsBuild: () {
-        Log.doPrint('$runtimeType do relaod');
+        Log.doPrint('$runtimeType do reload');
       },
     );
     _dependentArray = _adapter(getter());
@@ -505,6 +503,7 @@ class Adapter<T> extends ComposedComponent<T> {
 
 /// [BasicAdapter]
 typedef Dependents<T> = List<Dependent<T>>;
+
 class BasicAdapter<T> extends ComposedComponent<T> {
   ComponentContext<T>? _ctx;
   final Dependents<T> Function(T) builder;
@@ -512,69 +511,68 @@ class BasicAdapter<T> extends ComposedComponent<T> {
     Reducer<T>? reducer,
     required this.builder,
     ShouldUpdate<T>? shouldUpdate,
-  })  :
-        super(
-        reducer: reducer ?? (T state, Action _) => state,
-        shouldUpdate: shouldUpdate,
-      );
+  }) : super(
+          reducer: reducer ?? (T state, Action _) => state,
+          shouldUpdate: shouldUpdate,
+        );
 
   Reducer<T> _createAdapterReducer() => (T state, Action action) {
-    T copy = state;
-    bool hasChanged = false;
-    final Dependents<T> list = builder(state);
-    if (list != null) {
-      for (int i = 0; i < list.length; i++) {
-        final Dependent<T> dep = list[i];
-        final SubReducer<T>? subReducer = dep?.createSubReducer();
-        if (subReducer != null) {
-          copy = subReducer(copy, action, hasChanged);
-          hasChanged = hasChanged || copy != state;
+        T copy = state;
+        bool hasChanged = false;
+        final Dependents<T> list = builder(state);
+        if (list != null) {
+          for (int i = 0; i < list.length; i++) {
+            final Dependent<T> dep = list[i];
+            final SubReducer<T>? subReducer = dep?.createSubReducer();
+            if (subReducer != null) {
+              copy = subReducer(copy, action, hasChanged);
+              hasChanged = hasChanged || copy != state;
+            }
+          }
         }
-      }
-    }
-    return copy;
-  };
+        return copy;
+      };
 
   @override
   Reducer<T> createReducer() {
     return combineReducers<T>(<Reducer<T>>[
-      super.createReducer(),
-      // _dependencies.createReducer()
-      _createAdapterReducer()
-    ]) ??
-            (T state, Action action) {
+          super.createReducer(),
+          // _dependencies.createReducer()
+          _createAdapterReducer()
+        ]) ??
+        (T state, Action action) {
           return state;
         };
   }
 
   @override
   Widget buildComponent(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  }) {
     throw Exception('ComposedComponent could not build single component');
   }
 
   @override
   List<Widget> buildComponents(
-      Store<Object> store,
-      Get<T> getter, {
-        DispatchBus? dispatchBus,
-      }) {
+    Store<Object> store,
+    Get<T> getter, {
+    DispatchBus? dispatchBus,
+  }) {
     _ctx ??= createContext(
       store,
       getter,
       bus: dispatchBus,
       markNeedsBuild: () {
-        Log.doPrint('$runtimeType do relaod');
+        Log.doPrint('$runtimeType do reload');
       },
     );
-    Dependents<T>? _dependentArray = builder(getter());
+    Dependents<T> _dependentArray = builder(getter());
     final List<Widget> widgets = <Widget>[];
     if (_dependentArray != null) {
-      for (int i = 0; i < _dependentArray!.length; i++) {
-        final Dependent<T> dependent = _dependentArray![i];
+      for (int i = 0; i < _dependentArray.length; i++) {
+        final Dependent<T> dependent = _dependentArray[i];
         widgets.addAll(
           dependent.buildComponents(
             store,

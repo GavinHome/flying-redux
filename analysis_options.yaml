@@ -12,11 +12,9 @@ analyzer:
     avoid_shadowing_type_parameters: ignore
     library_private_types_in_public_api: ignore
     unnecessary_null_comparison: ignore
-#    #The receiver can't be null, so the null-aware operator '?.' is unnecessary.
+    #The receiver can't be null, so the null-aware operator '?.' is unnecessary.
     invalid_null_aware_operator: ignore
-#    #The left operand can't be null, so the right operand is never executed.
-#    null_aware_before_operator: ignore
-    #The constant name '_SUB_EFFECT_RETURN_NULL' isn't a lowerCamelCase identifier.
+
 
 #  exclude:
 #    - lib/fish_redux/**

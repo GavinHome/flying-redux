@@ -30,31 +30,29 @@ Widget buildView(TodoEditState state, Dispatch dispatch,
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          Container(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  child: const Text('title:',
-                      style: TextStyle(color: Colors.black, fontSize: 20.0)),
-                  width: 56.0,
-                  alignment: AlignmentDirectional.topEnd,
+          Row(
+            children: <Widget>[
+              Container(
+                width: 56.0,
+                alignment: AlignmentDirectional.topEnd,
+                child: const Text('title:',
+                    style: TextStyle(color: Colors.black, fontSize: 20.0)),
+              ),
+              Expanded(
+                  child: Container(
+                color: const Color(0xFFE0E0E0),
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.only(left: 8.0),
+                child: EditableText(
+                  controller: state.nameEditController,
+                  focusNode: state.focusNodeName,
+                  autofocus: true,
+                  style: const TextStyle(color: Colors.black, fontSize: 16.0),
+                  cursorColor: Colors.yellow,
+                  backgroundCursorColor: const Color(0xFFFFF59D),
                 ),
-                Expanded(
-                    child: Container(
-                  color: const Color(0xFFE0E0E0),
-                  padding: const EdgeInsets.all(8.0),
-                  margin: const EdgeInsets.only(left: 8.0),
-                  child: EditableText(
-                    controller: state.nameEditController,
-                    focusNode: state.focusNodeName,
-                    autofocus: true,
-                    style: const TextStyle(color: Colors.black, fontSize: 16.0),
-                    cursorColor: Colors.yellow,
-                    backgroundCursorColor: const Color(0xFFFFF59D),
-                  ),
-                ))
-              ],
-            ),
+              ))
+            ],
           ),
           // RaisedButton(
           //     padding: const EdgeInsets.only(
@@ -74,10 +72,10 @@ Widget buildView(TodoEditState state, Dispatch dispatch,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  child: const Text('desc:',
-                      style: TextStyle(color: Colors.black, fontSize: 20.0)),
                   width: 56.0,
                   alignment: AlignmentDirectional.topEnd,
+                  child: const Text('desc:',
+                      style: TextStyle(color: Colors.black, fontSize: 20.0)),
                 ),
                 Expanded(
                     child: Container(
