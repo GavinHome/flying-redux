@@ -18,5 +18,3 @@ void _onDone(Action action, ComponentContext<TodoEditState> ctx) {
       ..title = ctx.state.nameEditController.text,
   );
 }
-
-

@@ -7,9 +7,7 @@ Widget createApp() {
 
 class _App extends StatelessWidget {
   // ignore: unused_element
-  const _App
-
-  ({super.key});
+  const _App({super.key});
 
   // This widget is the root of your application.
   @override
@@ -22,12 +20,10 @@ class _App extends StatelessWidget {
       ),
       home: routes.home,
       onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(builder: (BuildContext context) =>
-            routes.buildPage(settings.name, settings.arguments)
-        );
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>
+                routes.buildPage(settings.name, settings.arguments));
       },
     );
   }
 }
-
-

@@ -14,9 +14,9 @@ buildEffects() {
 void _onEdit(Action action, ComponentContext<ToDoState> ctx) {
   if (action.payload == ctx.state.uniqueId) {
     Navigator.of(ctx.context)
-    // .push<ToDoState>(MaterialPageRoute<ToDoState>(
-    //     builder: (BuildContext buildCtx) =>
-    //         edit_page.TodoEditPage().buildPage(ctx.state)))
+        // .push<ToDoState>(MaterialPageRoute<ToDoState>(
+        //     builder: (BuildContext buildCtx) =>
+        //         edit_page.TodoEditPage().buildPage(ctx.state)))
         .pushNamed('todo_edit', arguments: ctx.state)
         .then((dynamic toDo) {
       if (toDo != null) {

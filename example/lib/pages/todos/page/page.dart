@@ -3,6 +3,7 @@
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
 import '../report/component.dart';
+import '../todo/component.dart';
 import '../todo/state.dart';
 import 'adapter.dart';
 import 'state.dart';
@@ -21,7 +22,7 @@ Middleware<T> logMiddleware<T>({
 
         final T? prevState = getState?.call();
         if (monitor != null) {
-          print('[$tag] prev-state: ${ monitor(prevState)}');
+          print('[$tag] prev-state: ${monitor(prevState)}');
         }
 
         next(action);
@@ -40,64 +41,66 @@ Middleware<T> logMiddleware<T>({
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
   ToDoListPage()
       : super(
-    initState: initState,
-    reducer: asReducer(
-      <Object, Reducer<PageState>>{
-        'initToDos': _init,
-        'add': _add,
-      },
-    ),
-    middleware: <Middleware<PageState>>[
-      logMiddleware<PageState>(
-          tag: 'ToDoListPage',
-          monitor: (PageState? state) {
-            return state.toString();
-          })
-    ],
-    effect: combineEffects<PageState>(<Object, Effect<PageState>>{
-      Lifecycle.initState: _onInit,
-      'onAdd': _onAdd
-    }),
-    dependencies: Dependencies<PageState>(
-      adapter: const NoneConn<PageState>() + TodoListAdapter(),
-      slots:  <String, Dependent<PageState>>{
-        'report': ReportConnector() + ReportComponent()
-      },
-    ),
-    view: (PageState state, Dispatch dispatch,
-        ComponentContext<PageState> ctx) {
-      // final List<ToDoState> ws = state.toDos;
-      final List<Widget> ws = ctx.buildComponents();
-      return Scaffold(
-        body: Stack(children: <Widget>[
-          Container(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) => ws[index],
-                  // TodoComponent().buildComponent(
-                  //     ctx.store, () => ws[index]),
-              //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
-              itemCount: ws.length,
-            ),
+          initState: initState,
+          reducer: asReducer(
+            <Object, Reducer<PageState>>{
+              'initToDos': _init,
+              'add': _add,
+            },
           ),
-          Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: ctx.buildComponent('report'),
-              // child: ReportComponent().buildComponent(ctx.store,
-              //     ReportState.stateGetter(
-              //         state)) //ctx.buildComponent('report'),
-          )
-        ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => dispatch(const Action("onAdd")),
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-
-      );
-    },
-  );
+          middleware: <Middleware<PageState>>[
+            logMiddleware<PageState>(
+                tag: 'ToDoListPage',
+                monitor: (PageState? state) {
+                  return state.toString();
+                })
+          ],
+          effect: combineEffects<PageState>(<Object, Effect<PageState>>{
+            Lifecycle.initState: _onInit,
+            'onAdd': _onAdd
+          }),
+          dependencies: Dependencies<PageState>(
+            adapter: const NoneConn<PageState>() +
+                BasicAdapter<PageState>(builder: (PageState state) {
+                  return state.toDos.asMap().keys.map((index) =>
+                    TodoConnector(toDoStates: state.toDos, index: index) +
+                        TodoComponent()).toList();
+                }),
+            // adapter: const NoneConn<PageState>() + TodoListAdapter(),
+            slots: <String, Dependent<PageState>>{
+              'report': ReportConnector() + ReportComponent(),
+            },
+          ),
+          view: (PageState state, Dispatch dispatch,
+              ComponentContext<PageState> ctx) {
+            final List<Widget> ws = ctx.buildComponents();
+            return Scaffold(
+              body: Stack(children: <Widget>[
+                Container(
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) => ws[index],
+                    //ctx.buildComponent(NoneConn<PageState>() + TodoComponent()),
+                    //TodoComponent().buildComponent(ctx.store, () => ws[index]),
+                    itemCount: ws.length,
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: ctx.buildComponent('report'),
+                  // ctx.buildComponent(ReportConnector() + ReportComponent())
+                  // ReportComponent().buildComponent(ctx.store, () => getter)
+                )
+              ]),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => dispatch(const Action("onAdd")),
+                tooltip: 'Increment',
+                child: const Icon(Icons.add),
+              ),
+            );
+          },
+        );
 }
 
 /// effects
@@ -132,18 +135,9 @@ void _onAdd(Action action, ComponentContext<PageState> ctx) {
       .then((dynamic toDo) {
     if (toDo != null &&
         (toDo.title?.isNotEmpty == true || toDo.desc?.isNotEmpty == true)) {
-      ctx.dispatch(Action('add', payload: toDo)
-      );
+      ctx.dispatch(Action('add', payload: toDo));
     }
   });
-  // ctx.dispatch(Action('add', payload:
-  //         ToDoState(
-  //           uniqueId: '',
-  //           title: 'Hello Flutter Redux',
-  //           desc: 'Learn how to flutter redux program.',
-  //           isDone: true,
-  //         )
-  // ));
 }
 
 /// reducers
@@ -157,10 +151,21 @@ PageState _init(PageState state, Action action) {
 PageState _add(PageState state, Action action) {
   final ToDoState? toDo = action.payload;
   final PageState newState = state.clone();
-  if(toDo != null) {
+  if (toDo != null) {
     newState.toDos.add(toDo);
   }
 
   return newState;
 }
 
+// class TodoListAdapter extends Adapter<PageState> {
+//   TodoListAdapter()
+//       : super(
+//     dependencies: FlowDependencies<PageState>(
+//             (PageState state) {
+//           return DependentArray<PageState>.fromList(
+//               state.toDos.asMap().keys.map((index) => TodoConnector(toDoStates: state.toDos, index: index) + TodoComponent()).toList()
+//           );
+//         }),
+//   );
+// }

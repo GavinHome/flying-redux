@@ -48,7 +48,5 @@ final AbstractRoutes routes = PageRoutes(
     /// 注册Count页面
     'count': CountPage(),
   },
-  visitor: (String path, Page<Object, dynamic> page) {
-
-  },
+  visitor: (String path, Page<Object, dynamic> page) {},
 );
