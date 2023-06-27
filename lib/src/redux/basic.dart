@@ -35,7 +35,7 @@ typedef Subscribe = void Function() Function(void Function() callback);
 typedef Observable<T> = Stream<T> Function();
 
 /// [ReplaceReducer]
-/// ReplaceReducer 的定义
+/// Definition of a standard ReplaceReducer function.
 typedef ReplaceReducer<T> = void Function(Reducer<T> reducer);
 
 /// [Middleware]

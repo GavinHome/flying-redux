@@ -39,13 +39,13 @@ class PageRoutes implements AbstractRoutes {
 
 final AbstractRoutes routes = PageRoutes(
   pages: <String, Page<Object, dynamic>>{
-    /// 注册TodoList主页面
+    /// Register TodoList main page
     'todo_list': ToDoListPage(),
 
-    /// 注册Todo编辑页面
+    /// Register Todo edit page
     'todo_edit': TodoEditPage(),
 
-    /// 注册Count页面
+    /// Register Count page
     'count': CountPage(),
   },
   visitor: (String path, Page<Object, dynamic> page) {},

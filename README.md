@@ -123,12 +123,7 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
 <!-- TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. -->
 
-<!--
-```dart
-const like = 'sample';
-```
--->
-If you want to know specific usage examples, please refer to the todo list code in the example project.
+If you want to know specific usage examples, please refer to the todo list code in the example project and in the `/example` folder.
 
 -   [todo list](example) - a simple todo list demo.
 -   run it:
@@ -143,3 +138,5 @@ flutter run
 <!-- TODO: Tell users more about the package: where to find more information, how to
 contribute to the package, how to file issues, what response they can expect
 from the package authors, and more. -->
+
+In particular, the code in flutter_redux has the same naming and implementation as fish_redux. So I respect the original spirit of fish_redux.

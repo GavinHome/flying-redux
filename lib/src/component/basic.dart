@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import '../redux/index.dart';
 import 'package:flutter/foundation.dart';
 
-/////////////////////////////////////////////////////////
 /// Log
 class Log {
   static void doPrint([String? message]) {
@@ -14,7 +13,6 @@ class Log {
   }
 }
 
-/////////////////////////////////////////////////////////
 /// basic
 /// Predicate if a component should be updated when the store is changed.
 typedef ShouldUpdate<T> = bool Function(T old, T now);
@@ -97,7 +95,6 @@ enum Lifecycle {
   /// Only a adapter mixin VisibleChangeMixin will receive appear & disappear events.
   /// class MyAdapter extends Adapter<T> with VisibleChangeMixin<T> {
   ///   MyAdapter():super(
-  ///     ///
   ///   );
   /// }
   appear,
@@ -106,7 +103,6 @@ enum Lifecycle {
   /// Only a component(page) or adapter mixin WidgetsBindingObserverMixin will receive didChangeAppLifecycleState event.
   /// class MyComponent extends Component<T> with WidgetsBindingObserverMixin<T> {
   ///   MyComponent():super(
-  ///     ///
   ///   );
   /// }
   didChangeAppLifecycleState,

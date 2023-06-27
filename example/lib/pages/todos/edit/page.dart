@@ -13,7 +13,7 @@ class TodoEditPage extends Page<TodoEditState, ToDoState> {
           effect: buildEffect(),
           view: buildView,
 
-          /// 页面私有AOP，如果需要
+          /// AOP
           // middleware: <Middleware<TodoEditState>>[
           //   logMiddleware(tag: 'TodoEditPage'),
           // ],
