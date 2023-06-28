@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
-/// [Action] Effect or Reducer message action
+/// [Action]
+/// Effect or Reducer message action
 class Action {
   const Action(this.type, {this.payload});
   final Object type;
@@ -27,7 +28,7 @@ typedef Dispatch = dynamic Function(Action action);
 
 /// [Subscribe]
 /// Definition of a standard subscription function.
-/// input a subscriber and output an anti-subscription function.
+/// input a subscriber and output an unsubscription function.
 typedef Subscribe = void Function() Function(void Function() callback);
 
 /// [Observable]
@@ -50,7 +51,8 @@ typedef Composable<T> = T Function(T next);
 
 /// [Reducer]
 /// Definition of the state change function
-/// If there is a modification to the state, a new object containing the modification needs to be returned.
+/// If there is a modification to the state, a new object containing
+/// the modification needs to be returned.
 typedef Reducer<T> = T Function(T, Action);
 
 /// [SubReducer]

@@ -17,37 +17,49 @@ class Log {
 typedef ShouldUpdate<T> = bool Function(T old, T now);
 
 /// [ComponentBase]
+/// Definition of the component base class.
 abstract class ComponentBase<T> {}
 
 /// [Dependent]
+/// Definition of the dependent for adapter and slot.
 abstract class Dependent<T> {
   bool isComponent();
 
   bool isAdapter();
 
+  /// to building a normal component, it return a widget.
+  /// but throw a exception to use building adapter which composed-component
   Widget buildComponent(
     Store<Object> store,
     Get<T> getter, {
     DispatchBus? bus,
   });
 
+  /// to building adapter which composed-component, it return a list of widget.
   List<Widget> buildComponents(
     Store<Object> store,
     Get<T> getter, {
     DispatchBus? bus,
   });
 
+  /// to combine reducers of dependent.
   SubReducer<T> createSubReducer();
 
+  /// component getter
   ComponentBase<Object> get component;
 }
 
 /// [Dependencies]
+/// Definition of the Dependencies for page or component.
+/// Include adapter and slots.
 class Dependencies<T> {
   final Map<String, Dependent<T>>? slots;
   final Dependent<T>? adapter;
 
-  /// Use [adapter: NoneConn<T>() + Adapter<T>()],
+  /// Use [adapter: NoneConn<T>() + Adapter<T>(),
+  ///       slots: <String, Dependent<P>> {
+  ///         ConnOp<T, P>() + Component<T>()}
+  ///     ],
   /// Which is better reusability and consistency.
   Dependencies({
     this.slots,
@@ -59,6 +71,7 @@ class Dependencies<T> {
   Dependencies<T>? trim() =>
       adapter != null || slots?.isNotEmpty == true ? this : null;
 
+  /// to combine reducers of adapter and slots.
   Reducer<T> createReducer() {
     final List<SubReducer<T>> subs = <SubReducer<T>>[];
     if (slots != null && slots!.isNotEmpty) {
@@ -107,6 +120,7 @@ enum Lifecycle {
   didChangeAppLifecycleState,
 }
 
+/// [LifecycleCreator]
 class LifecycleCreator {
   static Action initState() => const Action(Lifecycle.initState);
 
@@ -132,6 +146,7 @@ class LifecycleCreator {
 }
 
 /// [ComponentContext]
+/// Definition context of component or page.
 class ComponentContext<T> {
   ComponentContext({
     Dependencies<T>? dependencies,
@@ -237,8 +252,6 @@ class ComponentContext<T> {
     }
   }
 
-  // public method
-  //
   void onLifecycle(Action action) {
     effect?.call(action, this);
   }
@@ -281,7 +294,7 @@ class ComponentContext<T> {
 /// Component's view part
 /// 1.State is used to decide how to render
 /// 2.Dispatch is used to send actions
-/// 3.ViewService is used to build sub-components or adapter.
+/// 3.ComponentContext is used to build sub-components or adapter.
 typedef ViewBuilder<T> = Widget Function(
   T state,
   Dispatch dispatch,
@@ -298,6 +311,7 @@ typedef SubEffect<T> = FutureOr<void> Function(
 
 const Object subEffectReturnNull = Object();
 
+/// [combineEffects]
 /// for action.type which override it's == operator
 /// return [UserEffect]
 Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) {
@@ -319,6 +333,7 @@ Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) {
 }
 
 /// [BasicComponent]
+/// Definition of basic component.
 abstract class BasicComponent<T> extends ComponentBase<T> {
   BasicComponent({
     this.effect,
@@ -378,6 +393,7 @@ abstract class BasicComponent<T> extends ComponentBase<T> {
 }
 
 /// [ComposedComponent]
+/// Definition of composed component, only building a list widgets.
 abstract class ComposedComponent<T> extends BasicComponent<T> {
   ComposedComponent(
       {required Reducer<T> reducer, ShouldUpdate<T>? shouldUpdate})
@@ -394,9 +410,13 @@ abstract class ComposedComponent<T> extends BasicComponent<T> {
   }
 }
 
-/// [BasicAdapter]
+/// [Dependents]
+/// Definition of Dependents type, a list of dependent.
 typedef Dependents<T> = List<Dependent<T>>;
 
+/// [BasicAdapter]
+/// Definition of basic adapter, it is composed component.
+/// only building a list widgets.
 class BasicAdapter<T> extends ComposedComponent<T> {
   ComponentContext<T>? _ctx;
   final Dependents<T> Function(T) builder;
@@ -483,7 +503,7 @@ abstract class DispatchBus {
 }
 
 /// [DispatchBusDefault]
-/// DispatchBusDefault
+/// The default implementation of DispatchBus
 class DispatchBusDefault implements DispatchBus {
   final List<Dispatch> _dispatchList = <Dispatch>[];
   DispatchBus? parent;
@@ -534,4 +554,9 @@ class DispatchBusDefault implements DispatchBus {
       return () => {};
     }
   }
+}
+
+/// Definition of Cloneable
+abstract class Cloneable<T extends Cloneable<T>> {
+  T clone();
 }

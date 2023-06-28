@@ -7,7 +7,7 @@ import 'component.dart';
 typedef InitState<T, P> = T Function(P? params);
 
 /// [Page]
-/// Implementation of Page
+/// Implementation of Page component
 abstract class Page<T, P> extends Component<T> {
   Page({
     required this.initState,

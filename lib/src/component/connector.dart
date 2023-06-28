@@ -5,6 +5,7 @@ import 'basic.dart';
 import 'component.dart';
 
 /// [Connector]
+/// Definition of Connector for page and component(s).
 abstract class MutableConn<T, P> {
   const MutableConn();
 
@@ -42,27 +43,8 @@ abstract class MutableConn<T, P> {
   }
 }
 
-/// Definition of Cloneable
-abstract class Cloneable<T extends Cloneable<T>> {
-  T clone();
-}
-
-/// how to clone an object
-dynamic _clone<T>(T state) {
-  if (state is Cloneable) {
-    return state.clone();
-  } else if (state is List) {
-    return state.toList();
-  } else if (state is Map<String, dynamic>) {
-    return <String, dynamic>{}..addAll(state);
-  } else if (state == null) {
-    return null;
-  } else {
-    throw ArgumentError(
-        'Could not clone this state of type ${state.runtimeType}.');
-  }
-}
-
+/// [NoneConn]
+/// The implementation of connector.
 class NoneConn<T> extends ConnOp<T, T> {
   const NoneConn();
 
@@ -73,6 +55,8 @@ class NoneConn<T> extends ConnOp<T, T> {
   T set(T state, T subState) => subState;
 }
 
+/// [ConnOp]
+/// The implementation of connector, it needs getter and setter of state <T> and <P>.
 class ConnOp<T, P> extends MutableConn<T, P> with ConnOpMixin<T, P> {
   final P Function(T)? _getter;
   final void Function(T, P)? _setter;
@@ -91,6 +75,7 @@ class ConnOp<T, P> extends MutableConn<T, P> with ConnOpMixin<T, P> {
       _setter != null ? _setter!(state, subState) : {};
 }
 
+///
 SubReducer<T>? _conn<T, P>(
     Reducer<Object>? reducer, MutableConn<T, P> connector) {
   return reducer == null
@@ -178,4 +163,20 @@ mixin ConnOpMixin<T, P> on MutableConn<T, P> {
         this,
         component,
       );
+}
+
+/// how to clone an object
+dynamic _clone<T>(T state) {
+  if (state is Cloneable) {
+    return state.clone();
+  } else if (state is List) {
+    return state.toList();
+  } else if (state is Map<String, dynamic>) {
+    return <String, dynamic>{}..addAll(state);
+  } else if (state == null) {
+    return null;
+  } else {
+    throw ArgumentError(
+        'Could not clone this state of type ${state.runtimeType}.');
+  }
 }
