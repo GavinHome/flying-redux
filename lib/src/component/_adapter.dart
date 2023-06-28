@@ -4,7 +4,7 @@ import '../redux/index.dart';
 import 'basic.dart';
 
 /// [obsolete]
-/// Adapter is about to be deleted and replaced by basicAdapter
+/// Adapter may be removed in the future and replaced by BasicAdapter
 
 typedef _IndexedDependentBuilder<T> = Dependent<T> Function(int);
 
