@@ -2,40 +2,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
 import 'package:sample/pages/todos/todo/action.dart';
 import '../report/component.dart';
-import '../todo/component.dart';
+// import '../todo/component.dart';
 import '../todo/state.dart';
 import 'adapter.dart';
 import 'state.dart';
-
-/// Middleware for print action dispatch.
-/// It works on debug mode.
-Middleware<T> logMiddleware<T>({
-  String tag = 'redux',
-  required String Function(T?) monitor,
-}) {
-  return ({Dispatch? dispatch, Get<T>? getState}) {
-    return (Dispatch next) {
-      return (Action action) {
-        Log.doPrint('---------- [$tag] ----------');
-        Log.doPrint('[$tag] ${action.type} ${action.payload}');
-
-        final T? prevState = getState?.call();
-        if (monitor != null) {
-          Log.doPrint('[$tag] prev-state: ${monitor(prevState)}');
-        }
-
-        next(action);
-
-        final T? nextState = getState?.call();
-        if (monitor != null) {
-          Log.doPrint('[$tag] next-state: ${monitor(nextState)}');
-        }
-
-        Log.doPrint('========== [$tag] ================');
-      };
-    };
-  };
-}
 
 class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
   ToDoListPage()
