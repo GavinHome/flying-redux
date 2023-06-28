@@ -60,15 +60,18 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
             'onAdd': _onAdd
           }),
           dependencies: Dependencies<PageState>(
+            // adapter: const NoneConn<PageState>() +
+            //     BasicAdapter<PageState>(
+            //         builder: (PageState state) => state.toDos
+            //             .asMap()
+            //             .keys
+            //             .map((index) =>
+            //                 TodoConnector(toDos: state.toDos, index: index) +
+            //                 TodoComponent())
+            //             .toList()),
             adapter: const NoneConn<PageState>() +
-                BasicAdapter<PageState>(
-                    builder: (PageState state) => state.toDos
-                        .asMap()
-                        .keys
-                        .map((index) =>
-                            TodoConnector(toDos: state.toDos, index: index) +
-                            TodoComponent())
-                        .toList()),
+                BasicAdapter<PageState>(builder: dependentBuilder),
+            // adapter: const NoneConn<PageState>() + PageAdapter(),
             slots: <String, Dependent<PageState>>{
               'report': ReportConnector() + ReportComponent(),
             },

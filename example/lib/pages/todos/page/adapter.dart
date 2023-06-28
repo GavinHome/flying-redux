@@ -1,7 +1,21 @@
 import 'package:flutter_redux/flutter_redux.dart';
 import '../page/state.dart';
 import '../report/state.dart';
+import '../todo/component.dart';
 import '../todo/state.dart';
+
+Dependents<PageState> dependentBuilder(PageState state) => state.toDos
+    .asMap()
+    .keys
+    .map((index) =>
+        TodoConnector(toDos: state.toDos, index: index) + TodoComponent())
+    .toList();
+
+// class PageAdapter extends BasicAdapter<PageState> {
+//   PageAdapter() : super(
+//       builder: dependentBuilder
+//   );
+// }
 
 class TodoConnector extends ConnOp<PageState, ToDoState> {
   TodoConnector({required this.toDos, required this.index}) : super();
