@@ -21,7 +21,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
           middleware: <Middleware<PageState>>[
             logMiddleware<PageState>(
                 tag: 'ToDoListPage',
-                monitor: (PageState? state) {
+                monitor: (PageState state) {
                   return state.toString();
                 })
           ],
@@ -39,9 +39,12 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
             //                 TodoConnector(toDos: state.toDos, index: index) +
             //                 TodoComponent())
             //             .toList()),
-            adapter: const NoneConn<PageState>() +
-                BasicAdapter<PageState>(builder: dependentBuilder),
+
+            // adapter: const NoneConn<PageState>() +
+            //     BasicAdapter<PageState>(builder: dependentBuilder),
             // adapter: const NoneConn<PageState>() + PageAdapter(),
+
+            adapter: const NoneConn<PageState>() + adapter,
             slots: <String, Dependent<PageState>>{
               'report': ReportConnector() + ReportComponent(),
             },

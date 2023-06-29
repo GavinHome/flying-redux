@@ -14,9 +14,9 @@ class TodoEditPage extends Page<TodoEditState, ToDoState> {
           view: buildView,
 
           /// AOP
-          // middleware: <Middleware<TodoEditState>>[
-          //   logMiddleware(tag: 'TodoEditPage'),
-          // ],
+          middleware: <Middleware<TodoEditState>>[
+            logMiddleware(tag: 'TodoEditPage'),
+          ],
         );
 }
 

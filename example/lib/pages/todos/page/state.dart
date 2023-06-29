@@ -9,6 +9,11 @@ class PageState implements Cloneable<PageState> {
   PageState clone() {
     return PageState()..toDos = toDos;
   }
+
+  @override
+  String toString() {
+    return 'toDos${toDos.toString()}';
+  }
 }
 
 PageState initState(Map<String, dynamic>? args) {

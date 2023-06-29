@@ -4,18 +4,26 @@ import '../report/state.dart';
 import '../todo/component.dart';
 import '../todo/state.dart';
 
-Dependents<PageState> dependentBuilder(PageState state) => state.toDos
-    .asMap()
-    .keys
-    .map((index) =>
-        TodoConnector(toDos: state.toDos, index: index) + TodoComponent())
-    .toList();
+// Dependents<PageState> dependentBuilder(PageState state) => state.toDos
+//     .asMap()
+//     .keys
+//     .map((index) =>
+//         TodoConnector(toDos: state.toDos, index: index) + TodoComponent())
+//     .toList();
 
 // class PageAdapter extends BasicAdapter<PageState> {
 //   PageAdapter() : super(
 //       builder: dependentBuilder
 //   );
 // }
+
+BasicAdapter<PageState> get adapter => BasicAdapter(
+    builder: (PageState state) => state.toDos
+        .asMap()
+        .keys
+        .map((index) =>
+            TodoConnector(toDos: state.toDos, index: index) + TodoComponent())
+        .toList());
 
 class TodoConnector extends ConnOp<PageState, ToDoState> {
   TodoConnector({required this.toDos, required this.index}) : super();
