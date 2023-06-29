@@ -22,7 +22,7 @@ know whether this package might be useful for them. -->
 
 
 
-## What is Done Redux?
+## What is Flutter Redux?
 
 Flutter Redux fork from [fish-redux](https://github.com/alibaba/fish-redux). Because 
 fish-redux has not been updated for a long time. I have done a lot of refactoring and 
