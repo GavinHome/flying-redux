@@ -54,10 +54,11 @@ Widget buildView(TodoEditState state, Dispatch dispatch,
               ))
             ],
           ),
-          // RaisedButton(
-          //     padding: const EdgeInsets.only(
-          //         left: 20.0, top: 10.0, right: 20.0, bottom: 10.0),
-          //     color: Colors.blue,
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     padding: const EdgeInsets.only( left: 20.0, top: 10.0, right: 20.0, bottom: 10.0),
+          //     foregroundColor: Colors.blue
+          //   ),
           //     child: const Text('Change theme',
           //         style: TextStyle(fontSize: 18),
           //         overflow: TextOverflow.ellipsis),
