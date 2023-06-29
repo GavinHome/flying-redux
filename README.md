@@ -14,20 +14,21 @@ and the Flutter guide for
 <!--TODO: Put a short description of the package here that helps potential users
 know whether this package might be useful for them. -->
 
-<p align="center"><img src="./dr.png" align="center" width="175"></p>
+[//]: # (<p align="center"><img src="./dr.png" align="center" width="175"></p>)
 
-<h1>Done Redux</h1>
+<h1>Flutter Redux</h1>
 
-[![build](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml)[![codecov](https://codecov.io/gh/gavinhome/flutter-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flutter-redux)
+[![build](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flutter-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flutter-redux)
 
 
 
 ## What is Done Redux?
 
-Flutter Redux fork from [Fish_Redux](https://github.com/alibaba/fish-redux). Because 
-fish_redux has not been updated for a long time. I have done a lot of refactoring and 
+Flutter Redux fork from [fish-redux](https://github.com/alibaba/fish-redux). Because 
+fish-redux has not been updated for a long time. I have done a lot of refactoring and 
 modification based on fish_redux, and simplified some concepts, and finally renamed it.
-Flutter Redux is also an assembled flutter application framework based on Redux state management.
+Flutter Redux is also an assembled flutter application framework based on Redux state 
+management.
 
 ## Features
 
@@ -48,15 +49,15 @@ start using the package. -->
 
 There are five steps to use the counter as an example:
 
-> 0. Add flutter_redux package
+> 1. Add flutter_redux package
 
-> 1. Create a state class and initialize the state
+> 2. Create a state class and initialize the state
 
-> 2. Define Action and Create ActionCreator
+> 3. Define Action and Create ActionCreator
 
-> 3. Create a function Reducer that modifies the state
+> 4. Create a function Reducer that modifies the state
 
-> 4. Create a widgets view and Page for display
+> 5. Create a widgets view and Page for display
 
 ```dart
 import 'package:flutter_redux/flutter_redux.dart';
