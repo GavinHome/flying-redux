@@ -17,5 +17,7 @@ jobs:
         channel: stable
     - run: flutter doctor
     - run: flutter pub get
-    - run: flutter test --coverage
-    # - run: flutter build web
+    - run: flutter test --coverage --coverage-path=lcov.info
+  # - run: flutter build web
+    - name: Upload coverage to Codecov #https://github.com/codecov/codecov-action
+      uses: codecov/codecov-action@v3
