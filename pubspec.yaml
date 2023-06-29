@@ -4,8 +4,8 @@ version: 0.0.1
 homepage: https://github.com/GavinHome/flutter-redux
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: '>=2.13.0 <4.0.0'
+  flutter: ">=2.2.0"
 
 dependencies:
   flutter:
