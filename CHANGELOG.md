@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.0.1 - 2023-07-01
 
-* TODO: Describe initial release.
+* support flutter 3.x.
