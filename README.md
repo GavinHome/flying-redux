@@ -14,6 +14,16 @@ and the Flutter guide for
 <!--TODO: Put a short description of the package here that helps potential users
 know whether this package might be useful for them. -->
 
+<p align="center"><img src="./dr.png" align="center" width="175"></p>
+
+<h1>Done Redux</h1>
+
+[![build](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml)[![codecov](https://codecov.io/gh/gavinhome/flutter-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flutter-redux)
+
+
+
+## What is Done Redux?
+
 Flutter Redux fork from [Fish_Redux](https://github.com/alibaba/fish-redux). Because 
 fish_redux has not been updated for a long time. I have done a lot of refactoring and 
 modification based on fish_redux, and simplified some concepts, and finally renamed it.
