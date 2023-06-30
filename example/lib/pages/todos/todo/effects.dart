@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Action, Page;
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 
 import 'action.dart';
 import 'state.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 
 import 'pages/count/page.dart';
 import 'pages/todos/edit/page.dart';

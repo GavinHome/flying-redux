@@ -16,19 +16,16 @@ know whether this package might be useful for them. -->
 
 [//]: # (<p align="center"><img src="./dr.png" align="center" width="175"></p>)
 
-<h1>Flutter Redux</h1>
+<h1>Flying Redux</h1>
 
-[![build](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flutter-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flutter-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flutter-redux)
+[![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
 
 
 
-## What is Flutter Redux?
+## What is Flying Redux?
 
-Flutter Redux fork from [fish-redux](https://github.com/alibaba/fish-redux). Because 
-fish-redux has not been updated for a long time. I have done a lot of refactoring and 
-modification based on fish_redux, and simplified some concepts, and finally renamed it.
-Flutter Redux is also an assembled flutter application framework based on Redux state 
-management.
+Flying Redux is forked from [fish-redux](https://github.com/alibaba/fish-redux). Because fish-redux has not been updated for a long time. I have done a lot of refactoring and modification based on fish_redux, and simplified some concepts, 
+and finally renamed it. Flying Redux is also an assembled flutter application framework based on Redux state management.
 
 ## Features
 
@@ -49,7 +46,7 @@ start using the package. -->
 
 There are five steps to use the counter as an example:
 
-> 1. Add flutter_redux package
+> 1. Add flying_redux package
 
 > 2. Create a state class and initialize the state
 
@@ -60,7 +57,7 @@ There are five steps to use the counter as an example:
 > 5. Create a widgets view and Page for display
 
 ```dart
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 
 /// [State]
 class PageState extends Cloneable<PageState> {
@@ -150,4 +147,4 @@ flutter run
 contribute to the package, how to file issues, what response they can expect
 from the package authors, and more. -->
 
-In particular, the code in flutter_redux has the same naming and implementation as fish_redux. So I respect the original spirit of fish_redux.
+In particular, the code in flying_redux has the same naming and implementation as fish_redux. So I respect the original spirit of fish_redux.

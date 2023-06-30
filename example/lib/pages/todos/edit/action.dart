@@ -1,4 +1,4 @@
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 
 enum ToDoEditAction { onDone, onChangeTheme }
 

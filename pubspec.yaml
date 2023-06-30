@@ -1,7 +1,7 @@
-name: flutter_redux
-description: Flutter Redux is an assembled flutter application framework based on Redux state management.
+name: flying_redux
+description: Flying Redux is an assembled flutter application framework based on Redux state management.
 version: 0.0.1
-homepage: https://github.com/GavinHome/flutter-redux
+homepage: https://github.com/GavinHome/flying-redux
 
 environment:
   sdk: '>=2.17.0 <4.0.0'

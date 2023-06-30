@@ -1,4 +1,4 @@
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 
 class PageState extends Cloneable<PageState> {
   late int count;

@@ -1,4 +1,4 @@
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flying_redux/flying_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
 import 'package:sample/pages/todos/todo/action.dart';
 import '../report/component.dart';

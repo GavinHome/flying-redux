@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies.dart have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_redux:
+  flying_redux:
     path: ../
   flutter:
     sdk: flutter

@@ -14,7 +14,3 @@ analyzer:
     unnecessary_null_comparison: ignore
     #The receiver can't be null, so the null-aware operator '?.' is unnecessary.
     invalid_null_aware_operator: ignore
-
-
-#  exclude:
-#    - lib/fish_redux/**
