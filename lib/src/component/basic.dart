@@ -208,7 +208,6 @@ class ComponentContext<T> {
 
   List<Widget> buildComponents() {
     final Dependent<T> dependent = _dependencies!.adapter!;
-    assert(dependent != null);
     return dependent.buildComponents(
       store,
       getState,
@@ -278,7 +277,7 @@ class ComponentContext<T> {
   Dispatch _createDispatch<T>(
           Dispatch onEffect, Dispatch next, ComponentContext<T> ctx) =>
       (Action action) {
-        final Object? result = onEffect?.call(action);
+        final Object? result = onEffect.call(action);
         if (result == null || result == false) {
           next(action);
         }
