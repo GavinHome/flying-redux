@@ -18,10 +18,8 @@ jobs:
     - run: flutter doctor
     - run: flutter pub get
     - run: flutter test --coverage #--coverage-path=lcov.info
-  # - run: flutter build web
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
-#        env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-         files: ./coverage/lcov.info
-         verbose: true
+      with:
+        files: ./coverage/lcov.info
+        verbose: true
