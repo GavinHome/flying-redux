@@ -11,9 +11,6 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-<!--TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them. -->
-
 [//]: # (<p align="center"><img src="./dr.png" align="center" width="175"></p>)
 
 <h1>Flying Redux</h1>
@@ -28,8 +25,6 @@ Flying Redux is also an assembled flutter application framework based on Redux s
 
 ## Features
 
-<!--TODO: List what your package can do. Maybe include images, gifs, or videos.-->
-
 It has four characteristics:
 
 > 1. Functional Programming
@@ -41,9 +36,6 @@ It has four characteristics:
 > 4. Support null safety and flutter 3.x
 
 ## Getting started
-
-<!-- TODO: List prerequisites and provide or point to information on how to
-start using the package. -->
 
 There are five steps to use the counter as an example:
 
@@ -129,9 +121,6 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
 
 ## Usage
 
-<!-- TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. -->
-
 If you want to know specific usage examples, please refer to the todo list code in the example project and in the `/example` folder.
 
 -   [todo list](example) - a simple todo list demo.
@@ -143,10 +132,6 @@ flutter run
 ```
 
 ## Additional information
-
-<!-- TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more. -->
 
 In particular, the code of flying-redux has the same naming and implementation as fish-redux.
 Because [fish-redux](https://github.com/alibaba/fish-redux) has not been updated for a long time. 
