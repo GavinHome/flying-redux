@@ -1,3 +1,7 @@
+## [0.0.2-pre]
+
+* fix bug.
+
 ## [0.0.1-pre]
 
 * support flutter 3.x.
