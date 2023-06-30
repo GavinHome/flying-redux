@@ -21,8 +21,8 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
           middleware: <Middleware<PageState>>[
             logMiddleware<PageState>(
                 tag: 'ToDoListPage',
-                monitor: (PageState state) {
-                  return state.toString();
+                monitor: (PageState? state) {
+                  return state == null? '': state.toString();
                 })
           ],
           effect: combineEffects<PageState>(<Object, Effect<PageState>>{

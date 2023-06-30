@@ -1,4 +1,4 @@
-## 0.0.1 - 2023-07-01
+## 0.0.1-pre - 2023-06-30
 
 * support flutter 3.x.
 * state management.
