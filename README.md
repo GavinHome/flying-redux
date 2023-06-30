@@ -24,20 +24,21 @@ know whether this package might be useful for them. -->
 
 ## What is Flying Redux?
 
-Flying Redux is forked from [fish-redux](https://github.com/alibaba/fish-redux). Because fish-redux has not been updated for a long time. I have done a lot of refactoring and modification based on fish_redux, and simplified some concepts, 
-and finally renamed it. Flying Redux is also an assembled flutter application framework based on Redux state management.
+Flying Redux is also an assembled flutter application framework based on Redux state management.
 
 ## Features
 
 <!--TODO: List what your package can do. Maybe include images, gifs, or videos.-->
 
-It has three characteristics:
+It has four characteristics:
 
 > 1. Functional Programming
 
-> 2. Pluggable componentization
+> 2. Predictable state container
 
-> 3. It Supports null safety
+> 3. Pluggable componentization
+
+> 4. Support null safety and flutter 3.x
 
 ## Getting started
 
@@ -147,4 +148,7 @@ flutter run
 contribute to the package, how to file issues, what response they can expect
 from the package authors, and more. -->
 
-In particular, the code in flying_redux has the same naming and implementation as fish_redux. So I respect the original spirit of fish_redux.
+In particular, the code of flying-redux has the same naming and implementation as fish-redux.
+Because [fish-redux](https://github.com/alibaba/fish-redux) has not been updated for a long time. 
+I have done a lot of refactoring and modification based on fish_redux, and simplified some concepts,
+and finally renamed it. 
