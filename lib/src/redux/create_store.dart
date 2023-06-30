@@ -24,14 +24,14 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
       StreamController<T>.broadcast(sync: true);
 
   T state = preloadedState;
-  Reducer<T> _reducer = reducer ?? _noop<T>();
+  Reducer<T> storeReducer = reducer ?? _noop<T>();
   bool isDispatching = false;
   bool isDisposed = false;
 
   Dispatch dispatch = (Action action) {
-    _throwIfNot(action != null, 'Expected the action to be non-null value.');
-    _throwIfNot(
-        action.type != null, 'Expected the action.type to be non-null value.');
+    // _throwIfNot(action != null, 'Expected the action to be non-null value.');
+    // _throwIfNot(
+    //     action.type != null, 'Expected the action.type to be non-null value.');
     _throwIfNot(!isDispatching, 'Reducers may not dispatch actions.');
 
     if (isDisposed) {
@@ -40,7 +40,7 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
 
     try {
       isDispatching = true;
-      state = _reducer(state, action);
+      state = storeReducer(state, action);
     } finally {
       isDispatching = false;
     }
@@ -69,15 +69,15 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
           )
       : dispatch;
 
-  final ReplaceReducer<T> replaceReducer = (Reducer<T>? replaceReducer) {
-    _reducer = replaceReducer ?? _noop();
-  };
+  replaceReducer(Reducer<T>? replaceReducer) {
+    storeReducer = replaceReducer ?? _noop();
+  }
 
-  final Subscribe subscribe = (_VoidCallback listener) {
-    _throwIfNot(
-      listener != null,
-      'Expected the listener to be non-null value.',
-    );
+  subscribe(_VoidCallback listener) {
+    // _throwIfNot(
+    //   listener != null,
+    //   'Expected the listener to be non-null value.',
+    // );
     _throwIfNot(
       !isDispatching,
       'You may not call store.subscribe() while the reducer is executing.',
@@ -92,7 +92,7 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
       );
       listeners.remove(listener);
     };
-  };
+  }
 
   final Observable<T> observable = (() => notifyController.stream);
   return Store<T>()

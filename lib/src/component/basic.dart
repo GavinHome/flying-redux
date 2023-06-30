@@ -217,7 +217,7 @@ class ComponentContext<T> {
 
   Function()? _dispatchDispose;
 
-  Dispatch _createNextDispatch<T>(ComponentContext<T> ctx) => (Action action) {
+  Dispatch _createNextDispatch(ComponentContext<T> ctx) => (Action action) {
         ctx.store.dispatch(action);
       };
 
@@ -260,7 +260,7 @@ class ComponentContext<T> {
   }
 
   /// return [EffectDispatch]
-  Dispatch _createEffectDispatch<T>(
+  Dispatch _createEffectDispatch(
       Effect<T>? userEffect, ComponentContext<T> ctx) {
     return (Action action) {
       final Object? result = userEffect?.call(action, ctx);
@@ -274,7 +274,7 @@ class ComponentContext<T> {
     };
   }
 
-  Dispatch _createDispatch<T>(
+  Dispatch _createDispatch(
           Dispatch onEffect, Dispatch next, ComponentContext<T> ctx) =>
       (Action action) {
         final Object? result = onEffect.call(action);
@@ -313,7 +313,7 @@ const Object subEffectReturnNull = Object();
 /// [combineEffects]
 /// for action.type which override it's == operator
 /// return [UserEffect]
-Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>> map) {
+Effect<T>? combineEffects<T>(Map<Object, SubEffect<T>>? map) {
   return (map == null || map.isEmpty)
       ? null
       : (Action action, ComponentContext<T> ctx) {
@@ -432,15 +432,11 @@ class BasicAdapter<T> extends ComposedComponent<T> {
         T copy = state;
         bool hasChanged = false;
         final Dependents<T> list = builder(state);
-        if (list != null) {
-          for (int i = 0; i < list.length; i++) {
-            final Dependent<T> dep = list[i];
-            final SubReducer<T>? subReducer = dep?.createSubReducer();
-            if (subReducer != null) {
-              copy = subReducer(copy, action, hasChanged);
-              hasChanged = hasChanged || copy != state;
-            }
-          }
+        for (int i = 0; i < list.length; i++) {
+          final Dependent<T> dep = list[i];
+          final SubReducer<T> subReducer = dep.createSubReducer();
+          copy = subReducer(copy, action, hasChanged);
+          hasChanged = hasChanged || copy != state;
         }
         return copy;
       };
@@ -468,19 +464,17 @@ class BasicAdapter<T> extends ComposedComponent<T> {
         Log.doPrint('$runtimeType do reload');
       },
     );
-    Dependents<T> _dependentArray = builder(getter());
+    Dependents<T> dependentArray = builder(getter());
     final List<Widget> widgets = <Widget>[];
-    if (_dependentArray != null) {
-      for (int i = 0; i < _dependentArray.length; i++) {
-        final Dependent<T> dependent = _dependentArray[i];
-        widgets.addAll(
-          dependent.buildComponents(
-            store,
-            getter,
-            bus: dispatchBus,
-          ),
-        );
-      }
+    for (int i = 0; i < dependentArray.length; i++) {
+      final Dependent<T> dependent = dependentArray[i];
+      widgets.addAll(
+        dependent.buildComponents(
+          store,
+          getter,
+          bus: dispatchBus,
+        ),
+      );
     }
     _ctx!.onLifecycle(LifecycleCreator.initState());
     return widgets;
@@ -514,7 +508,7 @@ class DispatchBusDefault implements DispatchBus {
   void attach(DispatchBus parent) {
     this.parent = parent;
     unregister?.call();
-    unregister = parent?.registerReceiver(dispatch);
+    unregister = parent.registerReceiver(dispatch);
   }
 
   @override

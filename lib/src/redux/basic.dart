@@ -62,7 +62,7 @@ typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
 /// [asReducer]
 /// combine & as
 /// for action.type which override it's == operator
-Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
+Reducer<T>? asReducer<T>(Map<Object, Reducer<T>>? map) => (map == null ||
         map.isEmpty)
     ? (T state, Action action) => state
     : (T state, Action action) =>
@@ -75,13 +75,13 @@ Reducer<T> asReducer<T>(Map<Object, Reducer<T>> map) => (map == null ||
 /// [CombineReducers]
 /// Combine an iterable of SubReducer<T> into one Reducer<T>
 Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
-  final List<SubReducer<T>>? notNullReducers = subReducers
-      ?.where((SubReducer<T> e) => e != null)
-      ?.toList(growable: false);
+  final List<SubReducer<T>> notNullReducers = subReducers
+      //.where((SubReducer<T> e) => e != null)
+      .toList(growable: false);
 
-  if (notNullReducers == null || notNullReducers.isEmpty) {
-    return null;
-  }
+  // if (notNullReducers == null || notNullReducers.isEmpty) {
+  //   return null;
+  // }
 
   if (notNullReducers.length == 1) {
     final SubReducer<T> single = notNullReducers.single;
@@ -102,11 +102,13 @@ Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
 
 /// Combine an iterable of Reducer<T> into one Reducer<T>
 Reducer<T>? combineReducers<T>(Iterable<Reducer<T>> reducers) {
-  final List<Reducer<T>>? notNullReducers =
-      reducers?.where((Reducer<T> r) => r != null)?.toList(growable: false);
-  if (notNullReducers == null || notNullReducers.isEmpty) {
-    return null;
-  }
+  final List<Reducer<T>> notNullReducers =
+      reducers
+          //.where((Reducer<T> r) => r != null)
+          .toList(growable: false);
+  // if (notNullReducers == null || notNullReducers.isEmpty) {
+  //   return null;
+  // }
 
   if (notNullReducers.length == 1) {
     return notNullReducers.single;

@@ -12,8 +12,7 @@ class Component<T> extends BasicComponent<T> {
     Dependencies<T>? dependencies,
     required ViewBuilder<T> view,
     ShouldUpdate<T>? shouldUpdate,
-  })  : assert(view != null),
-        super(
+  })  : super(
           dependencies: dependencies,
           reducer: reducer ?? (T state, Action _) => state,
           effect: effect,
@@ -27,7 +26,7 @@ class Component<T> extends BasicComponent<T> {
     Get<T> getter, {
     DispatchBus? dispatchBus,
   }) {
-    return ComponentWidget<T>(
+    return _ComponentWidget<T>(
       component: this,
       store: store,
       bus: dispatchBus!,
@@ -52,30 +51,27 @@ class Component<T> extends BasicComponent<T> {
   }
 }
 
-class ComponentWidget<T> extends StatefulWidget {
+class _ComponentWidget<T> extends StatefulWidget {
   final BasicComponent<T> component;
   final Store<Object> store;
   final Get<T> getter;
   final DispatchBus? bus;
   final Dependencies<T>? dependencies;
 
-  const ComponentWidget({
+  const _ComponentWidget({
     required this.component,
     required this.store,
     required this.getter,
     this.dependencies,
     this.bus,
     Key? key,
-  })  : assert(component != null),
-        assert(store != null),
-        assert(getter != null),
-        super(key: key);
+  })  : super(key: key);
 
   @override
   _ComponentState<T> createState() => _ComponentState<T>();
 }
 
-class _ComponentState<T> extends State<ComponentWidget<T>> {
+class _ComponentState<T> extends State<_ComponentWidget<T>> {
   late ComponentContext<T> _ctx;
   BasicComponent<T> get component => widget.component;
   late Function() subscribe;
@@ -127,7 +123,7 @@ class _ComponentState<T> extends State<ComponentWidget<T>> {
 
   @mustCallSuper
   @override
-  void didUpdateWidget(ComponentWidget<T> oldWidget) {
+  void didUpdateWidget(_ComponentWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     _ctx.didUpdateWidget();
     _ctx.onLifecycle(LifecycleCreator.didUpdateWidget());

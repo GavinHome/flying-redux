@@ -2,15 +2,3 @@ include: package:flutter_lints/flutter.yaml
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
-
-
-analyzer:
-  errors:
-    no_leading_underscores_for_local_identifiers: ignore
-    prefer_function_declarations_over_variables: ignore
-    depend_on_referenced_packages: ignore
-    avoid_shadowing_type_parameters: ignore
-    library_private_types_in_public_api: ignore
-    unnecessary_null_comparison: ignore
-    #The receiver can't be null, so the null-aware operator '?.' is unnecessary.
-    invalid_null_aware_operator: ignore
