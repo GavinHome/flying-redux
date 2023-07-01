@@ -29,9 +29,6 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
   bool isDisposed = false;
 
   Dispatch dispatch = (Action action) {
-    // _throwIfNot(action != null, 'Expected the action to be non-null value.');
-    // _throwIfNot(
-    //     action.type != null, 'Expected the action.type to be non-null value.');
     _throwIfNot(!isDispatching, 'Reducers may not dispatch actions.');
 
     if (isDisposed) {
@@ -74,10 +71,6 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
   }
 
   subscribe(_VoidCallback listener) {
-    // _throwIfNot(
-    //   listener != null,
-    //   'Expected the listener to be non-null value.',
-    // );
     _throwIfNot(
       !isDispatching,
       'You may not call store.subscribe() while the reducer is executing.',

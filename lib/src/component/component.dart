@@ -29,7 +29,7 @@ class Component<T> extends BasicComponent<T> {
     return _ComponentWidget<T>(
       component: this,
       store: store,
-      bus: dispatchBus!,
+      bus: dispatchBus,
       getter: getter,
       dependencies: dependencies,
     );
