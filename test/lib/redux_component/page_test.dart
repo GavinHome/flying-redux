@@ -1,29 +1,29 @@
 // import 'package:flying_redux/flying_redux.dart';
-// import 'package:flutter/material.dart' hide Action, Page;
+import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter_test/flutter_test.dart';
 // import 'package:test_widgets/page/action.dart';
-// import 'package:test_widgets/page/page.dart';
-// import 'package:test_widgets/page/state.dart';
-// import 'package:test_widgets/test_base.dart';
+import 'package:test_widgets/page/page.dart';
+import 'package:test_widgets/page/state.dart';
+import 'package:test_widgets/test_base.dart';
 //
 // import '../instrument.dart';
 // import '../track.dart';
 //
 void main() {
   group('page', () {
-//     test('create', () {
-//       TestPage<ToDoList, Map> page = TestPage<ToDoList, Map>(
-//           initState: initState,
-//           view: toDoListView,);
-//       expect(page, isNotNull);
-//
-//       /// TODO
-//       final Widget pageWidget = page.buildPage(pageInitParams);
-//       expect(pageWidget, isNotNull);
-//
-//       // expect(const TypeMatcher<Widget>().check(pageWidget), isTrue);
-//       //expect(pageWidget, TypeMatcher<PageWrapper>());
-//     });
+    test('create', () {
+      TestPage<ToDoList, Map> page = TestPage<ToDoList, Map>(
+          initState: initState,
+          view: toDoListView,);
+      expect(page, isNotNull);
+
+      /// TODO
+      final Widget pageWidget = page.buildPage(pageInitParams);
+      expect(pageWidget, isNotNull);
+
+      // expect(const TypeMatcher<Widget>().check(pageWidget), isTrue);
+      //expect(pageWidget, TypeMatcher<PageWrapper>());
+    });
 //
 //     testWidgets('build', (WidgetTester tester) async {
 //       final Track track = Track();
