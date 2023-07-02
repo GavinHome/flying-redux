@@ -1,0 +1,18 @@
+name: test_widgets
+version: 0.0.1
+description: widgets for redux test...
+
+environment:
+    sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+    flutter:
+        sdk: flutter
+    flying_redux:
+        path: ../../
+
+dev_dependencies:
+    flutter_driver:
+        sdk: flutter
+    flutter_test:
+        sdk: flutter
