@@ -1,6 +1,7 @@
 name: test_widgets
 version: 0.0.1
 description: widgets for redux test...
+homepage:
 
 environment:
     sdk: '>=2.17.0 <3.0.0'
