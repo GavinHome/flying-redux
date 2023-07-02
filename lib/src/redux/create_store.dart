@@ -104,7 +104,7 @@ Store<T> _createStore<T>(final T preloadedState, final Reducer<T>? reducer,
 /// create a store with enhancer
 Store<T> createStore<T>(
   T preloadedState,
-  Reducer<T> reducer, {
+  Reducer<T>? reducer, {
   List<Middleware<T>>? middleware,
 }) =>
     _createStore(preloadedState, reducer, middleware: middleware);

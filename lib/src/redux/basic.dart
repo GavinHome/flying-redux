@@ -42,8 +42,8 @@ typedef ReplaceReducer<T> = void Function(Reducer<T> reducer);
 /// [Middleware]
 /// Definition of the standard Middleware.
 typedef Middleware<T> = Composable<Dispatch> Function({
-  Dispatch dispatch,
-  Get<T> getState,
+required Dispatch dispatch,
+required Get<T> getState,
 });
 
 /// Definition of synthesize functions.
