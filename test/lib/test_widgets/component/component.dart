@@ -12,52 +12,50 @@ Widget toDoView(
     child: Row(
       children: <Widget>[
         Expanded(
-            child: Container(
-          child: Column(
-            children: <Widget>[
-              GestureDetector(
-                child: Container(
-                  key: ValueKey('remove-${toDo.id}'),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 28.0,
-                  color: Colors.yellow,
-                  child: Text(
-                    toDo.title,
-                    style: TextStyle(fontSize: 16.0),
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: Container(
+                    key: ValueKey('remove-${toDo.id}'),
+                    padding: const EdgeInsets.all(8.0),
+                    height: 28.0,
+                    color: Colors.yellow,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      toDo.title,
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
                   ),
-                  alignment: AlignmentDirectional.centerStart,
+                  onTap: () {
+                    print('dispatch remove');
+                    dispatch(
+                        Action(ToDoListAction.remove, payload: toDo.clone()));
+                  },
                 ),
-                onTap: () {
-                  print('dispatch remove');
-                  dispatch(
-                      Action(ToDoListAction.remove, payload: toDo.clone()));
-                },
-              ),
-              GestureDetector(
-                child: Container(
-                  key: ValueKey('edit-${toDo.id}'),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 60.0,
-                  color: Colors.grey,
-                  child: Text(toDo.desc, style: TextStyle(fontSize: 14.0)),
-                  alignment: AlignmentDirectional.centerStart,
-                ),
-                onTap: () {
-                  print('dispatch onEdit');
-                  dispatch(Action(ToDoAction.onEdit, payload: toDo.clone()));
-                },
-              )
-            ],
-          ),
-        )),
+                GestureDetector(
+                  child: Container(
+                    key: ValueKey('edit-${toDo.id}'),
+                    padding: const EdgeInsets.all(8.0),
+                    height: 60.0,
+                    color: Colors.grey,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
+                  ),
+                  onTap: () {
+                    print('dispatch onEdit');
+                    dispatch(Action(ToDoAction.onEdit, payload: toDo.clone()));
+                  },
+                )
+              ],
+            )),
         GestureDetector(
           child: Container(
             key: ValueKey('mark-${toDo.id}'),
             color: toDo.isDone ? Colors.green : Colors.red,
             width: 88.0,
             height: 88.0,
-            child: Text(toDo.isDone ? 'done' : 'mark\ndone'),
             alignment: AlignmentDirectional.center,
+            child: Text(toDo.isDone ? 'done' : 'mark\ndone'),
           ),
           onTap: () {
             if (!toDo.isDone) {
@@ -67,7 +65,7 @@ Widget toDoView(
           },
           onLongPress: () {
             print('dispatch broadcast');
-            dispatch(Action(ToDoAction.onBroadcast));
+            dispatch(const Action(ToDoAction.onBroadcast));
           },
         )
       ],
@@ -85,7 +83,7 @@ bool toDoEffect(Action action, ComponentContext<Todo> ctx) {
     ctx.dispatch(Action(ToDoAction.edit, payload: toDo));
     return true;
   } else if (action.type == ToDoAction.onBroadcast) {
-    ctx.broadcastEffect(Action(ToDoAction.broadcast));
+    ctx.broadcastEffect(const Action(ToDoAction.broadcast));
     return true;
   } else if (action.type == Lifecycle.initState) {
     print('!!! initState ${ctx.state}');
@@ -100,7 +98,7 @@ bool toDoEffect(Action action, ComponentContext<Todo> ctx) {
 
 dynamic toDoEffectAsync(Action action, ComponentContext<Todo> ctx) {
   if (action.type == ToDoAction.onEdit) {
-    return Future.delayed(Duration(seconds: 1), () => toDoEffect(action, ctx));
+    return Future.delayed(const Duration(seconds: 1), () => toDoEffect(action, ctx));
   }
 
   return null;
@@ -110,7 +108,7 @@ Dispatch toDoHigherEffect(ComponentContext<Todo> ctx) =>
     (Action action) => toDoEffect(action, ctx);
 
 Todo toDoReducer(Todo state, Action action) {
-  if (!(action.payload is Todo) || state.id != action.payload.id) return state;
+  if (action.payload is! Todo || state.id != action.payload.id) return state;
 
   print('onReduce:${action.type}');
 
@@ -141,7 +139,7 @@ class ToDoComponent extends Component<Todo> {
 class ComponentWrapper extends StatelessWidget {
   final Widget child;
 
-  ComponentWrapper(this.child);
+  const ComponentWrapper(this.child, {super.key});
 
   @override
   Widget build(BuildContext context) {

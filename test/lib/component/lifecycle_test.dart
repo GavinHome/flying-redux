@@ -101,7 +101,6 @@ void main() {
       );
       expect(component, isNotNull);
 
-      /// TODO
       final Widget componentWidget = component.buildComponent(
         createStore<Todo>(Todo.mock(), null),
         () => Todo.mock(),

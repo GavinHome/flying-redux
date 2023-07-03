@@ -13,56 +13,54 @@ Widget toDoView(Todo toDo, BuildContext context, Dispatch dispatch) {
     child: Row(
       children: <Widget>[
         Expanded(
-            child: Container(
-          child: Column(
-            children: <Widget>[
-              GestureDetector(
-                child: Container(
-                  key: ValueKey('remove-${toDo.id}'),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 28.0,
-                  color: Colors.yellow,
-                  child: Text(
-                    toDo.title,
-                    style: TextStyle(fontSize: 16.0),
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: Container(
+                    key: ValueKey('remove-${toDo.id}'),
+                    padding: const EdgeInsets.all(8.0),
+                    height: 28.0,
+                    color: Colors.yellow,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      toDo.title,
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
                   ),
-                  alignment: AlignmentDirectional.centerStart,
+                  onTap: () {
+                    print('dispatch remove');
+                    dispatch(Action(ToDoListAction.remove, payload: toDo));
+                  },
                 ),
-                onTap: () {
-                  print('dispatch remove');
-                  dispatch(Action(ToDoListAction.remove, payload: toDo));
-                },
-              ),
-              GestureDetector(
-                child: Container(
-                  key: ValueKey('edit-${toDo.id}'),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 60.0,
-                  color: Colors.grey,
-                  child: Text(toDo.desc, style: TextStyle(fontSize: 14.0)),
-                  alignment: AlignmentDirectional.centerStart,
-                ),
-                onTap: () {
-                  print('dispatch onEdit');
-                  dispatch(Action(ToDoListAction.onEdit, payload: toDo));
-                },
-                onLongPress: () {
-                  print('dispatch middlewareEdit');
-                  dispatch(
-                      Action(ToDoListAction.middlewareEdit, payload: toDo));
-                },
-              )
-            ],
-          ),
-        )),
+                GestureDetector(
+                  child: Container(
+                    key: ValueKey('edit-${toDo.id}'),
+                    padding: const EdgeInsets.all(8.0),
+                    height: 60.0,
+                    color: Colors.grey,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
+                  ),
+                  onTap: () {
+                    print('dispatch onEdit');
+                    dispatch(Action(ToDoListAction.onEdit, payload: toDo));
+                  },
+                  onLongPress: () {
+                    print('dispatch middlewareEdit');
+                    dispatch(
+                        Action(ToDoListAction.middlewareEdit, payload: toDo));
+                  },
+                )
+              ],
+            )),
         GestureDetector(
           child: Container(
             key: ValueKey('mark-${toDo.id}'),
             color: toDo.isDone ? Colors.green : Colors.red,
             width: 88.0,
             height: 88.0,
-            child: Text(toDo.isDone ? 'done' : 'mark\ndone'),
             alignment: AlignmentDirectional.center,
+            child: Text(toDo.isDone ? 'done' : 'mark\ndone'),
           ),
           onTap: () {
             if (!toDo.isDone) {
@@ -97,33 +95,33 @@ Widget toDoListView(
           Expanded(
               child: GestureDetector(
             child: Container(
-              key: ValueKey('Add'),
+              key: const ValueKey('Add'),
               height: 68.0,
               color: Colors.green,
               alignment: AlignmentDirectional.center,
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
             onTap: () {
               print('dispatch Add');
-              dispatch(Action(ToDoListAction.onAdd));
+              dispatch(const Action(ToDoListAction.onAdd));
             },
           )),
           Expanded(
               child: GestureDetector(
                   child: Container(
-                    key: ValueKey('Error'),
+                    key: const ValueKey('Error'),
                     height: 68.0,
                     color: Colors.red,
                     alignment: AlignmentDirectional.center,
-                    child: Text('Error'),
+                    child: const Text('Error'),
                   ),
                   onTap: () {
                     print('dispatch KnowException');
-                    dispatch(Action(ToDoListAction.onKnowException));
+                    dispatch(const Action(ToDoListAction.onKnowException));
                   },
                   onLongPress: () {
                     print('dispatch UnKnowException');
-                    dispatch(Action(ToDoListAction.onUnKnowException));
+                    dispatch(const Action(ToDoListAction.onUnKnowException));
                   }))
         ],
       )
@@ -165,7 +163,7 @@ dynamic toDoListEffectAsync(Action action, ComponentContext<ToDoList> ctx) {
       action.type == ToDoListAction.onKnowException ||
       action.type == ToDoListAction.onUnKnowException) {
     return Future.delayed(
-        Duration(seconds: 1), () => toDoListEffect(action, ctx));
+        const Duration(seconds: 1), () => toDoListEffect(action, ctx));
   }
 
   return null;
@@ -173,7 +171,7 @@ dynamic toDoListEffectAsync(Action action, ComponentContext<ToDoList> ctx) {
 
 ToDoList toDoListReducer(ToDoList state, Action action) {
   print('onReduce:${action.type}');
-  if (!(action.payload is Todo)) return state;
+  if (action.payload is! Todo) return state;
 
   Todo item = action.payload as Todo;
 
@@ -263,7 +261,7 @@ ToDoList initState(Map? map) => ToDoList.fromMap(map ?? {});
 class PageWrapper extends StatelessWidget {
   final Widget child;
 
-  PageWrapper(this.child);
+  const PageWrapper(this.child, {super.key});
 
   @override
   Widget build(BuildContext context) {

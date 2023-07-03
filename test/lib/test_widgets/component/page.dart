@@ -31,8 +31,8 @@ Widget toDoListView(
               padding: const EdgeInsets.all(8.0),
               margin: const EdgeInsets.all(8.0),
               color: Colors.grey,
-              child: Text(toDo.desc),
               alignment: AlignmentDirectional.center,
+              child: Text(toDo.desc),
             );
           }
         },
@@ -43,15 +43,15 @@ Widget toDoListView(
           Expanded(
               child: GestureDetector(
             child: Container(
-              key: ValueKey('Add'),
+              key: const ValueKey('Add'),
               height: 68.0,
               color: Colors.green,
               alignment: AlignmentDirectional.center,
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
             onTap: () {
               print('dispatch Add');
-              dispatch(Action(ToDoListAction.onAdd));
+              dispatch(const Action(ToDoListAction.onAdd));
             },
           )),
         ],
@@ -65,7 +65,7 @@ bool toDoListEffect(Action action, ComponentContext<ToDoList> ctx) {
     ctx.dispatch(Action(ToDoListAction.add, payload: Todo.mock()));
     return true;
   } else if (action.type == ToDoListAction.onBroadcast) {
-    ctx.broadcastEffect(Action(ToDoListAction.broadcast));
+    ctx.broadcastEffect(const Action(ToDoListAction.broadcast));
     return true;
   }
 
@@ -75,7 +75,7 @@ bool toDoListEffect(Action action, ComponentContext<ToDoList> ctx) {
 dynamic toDoListEffectAsync(Action action, ComponentContext<ToDoList> ctx) {
   if (action.type == ToDoListAction.onAdd) {
     return Future.delayed(
-        Duration(seconds: 1), () => toDoListEffect(action, ctx));
+        const Duration(seconds: 1), () => toDoListEffect(action, ctx));
   }
 
   return null;
@@ -86,7 +86,7 @@ Dispatch toDoListHigherEffect(ComponentContext<ToDoList> ctx) =>
 
 ToDoList toDoListReducer(ToDoList state, Action action) {
   print('onReduce:${action.type}');
-  if (!(action.payload is Todo)) return state;
+  if (action.payload is! Todo) return state;
 
   if (action.type == ToDoListAction.add) {
     return state.clone()..list.add(action.payload);

@@ -395,7 +395,7 @@ void main() {
 
       final Track track = Track();
 
-      final Middleware<ToDoList> toDoMiddleware = (
+      toDoMiddleware(
               {required Dispatch dispatch, required Get<ToDoList> getState}) =>
           (Dispatch next) => (Action action) {
                 lastAction = action.type;

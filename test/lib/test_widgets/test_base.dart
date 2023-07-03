@@ -6,13 +6,13 @@ class TestStub extends StatefulWidget {
   final Widget testWidget;
   final String title;
 
-  const TestStub(this.testWidget, {this.title = 'FlutterTest'});
+  const TestStub(this.testWidget, {super.key, this.title = 'FlutterTest'});
 
   @override
-  _StubState createState() => _StubState();
+  StubState createState() => StubState();
 }
 
-class _StubState extends State<TestStub> {
+class StubState extends State<TestStub> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

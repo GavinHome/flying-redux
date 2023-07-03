@@ -30,13 +30,14 @@ class Track {
 
   void remove(String tag) => _pins.retainWhere((pin) => pin.tag == tag);
 
+  @override
   String toString() => _pins
       .map<String>((node) => node.toString())
       .fold<String>('', (prev, now) => '$prev\n=>$now');
 
   @override
   bool operator ==(dynamic other) {
-    if (!(other is Track)) return false;
+    if (other is! Track) return false;
 
     if (_pins.length != other._pins.length) return false;
 
@@ -66,7 +67,7 @@ class Pin {
 
   @override
   bool operator ==(dynamic other) {
-    if (!(other is Pin)) return false;
+    if (other is! Pin) return false;
 
     return other.tag == tag && other.value == value;
   }

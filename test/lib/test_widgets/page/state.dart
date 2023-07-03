@@ -31,7 +31,7 @@ class Todo implements Cloneable<Todo> {
 
   @override
   bool operator ==(dynamic other) {
-    if (!(other is Todo)) return false;
+    if (other is! Todo) return false;
 
     return id == other.id &&
         title == other.title &&
@@ -61,7 +61,7 @@ class ToDoList implements Cloneable<ToDoList> {
 
   @override
   bool operator ==(dynamic other) {
-    if (!(other is ToDoList)) return false;
+    if (other is! ToDoList) return false;
 
     if (list.length != other.list.length) return false;
 

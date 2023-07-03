@@ -17,13 +17,13 @@ ViewBuilder<T> instrumentView<T>(
       return builder(state, dispatch, viewService);
     };
 
-typedef initStateInstrumentPre<P> = void Function(P);
-typedef initStateInstrumentSuf<T extends Cloneable<T>> = void Function(T);
+typedef InitStateInstrumentPre<P> = void Function(P);
+typedef InitStateInstrumentSuf<T extends Cloneable<T>> = void Function(T);
 
 InitState<T, P> instrumentInitState<T extends Cloneable<T>, P>(
         InitState<T, P> initState,
-        {initStateInstrumentPre<P?>? pre,
-        initStateInstrumentSuf<T>? suf}) =>
+        {InitStateInstrumentPre<P?>? pre,
+        InitStateInstrumentSuf<T>? suf}) =>
     (P? params) {
       if (pre != null) {
         pre(params);
