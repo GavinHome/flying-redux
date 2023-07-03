@@ -22,8 +22,9 @@ void main() {
       final Widget pageWidget = page.buildPage(pageInitParams);
       expect(pageWidget, isNotNull);
 
+      expect(const TypeMatcher<Widget>().matches(pageWidget, {}), isTrue);
       // expect(const TypeMatcher<Widget>().check(pageWidget), isTrue);
-      //expect(pageWidget, TypeMatcher<PageWrapper>());
+      // expect(pageWidget, TypeMatcher<PageWrapper>());
     });
 
     testWidgets('build', (WidgetTester tester) async {

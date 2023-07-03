@@ -61,58 +61,14 @@ class TestComponent<T extends Cloneable<T>> extends Component<T> {
         );
 }
 
-// class TestAdapter<T extends Cloneable<T>> extends Adapter<T> {
+// class TestAdapter<T extends Cloneable<T>> extends BasicAdapter<T> {
 //   TestAdapter({
-//     AdapterBuilder<T> adapter,
-//     Reducer<T> reducer,
-//     Effect<T> effect,
-//     ReducerFilter<T> filter,
-//     Dependencies<T> dependencies,
+//     Reducer<T>? reducer,
+//     required Dependents<T> Function(T) builder,
+//     ShouldUpdate<T>? shouldUpdate,
 //   }) : super(
-//             adapter: adapter,
-//             reducer: reducer,
-//             effect: effect,
-//             filter: filter,
-//             dependencies: dependencies);
-// }
-
-// class TestStaticFlowAdapter<T extends Cloneable<T>>
-//     extends StaticFlowAdapter<T> {
-//   TestStaticFlowAdapter({
-//     @required List<Dependent<T>> slots,
-//     Reducer<T> reducer,
-//     Effect<T> effect,
-//     ReducerFilter<T> filter,
-//   }) : super(slots: slots, reducer: reducer, effect: effect, filter: filter);
-// }
-
-// class TestDynamicFlowAdapter<T extends Cloneable<T>>
-//     extends DynamicFlowAdapter<T> {
-//   TestDynamicFlowAdapter({
-//     @required Map<String, AbstractLogic<Object>> pool,
-//     @required ConnOp<T, List<ItemBean>> connector,
-//     ReducerFilter<T> filter,
-//     Reducer<T> reducer,
-//     Effect<T> effect,
-//   }) : super(
-//             pool: pool,
-//             connector: connector,
-//             reducer: reducer,
-//             effect: effect,
-//             filter: filter);
-// }
-
-// class TestSourceFlowAdapter<T extends AdapterSource>
-//     extends SourceFlowAdapter<T> {
-//   TestSourceFlowAdapter({
-//     @required Map<String, AbstractLogic<Object>> pool,
-//     ReducerFilter<T> filter,
-//     Reducer<T> reducer,
-//     Effect<T> effect,
-//   }) : super(
-//           pool: pool,
-//           reducer: reducer,
-//           effect: effect,
-//           filter: filter,
-//         );
+//     reducer: reducer,
+//     builder: builder,
+//     shouldUpdate: shouldUpdate
+//   );
 // }

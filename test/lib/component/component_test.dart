@@ -98,8 +98,8 @@ Widget pageView(
               padding: const EdgeInsets.all(8.0),
               margin: const EdgeInsets.all(8.0),
               color: Colors.grey,
-              child: Text(toDo.desc),
               alignment: AlignmentDirectional.center,
+              child: Text(toDo.desc),
             );
           }
         },
@@ -390,7 +390,7 @@ void main() {
 
       track.reset();
       await tester.longPress(find.byKey(const ValueKey<String>('mark-0')));
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       print(track);
 
@@ -402,7 +402,7 @@ void main() {
 
       track.reset();
       await tester.longPress(find.byKey(const ValueKey<String>('mark-1')));
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       expect(track.countOfTag('toDo0-onToDoBroadcast'), 1);
       expect(track.countOfTag('toDo1-onToDoBroadcast'), 1);
@@ -412,7 +412,7 @@ void main() {
 
       track.reset();
       await tester.longPress(find.byKey(const ValueKey<String>('Add')));
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       expect(track.countOfTag('toDo0-onPageBroadcast'), 1);
       expect(track.countOfTag('toDo1-onPageBroadcast'), 1);
@@ -422,7 +422,7 @@ void main() {
 
       track.reset();
       await tester.longPress(find.byKey(const ValueKey<String>('Add')));
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       expect(track.countOfTag('toDo0-onPageBroadcast'), 1);
       expect(track.countOfTag('toDo1-onPageBroadcast'), 1);
