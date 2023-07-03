@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart' hide Action, Page;
-// import 'package:test_widgets/adapter/page.dart';
-// import 'package:test_widgets/component/page.dart';
-// import 'package:test_widgets/dynamic_flow_adapter/page.dart';
-// import 'package:test_widgets/page/page.dart';
-// import 'package:test_widgets/static_flow_adapter/page.dart';
+// import '../test_widgets/adapter/page.dart';
+// import '../test_widgets/component/page.dart';
+// import '../test_widgets/dynamic_flow_adapter/page.dart';
+// import '../test_widgets/page/page.dart';
+// import '../test_widgets/static_flow_adapter/page.dart';
 
 // import 'test_base.dart';
 

@@ -22,7 +22,7 @@ class ToDoListPage extends Page<PageState, Map<String, dynamic>> {
             logMiddleware<PageState>(
                 tag: 'ToDoListPage',
                 monitor: (PageState? state) {
-                  return state == null? '': state.toString();
+                  return state == null ? '' : state.toString();
                 })
           ],
           effect: combineEffects<PageState>(<Object, Effect<PageState>>{

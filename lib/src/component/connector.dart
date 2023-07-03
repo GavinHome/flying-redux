@@ -31,8 +31,7 @@ abstract class MutableConn<T, P> {
       }
       final P newProps = reducer(props, action);
       final bool hasChanged = newProps != props;
-      final T copy =
-      (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
+      final T copy = (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
       if (hasChanged) {
         set(copy, newProps);
       }
@@ -95,11 +94,9 @@ class _Dependent<T, P> extends Dependent<T> {
     required this.connector,
   })  : _reducer = component.createReducer(),
         _component = component {
-    _subReducer = _conn<T, P>(
-            (Object state, Action action) {
-          return _reducer(state as P, action) as Object;
-        },
-        connector);
+    _subReducer = _conn<T, P>((Object state, Action action) {
+      return _reducer(state as P, action) as Object;
+    }, connector);
   }
 
   @override

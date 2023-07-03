@@ -95,4 +95,5 @@ Middleware<T> instrumentMiddleware<T>(Middleware<T> middleware,
       };
     };
 
-typedef ErrorInstrument<T> = void Function(Exception exception, ComponentContext<T> ctx);
+typedef ErrorInstrument<T> = void Function(
+    Exception exception, ComponentContext<T> ctx);

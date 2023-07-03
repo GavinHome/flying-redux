@@ -141,8 +141,7 @@ bool toDoListEffect(Action action, ComponentContext<ToDoList> ctx) {
     print('onEdit');
     assert(action.payload is Todo);
 
-    Todo? toDo = ctx.state.list
-        .firstWhere((i) => i.id == action.payload.id);
+    Todo? toDo = ctx.state.list.firstWhere((i) => i.id == action.payload.id);
 
     // assert(toDo != null);
 
@@ -182,8 +181,7 @@ ToDoList toDoListReducer(ToDoList state, Action action) {
     return state.clone()..list.add(item);
   } else if (action.type == ToDoListAction.markDone) {
     return state.clone()
-      ..list
-          .firstWhere((toDo) => toDo.id == item.id).isDone = true;
+      ..list.firstWhere((toDo) => toDo.id == item.id).isDone = true;
   } else if (action.type == ToDoListAction.remove) {
     return state.clone()..list.removeWhere((toDo) => toDo.id == item.id);
   } else if (action.type == ToDoListAction.edit) {
@@ -215,8 +213,10 @@ Composable<Dispatch> toDoListMiddleware({
           if (action.type == ToDoListAction.middlewareEdit) {
             assert(action.payload is Todo);
 
-            Todo? toDo = getState?.call().list.firstWhere(
-                (i) => i.id == action.payload.id);
+            Todo? toDo = getState
+                ?.call()
+                .list
+                .firstWhere((i) => i.id == action.payload.id);
 
             assert(toDo != null);
 

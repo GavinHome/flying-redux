@@ -53,11 +53,12 @@ class TestComponent<T extends Cloneable<T>> extends Component<T> {
     ShouldUpdate<T>? shouldUpdate,
     Key Function(T)? key,
   }) : super(
-            view: view,
-            reducer: reducer,
-            effect: effect,
-            dependencies: dependencies,
-            shouldUpdate: shouldUpdate,);
+          view: view,
+          reducer: reducer,
+          effect: effect,
+          dependencies: dependencies,
+          shouldUpdate: shouldUpdate,
+        );
 }
 
 // class TestAdapter<T extends Cloneable<T>> extends Adapter<T> {

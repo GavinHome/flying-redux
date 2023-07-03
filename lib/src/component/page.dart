@@ -17,7 +17,7 @@ abstract class Page<T, P> extends Component<T> {
     Dependencies<T>? dependencies,
     required ViewBuilder<T> view,
     ShouldUpdate<T>? shouldUpdate,
-  })  : super(
+  }) : super(
           effect: effect,
           dependencies: dependencies,
           reducer: reducer,

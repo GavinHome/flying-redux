@@ -42,8 +42,8 @@ typedef ReplaceReducer<T> = void Function(Reducer<T> reducer);
 /// [Middleware]
 /// Definition of the standard Middleware.
 typedef Middleware<T> = Composable<Dispatch> Function({
-required Dispatch dispatch,
-required Get<T> getState,
+  required Dispatch dispatch,
+  required Get<T> getState,
 });
 
 /// Definition of synthesize functions.
@@ -62,21 +62,21 @@ typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
 /// [asReducer]
 /// combine & as
 /// for action.type which override it's == operator
-Reducer<T>? asReducer<T>(Map<Object, Reducer<T>>? map) => (map == null ||
-        map.isEmpty)
-    ? (T state, Action action) => state
-    : (T state, Action action) =>
-        map.entries
-            .firstWhereOrNull((MapEntry<Object, Reducer<T>> entry) =>
-                action.type == entry.key)
-            ?.value(state, action) ??
-        state;
+Reducer<T>? asReducer<T>(Map<Object, Reducer<T>>? map) =>
+    (map == null || map.isEmpty)
+        ? (T state, Action action) => state
+        : (T state, Action action) =>
+            map.entries
+                .firstWhereOrNull((MapEntry<Object, Reducer<T>> entry) =>
+                    action.type == entry.key)
+                ?.value(state, action) ??
+            state;
 
 /// [CombineReducers]
 /// Combine an iterable of SubReducer<T> into one Reducer<T>
 Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
-  final List<SubReducer<T>> notNullReducers = subReducers
-      .toList(growable: false);
+  final List<SubReducer<T>> notNullReducers =
+      subReducers.toList(growable: false);
 
   if (notNullReducers.isEmpty) {
     return null;
@@ -101,8 +101,7 @@ Reducer<T>? combineSubReducers<T>(Iterable<SubReducer<T>> subReducers) {
 
 /// Combine an iterable of Reducer<T> into one Reducer<T>
 Reducer<T>? combineReducers<T>(Iterable<Reducer<T>> reducers) {
-  final List<Reducer<T>> notNullReducers =
-      reducers.toList(growable: false);
+  final List<Reducer<T>> notNullReducers = reducers.toList(growable: false);
 
   if (notNullReducers.isEmpty) {
     return null;

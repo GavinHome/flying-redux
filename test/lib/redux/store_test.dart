@@ -44,8 +44,8 @@ ToDoList toDoReducer(ToDoList state, Action action) {
   } else if (action.type == ToDoAction.remove) {
     newState.list.removeWhere((Todo toDo) => toDo.id == action.payload);
   } else if (action.type == ToDoAction.done) {
-    newState.list
-        .firstWhere((Todo toDo) => toDo.id == action.payload).isDone = true;
+    newState.list.firstWhere((Todo toDo) => toDo.id == action.payload).isDone =
+        true;
   }
 
   return newState;
@@ -402,7 +402,7 @@ void main() {
                 lastState = ToDoList.copy(getState());
                 next(action);
               };
-      
+
       final Store<ToDoList> store = createStore<ToDoList>(
           ToDoList(),
           instrumentReducer(toDoReducer, pre: (ToDoList state, Action action) {

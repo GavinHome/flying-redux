@@ -28,7 +28,7 @@ class Track {
   int countOfTag(String tag) =>
       _pins.fold<int>(0, (count, pin) => pin.tag == tag ? count + 1 : count);
 
-  void remove(String tag) => _pins.retainWhere((pin)=>pin.tag == tag);
+  void remove(String tag) => _pins.retainWhere((pin) => pin.tag == tag);
 
   String toString() => _pins
       .map<String>((node) => node.toString())

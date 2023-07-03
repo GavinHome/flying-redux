@@ -4,18 +4,23 @@ version: 0.0.1
 homepage:
 
 environment:
-    sdk: '>=2.17.0  <4.0.0'
+  sdk: '>=2.17.0  <4.0.0'
 
 dependencies:
-    flutter:
-        sdk: flutter
+  flutter:
+    sdk: flutter
+
+  flying_redux:
+    path: ../
 
 dev_dependencies:
-    flutter_test:
-        sdk: flutter
+  flutter_test:
+    sdk: flutter
 
-    test_widgets:
-        path: ./test_widgets/
+  flutter_lints: ^2.0.0
+
+#  flutter_driver:
+#    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

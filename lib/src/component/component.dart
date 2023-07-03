@@ -12,7 +12,7 @@ class Component<T> extends BasicComponent<T> {
     Dependencies<T>? dependencies,
     required ViewBuilder<T> view,
     ShouldUpdate<T>? shouldUpdate,
-  })  : super(
+  }) : super(
           dependencies: dependencies,
           reducer: reducer ?? (T state, Action _) => state,
           effect: effect,
@@ -65,7 +65,7 @@ class _ComponentWidget<T> extends StatefulWidget {
     this.dependencies,
     this.bus,
     Key? key,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   _ComponentState<T> createState() => _ComponentState<T>();

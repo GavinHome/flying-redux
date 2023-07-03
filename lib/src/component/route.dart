@@ -32,7 +32,8 @@ class PageRoutes implements AbstractRoutes {
     return pages[path]!.buildPage(arguments);
   }
 
-  String? get initialRoutePath => initialRoute ?? pages.keys.toList(growable: false)[0];
+  String? get initialRoutePath =>
+      initialRoute ?? pages.keys.toList(growable: false)[0];
 
   @override
   Widget get home => buildPage(initialRoutePath, <String, dynamic>{});

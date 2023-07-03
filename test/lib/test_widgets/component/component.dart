@@ -4,7 +4,8 @@ import 'package:flutter/material.dart' hide Action, Page;
 import 'action.dart';
 import 'state.dart';
 
-Widget toDoView(Todo toDo, Dispatch dispatch, ComponentContext<Todo> viewService) {
+Widget toDoView(
+    Todo toDo, Dispatch dispatch, ComponentContext<Todo> viewService) {
   return Container(
     margin: const EdgeInsets.all(8.0),
     color: Colors.grey,
@@ -131,9 +132,10 @@ bool reducerFilter(Todo toDo, Action action) {
 class ToDoComponent extends Component<Todo> {
   ToDoComponent()
       : super(
-            view: toDoView,
-            effect: toDoEffect,
-            reducer: toDoReducer,);
+          view: toDoView,
+          effect: toDoEffect,
+          reducer: toDoReducer,
+        );
 }
 
 class ComponentWrapper extends StatelessWidget {
