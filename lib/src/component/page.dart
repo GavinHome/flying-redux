@@ -28,7 +28,7 @@ abstract class Page<T, P> extends Component<T> {
   final InitState<T, P> initState;
   final List<Middleware<T>>? middleware;
 
-  ///  build about
+  ///  build page
   Widget buildPage(P? param) => _PageWidget<T, P>(
         param: param,
         page: this,

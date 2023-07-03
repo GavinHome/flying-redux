@@ -5,7 +5,7 @@ import 'pages/todos/edit/page.dart';
 import 'pages/todos/page/page.dart';
 
 final AbstractRoutes routes = PageRoutes(
-  // initialRoute: 'todo_list',
+  initialRoute: 'todo_list',
   pages: <String, Page<Object, dynamic>>{
     /// Register TodoList main page
     'todo_list': ToDoListPage(),
@@ -15,8 +15,5 @@ final AbstractRoutes routes = PageRoutes(
 
     /// Register Count page
     'count': CountPage(),
-  },
-  visitor: (String path, Page<Object, dynamic> page) {
-    Log.doPrint("route visitor, $path");
-  },
+  }
 );

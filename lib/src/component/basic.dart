@@ -23,9 +23,9 @@ abstract class ComponentBase<T> {}
 /// [Dependent]
 /// Definition of the dependent for adapter and slot.
 abstract class Dependent<T> {
-  bool isComponent();
-
-  bool isAdapter();
+  // bool isComponent();
+  //
+  // bool isAdapter();
 
   /// to building a normal component, it return a widget.
   /// but throw a exception to use building adapter which composed-component

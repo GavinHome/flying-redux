@@ -13,17 +13,10 @@ class PageRoutes implements AbstractRoutes {
   final Map<String, Page<Object, dynamic>> pages;
   final String? initialRoute;
 
-  PageRoutes({
+  const PageRoutes({
     this.initialRoute,
     required this.pages,
-
-    /// For common enhance
-    void Function(String, Page<Object, dynamic>)? visitor,
-  }) {
-    if (visitor != null) {
-      pages.forEach(visitor);
-    }
-  }
+  });
 
   @override
   Widget buildPage(String? path, dynamic arguments) {

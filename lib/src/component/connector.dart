@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' hide Action;
 
 import '../redux/index.dart';
 import 'basic.dart';
-import 'component.dart';
 
 /// [Connector]
 /// Definition of Connector for page and component(s).
@@ -99,11 +98,11 @@ class _Dependent<T, P> extends Dependent<T> {
     }, connector);
   }
 
-  @override
-  bool isComponent() => _component is Component;
-
-  @override
-  bool isAdapter() => _component is ComposedComponent;
+  // @override
+  // bool isComponent() => _component is Component;
+  //
+  // @override
+  // bool isAdapter() => _component is ComposedComponent;
 
   @override
   Widget buildComponent(

@@ -62,7 +62,7 @@ typedef SubReducer<T> = T Function(T state, Action action, bool isStateCopied);
 /// [asReducer]
 /// combine & as
 /// for action.type which override it's == operator
-Reducer<T>? asReducer<T>(Map<Object, Reducer<T>>? map) =>
+Reducer<T> asReducer<T>(Map<Object, Reducer<T>>? map) =>
     (map == null || map.isEmpty)
         ? (T state, Action action) => state
         : (T state, Action action) =>
