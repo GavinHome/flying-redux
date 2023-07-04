@@ -1,3 +1,8 @@
+## [0.1.0]
+
+* code test
+* fix bug.
+
 ## [0.0.3-pre]
 
 * fix lints.
