@@ -22,7 +22,6 @@ void main() {
       expect(pageWidget, isNotNull);
 
       expect(const TypeMatcher<Widget>().matches(pageWidget, {}), isTrue);
-      // expect(const TypeMatcher<Widget>().check(pageWidget), isTrue);
       // expect(pageWidget, TypeMatcher<PageWrapper>());
     });
 
@@ -484,7 +483,7 @@ void main() {
               if (action.type == ToDoListAction.middlewareEdit) {
                 track.append('onMiddleware', getState().clone());
               }
-            })
+            }),
           ]).buildPage(pageInitParams)));
 
       expect(find.byKey(const ValueKey<String>('edit-0')), findsOneWidget);
@@ -528,6 +527,42 @@ void main() {
             }),
             Pin('build', mockState.clone()),
           ]));
+    });
+
+    testWidgets('logMiddleware', (WidgetTester tester) async {
+      final Track track = Track();
+
+      await tester.pumpWidget(TestStub(TestPage<ToDoList, Map>(
+          initState: instrumentInitState<ToDoList, Map>(initState, pre: (map) {
+            track.append('initState', map);
+          }),
+          view: instrumentView<ToDoList>(toDoListView, (ToDoList state,
+              Dispatch dispatch, ComponentContext<ToDoList> viewService) {
+            track.append('build', state.clone());
+          }),
+          reducer: instrumentReducer<ToDoList>(toDoListReducer,
+              suf: (ToDoList state, Action action) {
+            track.append('onReduce', state.clone());
+          }),
+          effect: toDoListEffect,
+          middleware: <Middleware<ToDoList>>[
+            logMiddleware<ToDoList>(
+                tag: 'ToDoListLog',
+                monitor: (ToDoList? state) {
+                  track.append('onLogMiddleware', 'ToDoListLog');
+                  return state == null ? '' : state.toString();
+                })
+          ]).buildPage(pageInitParams)));
+
+      await tester.longPress(find.byKey(const ValueKey<String>('edit-0')));
+      await tester.pump();
+
+      expect(track.countOfTag('onLogMiddleware') == 2, isTrue);
+
+      await tester.longPress(find.byKey(const ValueKey<String>('edit-0')));
+      await tester.pump();
+
+      expect(track.countOfTag('onLogMiddleware') == 4, isTrue);
     });
 
     // testWidgets('error', (WidgetTester tester) async {

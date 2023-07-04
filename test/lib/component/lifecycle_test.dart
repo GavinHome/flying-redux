@@ -107,8 +107,7 @@ void main() {
       );
       expect(componentWidget, isNotNull);
 
-      // expect(
-      //     const TypeMatcher<Widget>().check(componentWidget), isTrue);
+      expect(const TypeMatcher<Widget>().matches(componentWidget, {}), isTrue);
     });
 
     testWidgets('cycleLife', (WidgetTester tester) async {

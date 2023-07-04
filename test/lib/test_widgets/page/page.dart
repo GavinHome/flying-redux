@@ -1,5 +1,6 @@
 import 'package:flying_redux/flying_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
+import 'package:collection/collection.dart';
 
 import '../test_base.dart';
 import 'action.dart';
@@ -14,45 +15,44 @@ Widget toDoView(Todo toDo, BuildContext context, Dispatch dispatch) {
       children: <Widget>[
         Expanded(
             child: Column(
-              children: <Widget>[
-                GestureDetector(
-                  child: Container(
-                    key: ValueKey('remove-${toDo.id}'),
-                    padding: const EdgeInsets.all(8.0),
-                    height: 28.0,
-                    color: Colors.yellow,
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      toDo.title,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                  onTap: () {
-                    print('dispatch remove');
-                    dispatch(Action(ToDoListAction.remove, payload: toDo));
-                  },
+          children: <Widget>[
+            GestureDetector(
+              child: Container(
+                key: ValueKey('remove-${toDo.id}'),
+                padding: const EdgeInsets.all(8.0),
+                height: 28.0,
+                color: Colors.yellow,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  toDo.title,
+                  style: const TextStyle(fontSize: 16.0),
                 ),
-                GestureDetector(
-                  child: Container(
-                    key: ValueKey('edit-${toDo.id}'),
-                    padding: const EdgeInsets.all(8.0),
-                    height: 60.0,
-                    color: Colors.grey,
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
-                  ),
-                  onTap: () {
-                    print('dispatch onEdit');
-                    dispatch(Action(ToDoListAction.onEdit, payload: toDo));
-                  },
-                  onLongPress: () {
-                    print('dispatch middlewareEdit');
-                    dispatch(
-                        Action(ToDoListAction.middlewareEdit, payload: toDo));
-                  },
-                )
-              ],
-            )),
+              ),
+              onTap: () {
+                print('dispatch remove');
+                dispatch(Action(ToDoListAction.remove, payload: toDo));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                key: ValueKey('edit-${toDo.id}'),
+                padding: const EdgeInsets.all(8.0),
+                height: 60.0,
+                color: Colors.grey,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
+              ),
+              onTap: () {
+                print('dispatch onEdit');
+                dispatch(Action(ToDoListAction.onEdit, payload: toDo));
+              },
+              onLongPress: () {
+                print('dispatch middlewareEdit');
+                dispatch(Action(ToDoListAction.middlewareEdit, payload: toDo));
+              },
+            )
+          ],
+        )),
         GestureDetector(
           child: Container(
             key: ValueKey('mark-${toDo.id}'),
@@ -139,12 +139,13 @@ bool toDoListEffect(Action action, ComponentContext<ToDoList> ctx) {
     print('onEdit');
     assert(action.payload is Todo);
 
-    Todo? toDo = ctx.state.list.firstWhere((i) => i.id == action.payload.id);
+    Todo? toDo =
+        ctx.state.list.firstWhereOrNull((i) => i.id == action.payload.id);
 
-    // assert(toDo != null);
+    assert(toDo != null);
 
-    toDo = toDo.clone();
-    toDo.desc = '${toDo.desc}-effect';
+    toDo = toDo?.clone();
+    toDo?.desc = '${toDo.desc}-effect';
 
     ctx.dispatch(Action(ToDoListAction.edit, payload: toDo));
     return true;

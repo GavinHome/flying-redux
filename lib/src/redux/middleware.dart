@@ -34,6 +34,6 @@ Middleware<T> logMiddleware<T>({
 
 void _doPrint([String? message]) {
   if (kDebugMode) {
-    print('[FishRedux]: $message');
+    print('[FlyingRedux]: $message');
   }
 }

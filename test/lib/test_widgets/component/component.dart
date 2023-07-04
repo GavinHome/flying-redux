@@ -13,41 +13,40 @@ Widget toDoView(
       children: <Widget>[
         Expanded(
             child: Column(
-              children: <Widget>[
-                GestureDetector(
-                  child: Container(
-                    key: ValueKey('remove-${toDo.id}'),
-                    padding: const EdgeInsets.all(8.0),
-                    height: 28.0,
-                    color: Colors.yellow,
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      toDo.title,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                  onTap: () {
-                    print('dispatch remove');
-                    dispatch(
-                        Action(ToDoListAction.remove, payload: toDo.clone()));
-                  },
+          children: <Widget>[
+            GestureDetector(
+              child: Container(
+                key: ValueKey('remove-${toDo.id}'),
+                padding: const EdgeInsets.all(8.0),
+                height: 28.0,
+                color: Colors.yellow,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  toDo.title,
+                  style: const TextStyle(fontSize: 16.0),
                 ),
-                GestureDetector(
-                  child: Container(
-                    key: ValueKey('edit-${toDo.id}'),
-                    padding: const EdgeInsets.all(8.0),
-                    height: 60.0,
-                    color: Colors.grey,
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
-                  ),
-                  onTap: () {
-                    print('dispatch onEdit');
-                    dispatch(Action(ToDoAction.onEdit, payload: toDo.clone()));
-                  },
-                )
-              ],
-            )),
+              ),
+              onTap: () {
+                print('dispatch remove');
+                dispatch(Action(ToDoListAction.remove, payload: toDo.clone()));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                key: ValueKey('edit-${toDo.id}'),
+                padding: const EdgeInsets.all(8.0),
+                height: 60.0,
+                color: Colors.grey,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(toDo.desc, style: const TextStyle(fontSize: 14.0)),
+              ),
+              onTap: () {
+                print('dispatch onEdit');
+                dispatch(Action(ToDoAction.onEdit, payload: toDo.clone()));
+              },
+            )
+          ],
+        )),
         GestureDetector(
           child: Container(
             key: ValueKey('mark-${toDo.id}'),
@@ -98,7 +97,8 @@ bool toDoEffect(Action action, ComponentContext<Todo> ctx) {
 
 dynamic toDoEffectAsync(Action action, ComponentContext<Todo> ctx) {
   if (action.type == ToDoAction.onEdit) {
-    return Future.delayed(const Duration(seconds: 1), () => toDoEffect(action, ctx));
+    return Future.delayed(
+        const Duration(seconds: 1), () => toDoEffect(action, ctx));
   }
 
   return null;
