@@ -1,6 +1,6 @@
 import 'package:flying_redux/flying_redux.dart';
 import 'package:flutter/material.dart' hide Page, Action;
-import 'package:sample/pages/todos/todo/action.dart';
+import '../todo/action.dart';
 import '../report/component.dart';
 // import '../todo/component.dart';
 import '../todo/state.dart';
