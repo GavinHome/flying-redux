@@ -131,6 +131,10 @@ cd ./example
 flutter run
 ```
 
+### Code Template
+
+-   [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template).
+
 ## Additional information
 
 In particular, the code of flying-redux has the same naming and implementation as fish-redux.
