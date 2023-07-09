@@ -4,7 +4,7 @@ import 'package:flying_redux/flying_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-buildEffects() {
+buildEffect() {
   return combineEffects<ToDoState>(<Object, Effect<ToDoState>>{
     ToDoAction.onEdit: _onEdit,
     ToDoAction.onRemove: _onRemove,

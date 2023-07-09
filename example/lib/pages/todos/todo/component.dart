@@ -1,6 +1,6 @@
 import 'package:flying_redux/flying_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'effects.dart';
+import 'effect.dart';
 import 'action.dart';
 import 'reducer.dart';
 import 'state.dart';
@@ -9,7 +9,7 @@ class TodoComponent extends Component<ToDoState> {
   TodoComponent()
       : super(
           reducer: buildReducer(),
-          effect: buildEffects(),
+          effect: buildEffect(),
           view: (ToDoState state, Dispatch dispatch,
               ComponentContext<ToDoState> ctx) {
             return Container(

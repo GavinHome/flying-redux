@@ -1,4 +1,4 @@
-import 'package:flying_redux/flying_redux.dart';
+ import 'package:flying_redux/flying_redux.dart';
 
 class PageState extends Cloneable<PageState> {
   late int count;
@@ -10,6 +10,6 @@ class PageState extends Cloneable<PageState> {
 }
 
 PageState initState(Map<String, dynamic>? args) {
-  //just do nothing here...
+  //just do something here...
   return PageState()..count = 99;
 }
