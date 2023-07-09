@@ -92,8 +92,8 @@ void _onInit(Action action, ComponentContext<PageState> ctx) {
     ),
     ToDoState(
       uniqueId: '2',
-      title: 'How Fish Redux',
-      desc: 'Learn how to use Fish Redux in a flutter application.',
+      title: 'How Flying Redux',
+      desc: 'Learn how to use Flying Redux in a flutter application.',
       isDone: false,
     )
   ];
