@@ -133,8 +133,8 @@ flutter run
 
 ### Code Template
 
--   [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template).
--   [Flying Redux Template For AS](https://github.com/GavinHome/flying-redux-template-for-as) (in development).
+-   [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template-for-vscode).
+-   [Flying Redux Template For AndroidStudio](https://github.com/GavinHome/flying-redux-template-for-as).
 
 ## Additional information
 
