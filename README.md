@@ -11,9 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-[//]: # (<p align="center"><img src="./dr.png" align="center" width="175"></p>)
-
-<h1>Flying Redux</h1>
+<p align="center"><img src="./logo.jpeg" align="center" width="350"></p>
+<!-- <h1>Flying Redux</h1> -->
 
 [![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
 
