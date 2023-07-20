@@ -5,15 +5,14 @@ import 'pages/todos/edit/page.dart';
 import 'pages/todos/page/page.dart';
 
 final AbstractRoutes routes = PageRoutes(
-  initialRoute: 'todo_list',
-  pages: <String, Page<Object, dynamic>>{
-    /// Register TodoList main page
-    'todo_list': ToDoListPage(),
+    initialRoute: 'todo_list',
+    pages: <String, Page<Object, dynamic>>{
+      /// Register TodoList main page
+      'todo_list': ToDoListPage(),
 
-    /// Register Todo edit page
-    'todo_edit': TodoEditPage(),
+      /// Register Todo edit page
+      'todo_edit': TodoEditPage(),
 
-    /// Register Count page
-    'count': CountPage(),
-  }
-);
+      /// Register Count page
+      'count': CountPage(),
+    });
