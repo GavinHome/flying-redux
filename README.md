@@ -22,6 +22,8 @@ and the Flutter guide for
 
 Flying Redux is also an assembled flutter application framework based on Redux state management.
 
+<p align=""><img src="./flying-redux.png" align=""></p>
+
 ## Features
 
 It has four characteristics:
