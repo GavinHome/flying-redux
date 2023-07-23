@@ -107,7 +107,7 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
 
 ## 这是一个完整的例子
 
-如果你需要一个完整的使用例子，请参考 `/example` 文件夹中的 todo-list 示例.
+如果你需要一个完整的使用例子，请参考 `/example` 文件夹中的 todo-list 示例。
 
 -   [todo list](example) - 一个简单的待办列表示例
 -   在命令行中运行:
@@ -124,7 +124,7 @@ flutter run
 
 ## 其他
 
-实际上，flying-redux的源码在命名和实现上与fish-redux基本类似。但是[fish-redux](https://github.com/alibaba/fish-redux)
-太长时间不更新了，所以我基于它做了大量重构和修改，精简了很多概念，最后重新命名了它。假如你有任何问题，可以扫描下面微信二维码进去群中一起讨论.
+实际上，flying-redux的源码在命名和实现上与fish-redux基本类似，但是[fish-redux](https://github.com/alibaba/fish-redux)
+太长时间不更新了，所以我基于它做了大量重构和修改，精简了很多概念，最后重新命名了它。假如你有任何问题，可以扫描下面微信二维码进去群中一起讨论。
 
 <p align=""><img src="./wechat.jpg" align="" width="180"></p>
