@@ -7,7 +7,7 @@
 
 ## 简介
 
-Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架.
+Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 
 <p align=""><img src="./flying-redux.png" align=""></p>
 
