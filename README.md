@@ -142,4 +142,7 @@ flutter run
 In particular, the code of flying-redux has the same naming and implementation as fish-redux.
 Because [fish-redux](https://github.com/alibaba/fish-redux) has not been updated for a long time. 
 I have done a lot of refactoring and modification based on fish_redux, and simplified some concepts,
-and finally renamed it. 
+and finally renamed it.
+If you have any questions, please scan the WeChat QR code below to enter the group communication.
+
+<p align=""><img src="./wechat.jpg" align="" width="180"></p>
