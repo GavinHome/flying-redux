@@ -14,11 +14,8 @@ Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 它有四个特性:
 
 > 1. 函数式编程
-
 > 2. 可预测的状态
-
 > 3. 插拔式的组件化
-
 > 4. 支持null safety 和 flutter 3.x
 
 ## 如何开始
@@ -26,13 +23,9 @@ Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 以计数器为例，仅需要5步即可使用flying redux构建应用：
 
 > 1. 引入 flying_redux 
-
 > 2. 创建状态类和初始化状态
-
 > 3. 定义 Action 和 ActionCreator
-
 > 4. 创建修改状态的 Reducer
-
 > 5. 创建组件或页面视图以显示
 
 ```dart
@@ -117,10 +110,10 @@ cd ./example
 flutter run
 ```
 
-### 代码模板插件
+## 模板插件
 
--   [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template-for-vscode).
--   [Flying Redux Template For AndroidStudio](https://github.com/GavinHome/flying-redux-template-for-as).
+- [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template-for-vscode).
+- [Flying Redux Template For AndroidStudio](https://github.com/GavinHome/flying-redux-template-for-as).
 
 ## 其他
 

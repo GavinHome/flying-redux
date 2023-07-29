@@ -18,6 +18,7 @@ and the Flutter guide for
 
 
 
+
 ## What is Flying Redux?
 
 Flying Redux is also an assembled flutter application framework based on Redux state management.
@@ -29,26 +30,19 @@ Flying Redux is also an assembled flutter application framework based on Redux s
 It has four characteristics:
 
 > 1. Functional Programming
-
 > 2. Predictable state container
-
 > 3. Pluggable componentization
-
 > 4. Support null safety and flutter 3.x
 
 ## Getting started
 
 There are five steps to use the counter as an example:
 
-> 1. Add flying_redux package
-
-> 2. Create a state class and initialize the state
-
-> 3. Define Action and Create ActionCreator
-
-> 4. Create a function Reducer that modifies the state
-
-> 5. Create a widgets view and Page for display
+> 1. Import flying_redux package
+> 2. Create State and InitState
+> 3. Define Action and ActionCreator
+> 4. Create Reducer that modifies state
+> 5. Create Page or Component
 
 ```dart
 import 'package:flying_redux/flying_redux.dart';
@@ -132,10 +126,10 @@ cd ./example
 flutter run
 ```
 
-### Code Template
+## Code Template
 
--   [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template-for-vscode).
--   [Flying Redux Template For AndroidStudio](https://github.com/GavinHome/flying-redux-template-for-as).
+- [Flying Redux Template For VSCode](https://github.com/GavinHome/flying-redux-template-for-vscode).
+- [Flying Redux Template For AndroidStudio](https://github.com/GavinHome/flying-redux-template-for-as).
 
 ## Additional information
 
