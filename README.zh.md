@@ -98,7 +98,7 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
 }
 ```
 
-## 这是一个完整的例子
+## 示例
 
 如果你需要一个完整的使用例子，请参考 `/example` 文件夹中的 todo-list 示例。
 
