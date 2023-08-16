@@ -137,6 +137,6 @@ In particular, the code of flying-redux has the same naming and implementation a
 Because [fish-redux](https://github.com/alibaba/fish-redux) has not been updated for a long time. 
 I have done a lot of refactoring and modification based on fish_redux, and simplified some concepts,
 and finally renamed it.
-If you have any questions, please scan the WeChat QR code below to enter the group communication.
+If you have any questions, please scan the qq QR code below to enter the group communication.
 
-<p><img src="./wechat.jpg" width="180" alt="wechat"></p>
+<p><img src="./qq.jpg" alt="qq"></p>
