@@ -1,4 +1,4 @@
-<p align="center"><img src="./logo.jpeg" align="center" width="280"></p>
+<p align="center"><img src="./logo.jpeg" width="280" alt="flying-redux"></p>
 <!-- <h1>Flying Redux</h1> -->
 
 [![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
@@ -9,7 +9,7 @@
 
 Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 
-<p align=""><img src="./flying-redux.png" align=""></p>
+<p><img src="./flying-redux.png" alt="flying-redux-framework"></p>
 
 它有四个特性:
 
@@ -120,4 +120,4 @@ flutter run
 实际上，flying-redux的源码在命名和实现上与fish-redux基本类似，但是[fish-redux](https://github.com/alibaba/fish-redux)
 太长时间不更新了，所以我基于它做了大量重构和修改，精简了很多概念，最后重新命名了它。假如你有任何问题，可以扫描下面微信二维码进去群中一起讨论。
 
-<p align=""><img src="./wechat.jpg" align="" width="180"></p>
+<p><img src="./wechat.jpg" width="180" alt="wechat"></p>

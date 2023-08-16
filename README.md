@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-<p align="center"><img src="./logo.jpeg" align="center" width="280"></p>
+<p align="center"><img src="./logo.jpeg" width="280" alt="flying-redux"></p>
 <!-- <h1>Flying Redux</h1> -->
 
 [![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
@@ -23,7 +23,7 @@ and the Flutter guide for
 
 Flying Redux is also an assembled flutter application framework based on Redux state management.
 
-<p align=""><img src="./flying-redux.png" align=""></p>
+<p><img src="./flying-redux.png" alt="flying-redux-framework"></p>
 
 ## Features
 
@@ -139,4 +139,4 @@ I have done a lot of refactoring and modification based on fish_redux, and simpl
 and finally renamed it.
 If you have any questions, please scan the WeChat QR code below to enter the group communication.
 
-<p align=""><img src="./wechat.jpg" align="" width="180"></p>
+<p><img src="./wechat.jpg" width="180" alt="wechat"></p>
