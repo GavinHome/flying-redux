@@ -139,4 +139,4 @@ I have done a lot of refactoring and modification based on fish_redux, and simpl
 and finally renamed it.
 If you have any questions, please scan the qq QR code below to enter the group communication.
 
-<p><img src="./qq.jpg" alt="qq"></p>
+<p><img src="./qq.jpg" width="360" alt="qq"></p>

@@ -120,4 +120,4 @@ flutter run
 实际上，flying-redux的源码在命名和实现上与fish-redux基本类似，但是[fish-redux](https://github.com/alibaba/fish-redux)
 太长时间不更新了，所以我基于它做了大量重构和修改，精简了很多概念，最后重新命名了它。假如你有任何问题，可以扫描下面qq二维码进去群中一起讨论。
 
-<p><img src="./qq.jpg" alt="qq"></p>
+<p><img src="./qq.jpg" width="360" alt="qq"></p>
