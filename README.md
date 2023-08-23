@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-<p align="center"><img src="./logo.jpeg" width="280" alt="flying-redux"></p>
+<p align="center"><img src="./logo-mini.png" width="280" alt="flying-redux"></p>
 <!-- <h1>Flying Redux</h1> -->
 
 [![pub package](https://img.shields.io/pub/v/flying_redux.svg?label=flying_redux&color=blue)](https://pub.dev/packages/flying_redux)
