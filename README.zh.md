@@ -3,7 +3,8 @@
 
 [![pub package](https://img.shields.io/pub/v/flying_redux.svg?label=flying_redux&color=blue)](https://pub.dev/packages/flying_redux)
 [![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
-
+[![size](https://img.shields.io/badge/size-35KB-blue)](https://github.com/GavinHome/flying-redux/tree/master/lib)
+[![code](https://img.shields.io/badge/lines%20of%20code-1278-blue)](https://github.com/GavinHome/flying-redux/tree/master/lib)
 
 
 ## 简介
