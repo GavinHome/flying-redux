@@ -9,6 +9,13 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
       : super(
             initState: initState,
             reducer: buildReducer(),
+            middleware: <Middleware<PageState>>[
+              logMiddleware<PageState>(
+                  tag: 'CounterPage',
+                  monitor: (PageState? state) {
+                    return state == null ? '' : state.toString();
+                  })
+            ],
             view: (PageState state, Dispatch dispatch, ComponentContext ctx) {
               return Scaffold(
                 body: Center(

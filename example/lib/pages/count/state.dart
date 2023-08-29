@@ -7,6 +7,11 @@ class PageState extends Cloneable<PageState> {
   PageState clone() {
     return PageState()..count = count;
   }
+
+  @override
+  String toString() {
+    return 'count: ${count.toString()}';
+  }
 }
 
 PageState initState(Map<String, dynamic>? args) {
