@@ -3,6 +3,7 @@ import 'state.dart';
 import '../report/state.dart';
 import '../todo/component.dart';
 import '../todo/state.dart';
+import '../todo/action.dart';
 
 // Dependents<PageState> dependentBuilder(PageState state) => state.toDos
 //     .asMap()
@@ -39,6 +40,22 @@ class TodoConnector extends ConnOp<PageState, ToDoState> {
   @override
   void set(PageState state, ToDoState subState) {
     state.toDos[index] = subState;
+  }
+
+  @override
+  bool shouldReducer(PageState state, Action action) {
+    if(action.type is ToDoAction) {
+      if(action.payload is ToDoState) {
+        ToDoState? todo = action.payload;
+        var eq = get(state).uniqueId == todo?.uniqueId;
+        return eq;
+      } else if (action.payload is String)  {
+        var eq = get(state).uniqueId == action.payload;
+        return eq;
+      }
+    }
+
+    return false;
   }
 }
 

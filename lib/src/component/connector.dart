@@ -12,6 +12,8 @@ abstract class MutableConn<T, P> {
 
   P get(T state);
 
+  bool shouldReducer(T state, Action action) => true;
+
   /// For mutable state, there are three abilities needed to be met.
   ///     1. get: (S) => P
   ///     2. set: (S, P) => void
@@ -28,7 +30,7 @@ abstract class MutableConn<T, P> {
       if (props == null) {
         return state;
       }
-      final P newProps = reducer(props, action);
+      final P newProps = shouldReducer(state, action) ? reducer(props, action): props;
       final bool hasChanged = newProps != props;
       final T copy = (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
       if (hasChanged) {
