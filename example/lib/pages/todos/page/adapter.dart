@@ -44,12 +44,12 @@ class TodoConnector extends ConnOp<PageState, ToDoState> {
 
   @override
   bool shouldReducer(PageState state, Action action) {
-    if(action.type is ToDoAction) {
-      if(action.payload is ToDoState) {
+    if (action.type is ToDoAction) {
+      if (action.payload is ToDoState) {
         ToDoState? todo = action.payload;
         var eq = get(state).uniqueId == todo?.uniqueId;
         return eq;
-      } else if (action.payload is String)  {
+      } else if (action.payload is String) {
         var eq = get(state).uniqueId == action.payload;
         return eq;
       }

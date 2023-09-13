@@ -30,7 +30,8 @@ abstract class MutableConn<T, P> {
       if (props == null) {
         return state;
       }
-      final P newProps = shouldReducer(state, action) ? reducer(props, action): props;
+      final P newProps =
+          shouldReducer(state, action) ? reducer(props, action) : props;
       final bool hasChanged = newProps != props;
       final T copy = (hasChanged && !isStateCopied) ? _clone<T>(state) : state;
       if (hasChanged) {
