@@ -32,38 +32,6 @@ Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 > 3. 定义 Action 和 ActionCreator
 > 4. 创建修改状态的 Reducer
 > 5. 创建组件或页面视图以显示
-<html>
-<style>
-  .i1 {
-    background: #121212;
-    border-radius: 5px;
-    height: 30px;
-  }
-  .mac {
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    float: left;
-    margin: 10px 0 0 5px;
-  }
-  .b1 {
-    background: #e0443e;
-    margin-left: 10px;
-  }
-  .b2 {
-    background: #dea123;
-  }
-  .b3 {
-    background: #1aab29;
-  }
-</style>
-<div class="i1">
-<div class="mac b1"></div>
-<div class="mac b2"></div>
-<div class="mac b3"></div>
-<br>
-</div>
-</html>
 
 ```dart
 import 'package:flying_redux/flying_redux.dart';
