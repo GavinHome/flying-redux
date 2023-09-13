@@ -16,6 +16,9 @@ and the Flutter guide for
 
 [![pub package](https://img.shields.io/pub/v/flying_redux.svg?label=flying_redux&color=blue)](https://pub.dev/packages/flying_redux)
 [![build](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GavinHome/flying-redux/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/gavinhome/flying-redux/branch/master/graph/badge.svg)](https://codecov.io/gh/gvinhome/flying-redux)
+[![popularity](https://img.shields.io/pub/popularity/flying_redux?logo=dart)](https://pub.dev/packages/flying_redux/score)
+[![likes](https://img.shields.io/pub/likes/flying_redux?logo=dart)](https://pub.dev/packages/flying_redux/score)
+[![pub points](https://img.shields.io/pub/points/flying_redux?logo=dart)](https://pub.dev/packages/flying_redux/score)
 [![size](https://img.shields.io/badge/size-35KB-blue)](https://github.com/GavinHome/flying-redux/tree/master/lib)
 [![code](https://img.shields.io/badge/lines%20of%20code-1278-blue)](https://github.com/GavinHome/flying-redux/tree/master/lib)
 
