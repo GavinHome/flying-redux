@@ -37,6 +37,7 @@ Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
   .i1 {
     background: #121212;
     border-radius: 5px;
+    height: 30px;
   }
   .mac {
     width: 10px;
@@ -61,6 +62,8 @@ Flying Redux 是一个基于Redux状态管理的组装式flutter应用框架。
 <div class="mac b2"></div>
 <div class="mac b3"></div>
 <br>
+</div>
+</html>
 
 ```dart
 import 'package:flying_redux/flying_redux.dart';
@@ -131,8 +134,6 @@ class CountPage extends Page<PageState, Map<String, dynamic>> {
             });
 }
 ```
-</div>
-</html>
 
 ## 示例
 
